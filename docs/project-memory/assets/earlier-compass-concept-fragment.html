@@ -1,0 +1,144 @@
+<div id="party-compass-preview">
+  <style>
+    #party-compass-preview { font: 14px/1.5 system-ui, sans-serif; color: #eee9db; }
+    #party-compass-preview * { box-sizing: border-box; }
+    #party-compass-preview .pc-stage { height: 490px; position: relative; background: #182b2c; border-radius: 12px; overflow: hidden; isolation: isolate; }
+    #party-compass-preview .pc-sky { position: absolute; inset: 0; background: radial-gradient(ellipse at 65% 36%, #68736a 0, #344d48 38%, #172b2e 75%); z-index: -3; }
+    #party-compass-preview .pc-hill { position: absolute; width: 100%; height: 270px; bottom: -110px; border-radius: 50% 65% 0 0; background: #203d32; transform: rotate(-12deg); z-index: -2; }
+    #party-compass-preview .pc-hill.second { left: 32%; bottom: -135px; background: #142b27; transform: rotate(22deg); }
+    #party-compass-preview .pc-path { position: absolute; bottom: -15px; left: 30%; width: 40%; height: 220px; background: linear-gradient(#7d80614a, #9984655e); clip-path: polygon(48% 0, 53% 0, 100% 100%, 0 100%); z-index: -1; }
+    #party-compass-preview .pc-top { padding: 18px 22px 0; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+    #party-compass-preview .pc-top span { color: #d7dccc; font-size: 12px; }
+    #party-compass-preview .pc-tag { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; color: #d5ba7d; }
+    #party-compass-preview .pc-compass { margin: 23px auto 0; width: 86%; min-height: 175px; position: relative; padding: 15px 20px 12px; background: #111b1bf2; border-top: 1px solid #af935e; border-bottom: 1px solid #786a4c; box-shadow: 0 12px 35px #0004; }
+    #party-compass-preview .pc-axis { display: flex; justify-content: space-between; color: #bec9bd; font-size: 11px; letter-spacing: .08em; padding-bottom: 9px; }
+    #party-compass-preview .pc-axis span:nth-child(2) { color: #ead39c; }
+    #party-compass-preview .pc-track { height: 107px; margin: 0 38px; position: relative; border-top: 1px solid #7a8069; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(12.5% - 1px), #a9a98b38 calc(12.5% - 1px), #a9a98b38 12.5%) top/100% 8px no-repeat; }
+    #party-compass-preview .pc-center { position: absolute; top: -7px; bottom: 0; left: 50%; width: 1px; background: linear-gradient(#e4c583, #e4c58312); }
+    #party-compass-preview .pc-center::before { content: ''; position: absolute; width: 7px; height: 7px; left: -3px; top: -2px; background: #e4c583; transform: rotate(45deg); }
+    #party-compass-preview .pc-marker { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); text-align: center; width: 92px; font-size: 12px; white-space: nowrap; color: #e6ebdf; transition: left .15s ease; }
+    #party-compass-preview .pc-marker:nth-of-type(3) { top: 44px; }
+    #party-compass-preview .pc-marker:nth-of-type(4) { top: 76px; }
+    #party-compass-preview .pc-marker strong { display: block; font-weight: 500; }
+    #party-compass-preview .pc-marker small { color: #c5cebf; font-size: 11px; }
+    #party-compass-preview .pc-marker .pc-dot { display: inline-block; width: 6px; height: 6px; margin-right: 5px; background: #e2c17f; transform: rotate(45deg); vertical-align: 1px; }
+    #party-compass-preview .pc-status { font-size: 11px; color: #c5cebf; text-align: center; padding: 2px 8px; min-height: 22px; }
+    #party-compass-preview .pc-player { position: absolute; left: 50%; bottom: 78px; transform: translateX(-50%); display: grid; justify-items: center; gap: 5px; color: #e9dec1; }
+    #party-compass-preview .pc-player svg { width: 33px; height: 33px; filter: drop-shadow(0 4px 4px #0008); }
+    #party-compass-preview .pc-player span { font-size: 11px; letter-spacing: .15em; }
+    #party-compass-preview .pc-footer { position: absolute; bottom: 22px; left: 22px; right: 22px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    #party-compass-preview .pc-zone { font: 18px/1.4 Georgia, serif; color: #e6d9b9; }
+    #party-compass-preview .pc-footer small { font-size: 11px; color: #cad4c4; }
+    #party-compass-preview .pc-controls { background: light-dark(#edeae2, #252823); color: light-dark(#292d24, #e5e8dc); padding: 16px 20px; display: grid; gap: 8px; }
+    #party-compass-preview .pc-control-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; }
+    #party-compass-preview input[type=range] { width: 100%; accent-color: #a58a52; min-height: 28px; }
+    #party-compass-preview output { font-variant-numeric: tabular-nums; }
+    #party-compass-preview .pc-baseline .pc-compass { background: #101615e8; border: 0; box-shadow: none; min-height: 175px; }
+    #party-compass-preview .pc-baseline .pc-track { border: 0; background: none; }
+    #party-compass-preview .pc-baseline .pc-center { display: none; }
+    #party-compass-preview .pc-baseline .pc-axis { text-transform: none; letter-spacing: normal; color: #e1c66f; }
+    #party-compass-preview .pc-baseline .pc-dot { display: none; }
+    #party-compass-preview .pc-baseline .pc-marker small { display: inline; margin-left: 4px; }
+    #party-compass-preview .pc-baseline .pc-marker strong { display: inline; }
+    @media(max-width: 480px) {
+      #party-compass-preview .pc-compass { width: 94%; padding-left: 8px; padding-right: 8px; }
+      #party-compass-preview .pc-track { margin: 0 34px; }
+      #party-compass-preview .pc-top { padding-left: 16px; }
+      #party-compass-preview .pc-axis { letter-spacing: 0; }
+      #party-compass-preview .pc-marker { width: 76px; }
+    }
+    @media(prefers-reduced-motion: reduce) { #party-compass-preview .pc-marker { transition: none; } }
+  </style>
+  <div class="viz-carousel" aria-label="Party compass mockup designs">
+    <section data-variant="Refined compass" aria-label="Refined party compass concept">
+      <div class="pc-stage">
+        <div class="pc-sky"></div><div class="pc-hill"></div><div class="pc-hill second"></div><div class="pc-path"></div>
+        <div class="pc-top"><div class="pc-tag">Group Compass</div><span>Visual concept · sample party</span></div>
+        <div class="pc-compass" aria-label="Proposed party compass">
+          <div class="pc-axis"><span>LEFT</span><span>AHEAD</span><span>RIGHT</span></div>
+          <div class="pc-track"><div class="pc-center"></div>
+            <div class="pc-marker" data-person="0" style="left:19.4%"><strong><span class="pc-dot"></span>Thorin</strong><small>~28 yd</small></div>
+            <div class="pc-marker" data-person="1"><strong><span class="pc-dot"></span>Lyra</strong><small>~42 yd</small></div>
+            <div class="pc-marker" data-person="2" style="left:80.6%"><strong><span class="pc-dot"></span>Fen</strong><small>~67 yd</small></div>
+            <div class="pc-marker" data-person="3" hidden><strong><span class="pc-dot"></span>Mira</strong><small>~95 yd</small></div>
+          </div>
+          <div class="pc-status" aria-live="polite">3 members ahead · 1 behind</div>
+        </div>
+        <div class="pc-player"><i data-lucide="person-standing" aria-hidden="true"></i><span>YOU</span></div>
+        <div class="pc-footer"><div class="pc-zone">Elwynn Forest</div><small>Character-facing · outdoor navigation</small></div>
+      </div>
+      <div class="pc-controls"><div class="pc-control-label"><label for="pc-heading-refined">Turn your character</label><output for="pc-heading-refined">Facing north · 0°</output></div><input id="pc-heading-refined" type="range" min="-180" max="180" value="0" step="1" aria-label="Character heading in degrees"></div>
+    </section>
+    <section class="pc-baseline" data-variant="Current prototype" aria-label="Current prototype appearance" hidden>
+      <div class="pc-stage">
+        <div class="pc-sky"></div><div class="pc-hill"></div><div class="pc-hill second"></div><div class="pc-path"></div>
+        <div class="pc-top"><div class="pc-tag">Group Compass</div><span>Current prototype · sample party</span></div>
+        <div class="pc-compass" aria-label="Current simple text strip">
+          <div class="pc-axis"><span>Left</span><span>Group Compass · Ahead</span><span>Right</span></div>
+          <div class="pc-track"><div class="pc-center"></div>
+            <div class="pc-marker" data-person="0" style="left:19.4%"><strong>Thorin</strong><small>~28 yd</small></div>
+            <div class="pc-marker" data-person="1"><strong>Lyra</strong><small>~42 yd</small></div>
+            <div class="pc-marker" data-person="2" style="left:80.6%"><strong>Fen</strong><small>~67 yd</small></div>
+            <div class="pc-marker" data-person="3" hidden><strong>Mira</strong><small>~95 yd</small></div>
+          </div>
+          <div class="pc-status" aria-live="polite">Character facing - center is ahead</div>
+        </div>
+        <div class="pc-player"><i data-lucide="person-standing" aria-hidden="true"></i><span>YOU</span></div>
+        <div class="pc-footer"><div class="pc-zone">Elwynn Forest</div><small>Character-facing · outdoor navigation</small></div>
+      </div>
+      <div class="pc-controls"><div class="pc-control-label"><label for="pc-heading-current">Turn your character</label><output for="pc-heading-current">Facing north · 0°</output></div><input id="pc-heading-current" type="range" min="-180" max="180" value="0" step="1" aria-label="Character heading in degrees"></div>
+    </section>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('party-compass-preview');
+      const bearings = [-55, 0, 55, 160];
+      const people = ['Thorin', 'Lyra', 'Fen', 'Mira'];
+      const saved = window.openai?.widgetState?.modelContent;
+      const sections = [...root.querySelectorAll('[data-variant]')];
+      function render(section, heading) {
+        const slider = section.querySelector('input');
+        slider.value = heading;
+        const bearing = (heading + 360) % 360;
+        const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+        section.querySelector('output').textContent = `Facing ${directions[Math.round(bearing / 45) % 8]} · ${bearing}°`;
+        let count = 0;
+        const ahead = [];
+        section.querySelectorAll('[data-person]').forEach((marker) => {
+          const i = Number(marker.dataset.person);
+          const delta = ((bearings[i] - heading + 540) % 360) - 180;
+          marker.hidden = Math.abs(delta) > 90;
+          if (!marker.hidden) {
+            marker.style.left = `${50 + delta / 180 * 100}%`;
+            marker.style.top = `${12 + (count % 3) * 32}px`;
+            count++;
+            ahead.push(people[i]);
+          }
+        });
+        section.querySelector('.pc-status').textContent = section.classList.contains('pc-baseline')
+          ? (count ? 'Character facing - center is ahead' : 'Locatable members are behind you')
+          : `${count} ${count === 1 ? 'member' : 'members'} ahead · ${4 - count} behind`;
+        slider.setAttribute('aria-valuetext', `${bearing} degrees; visible members: ${ahead.join(', ') || 'none'}`);
+      }
+      sections.forEach(section => {
+        const slider = section.querySelector('input');
+        render(section, Number.isFinite(saved?.heading) ? saved.heading : 0);
+        slider.addEventListener('input', () => {
+          const heading = Number(slider.value);
+          sections.forEach(item => render(item, heading));
+          if (window.openai?.setWidgetState) window.openai.setWidgetState({modelContent: {heading}, privateContent: null}).catch(() => {});
+        });
+      });
+      window.addEventListener('openai:set_globals', event => {
+        const heading = event.detail?.globals?.widgetState?.modelContent?.heading;
+        if (Number.isFinite(heading)) sections.forEach(section => render(section, heading));
+      });
+      if (globalThis.Tweak) {
+        const compass = sections[0].querySelector('.pc-compass');
+        const design = {opacity: 95};
+        const tweak = new Tweak({container: compass, onChange: () => {compass.style.backgroundColor = `rgb(17 27 27 / ${design.opacity}%)`;}});
+        tweak.addSlider(design, 'opacity', {label: 'Compass background opacity', min: 50, max: 100, unit: '%'});
+      }
+    })();
+  </script>
+</div>

@@ -1,0 +1,15 @@
+## Interface: 11509, 16001
+## Title: Group Compass
+## Notes: Experimental compass, world-map and minimap group locator for Classic Era/Hardcore and Forever.
+## Author: Tony
+## Version: 0.5.2
+
+Compat.lua
+Direction.lua
+Projection.lua
+Layout.lua
+Tracking.lua
+Demo.lua
+Maps.lua
+Maps.xml
+Core.lua

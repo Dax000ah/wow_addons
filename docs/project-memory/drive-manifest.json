@@ -1,0 +1,466 @@
+{
+  "updated": "2026-10-23",
+  "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
+  "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
+  "timezone": "America/Los_Angeles",
+  "installed_version": "0.5.2",
+  "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
+  "project_folder": {
+    "success": true,
+    "id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab",
+    "url": "https://drive.google.com/drive/folders/1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab",
+    "title": "Group Compass",
+    "parent_id": "1_ZsocW7uWauMU_d1oo6mTAh63rZikEpy"
+  },
+  "google_doc": {
+    "id": "12STIup64Fs4LQCgg4m0uy00rV9f6bNYtKBEbkCOuuRc",
+    "url": "https://docs.google.com/document/d/12STIup64Fs4LQCgg4m0uy00rV9f6bNYtKBEbkCOuuRc"
+  },
+  "folders": {
+    "01 Requirements": {
+      "success": true,
+      "id": "1-5sHDQhNxbD7bzsYv1z9I_fBC_C71sNV",
+      "url": "https://drive.google.com/drive/folders/1-5sHDQhNxbD7bzsYv1z9I_fBC_C71sNV",
+      "title": "01 Requirements",
+      "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab"
+    },
+    "02 Design": {
+      "success": true,
+      "id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+      "url": "https://drive.google.com/drive/folders/1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+      "title": "02 Design",
+      "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab"
+    },
+    "03 Work": {
+      "success": true,
+      "id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+      "url": "https://drive.google.com/drive/folders/1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+      "title": "03 Work",
+      "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab"
+    },
+    "99 Archive": {
+      "success": true,
+      "id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+      "url": "https://drive.google.com/drive/folders/1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+      "title": "99 Archive",
+      "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab"
+    }
+  },
+  "mirrors": [
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\00_START_HERE.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1VwhpOsDXGaQ6i3qs6hROzmFtb8z99Aqg",
+        "title": "00_START_HERE.md",
+        "file_name": "00_START_HERE.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1VwhpOsDXGaQ6i3qs6hROzmFtb8z99Aqg/view?usp=drivesdk",
+        "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1VwhpOsDXGaQ6i3qs6hROzmFtb8z99Aqg",
+          "title": "00_START_HERE.md",
+          "file_name": "00_START_HERE.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1VwhpOsDXGaQ6i3qs6hROzmFtb8z99Aqg/view?usp=drivesdk",
+          "parent_id": "1FVM0eDJx10nSGpy5s0K5zNwy-Xohecab"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\01_PRD.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1pWNcnGl7w0SYOiqcpX8xoE0wNC7toL3F",
+        "title": "01_PRD.md",
+        "file_name": "01_PRD.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1pWNcnGl7w0SYOiqcpX8xoE0wNC7toL3F/view?usp=drivesdk",
+        "parent_id": "1-5sHDQhNxbD7bzsYv1z9I_fBC_C71sNV",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1pWNcnGl7w0SYOiqcpX8xoE0wNC7toL3F",
+          "title": "01_PRD.md",
+          "file_name": "01_PRD.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1pWNcnGl7w0SYOiqcpX8xoE0wNC7toL3F/view?usp=drivesdk",
+          "parent_id": "1-5sHDQhNxbD7bzsYv1z9I_fBC_C71sNV"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\02_DESIGN.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "13NlolBzvJtWd_T_M_SDZ_l55-_cJb8tj",
+        "title": "02_DESIGN.md",
+        "file_name": "02_DESIGN.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/13NlolBzvJtWd_T_M_SDZ_l55-_cJb8tj/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "13NlolBzvJtWd_T_M_SDZ_l55-_cJb8tj",
+          "title": "02_DESIGN.md",
+          "file_name": "02_DESIGN.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/13NlolBzvJtWd_T_M_SDZ_l55-_cJb8tj/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\03_ACTIONS_AND_TODOS.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "17a9qn6kH9qqFPbvs_686GNGiNfgicFwK",
+        "title": "03_ACTIONS_AND_TODOS.md",
+        "file_name": "03_ACTIONS_AND_TODOS.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/17a9qn6kH9qqFPbvs_686GNGiNfgicFwK/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "17a9qn6kH9qqFPbvs_686GNGiNfgicFwK",
+          "title": "03_ACTIONS_AND_TODOS.md",
+          "file_name": "03_ACTIONS_AND_TODOS.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/17a9qn6kH9qqFPbvs_686GNGiNfgicFwK/view?usp=drivesdk",
+          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\04_PROGRESS_AND_DECISIONS.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1bYEewV7xa-HRYdgTcsC97xC2qkpuiEe_",
+        "title": "04_PROGRESS_AND_DECISIONS.md",
+        "file_name": "04_PROGRESS_AND_DECISIONS.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1bYEewV7xa-HRYdgTcsC97xC2qkpuiEe_/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1bYEewV7xa-HRYdgTcsC97xC2qkpuiEe_",
+          "title": "04_PROGRESS_AND_DECISIONS.md",
+          "file_name": "04_PROGRESS_AND_DECISIONS.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1bYEewV7xa-HRYdgTcsC97xC2qkpuiEe_/view?usp=drivesdk",
+          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-23_COMPLETED.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1C9m7wSRYok_pbeuI3gzKcmttcitha2V5",
+        "title": "2026-10-23_COMPLETED.md",
+        "file_name": "2026-10-23_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1C9m7wSRYok_pbeuI3gzKcmttcitha2V5/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1C9m7wSRYok_pbeuI3gzKcmttcitha2V5",
+          "title": "2026-10-23_COMPLETED.md",
+          "file_name": "2026-10-23_COMPLETED.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1C9m7wSRYok_pbeuI3gzKcmttcitha2V5/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    }
+  ],
+  "assets": [
+    {
+      "name": "Earlier compass concept - interactive fragment.html",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1huAUEFWnjf6jUgObUgkCoqTKeFCcfabY",
+        "title": "Earlier compass concept - interactive fragment.html",
+        "file_name": "Earlier compass concept - interactive fragment.html",
+        "mime_type": "text/html",
+        "url": "https://drive.google.com/file/d/1huAUEFWnjf6jUgObUgkCoqTKeFCcfabY/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1huAUEFWnjf6jUgObUgkCoqTKeFCcfabY",
+          "title": "Earlier compass concept - interactive fragment.html",
+          "file_name": "Earlier compass concept - interactive fragment.html",
+          "mime_type": "text/html",
+          "url": "https://drive.google.com/file/d/1huAUEFWnjf6jUgObUgkCoqTKeFCcfabY/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "name": "2026-10-23 - Classic tall prototype - compact redesign baseline.png",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1dz8ZjzDWJYqoKamtxrtTfTt725wRRAUp",
+        "title": "2026-10-23 - Classic tall prototype - compact redesign baseline.png",
+        "file_name": "2026-10-23 - Classic tall prototype - compact redesign baseline.png",
+        "mime_type": "image/png",
+        "url": "https://drive.google.com/file/d/1dz8ZjzDWJYqoKamtxrtTfTt725wRRAUp/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1dz8ZjzDWJYqoKamtxrtTfTt725wRRAUp",
+          "title": "2026-10-23 - Classic tall prototype - compact redesign baseline.png",
+          "file_name": "2026-10-23 - Classic tall prototype - compact redesign baseline.png",
+          "mime_type": "image/png",
+          "url": "https://drive.google.com/file/d/1dz8ZjzDWJYqoKamtxrtTfTt725wRRAUp/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "name": "PROJECT_STATUS.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1GSOyCJ2NR6oid0D9MfcIALZy6dl7NCyI",
+        "title": "PROJECT_STATUS.md",
+        "file_name": "PROJECT_STATUS.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1GSOyCJ2NR6oid0D9MfcIALZy6dl7NCyI/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1GSOyCJ2NR6oid0D9MfcIALZy6dl7NCyI",
+          "title": "PROJECT_STATUS.md",
+          "file_name": "PROJECT_STATUS.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1GSOyCJ2NR6oid0D9MfcIALZy6dl7NCyI/view?usp=drivesdk",
+          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        }
+      }
+    },
+    {
+      "name": "enshrouded-hud-annotated.png",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1Tv9XjcSzQ9C3CDtY8-18jSymMDfK2qVp",
+        "title": "enshrouded-hud-annotated.png",
+        "file_name": "enshrouded-hud-annotated.png",
+        "mime_type": "image/png",
+        "url": "https://drive.google.com/file/d/1Tv9XjcSzQ9C3CDtY8-18jSymMDfK2qVp/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1Tv9XjcSzQ9C3CDtY8-18jSymMDfK2qVp",
+          "title": "enshrouded-hud-annotated.png",
+          "file_name": "enshrouded-hud-annotated.png",
+          "mime_type": "image/png",
+          "url": "https://drive.google.com/file/d/1Tv9XjcSzQ9C3CDtY8-18jSymMDfK2qVp/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "name": "enshrouded-hud-clean.png",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1l7-LFEdCUyhc4tSa3kVD7fx5XoxkxMbt",
+        "title": "enshrouded-hud-clean.png",
+        "file_name": "enshrouded-hud-clean.png",
+        "mime_type": "image/png",
+        "url": "https://drive.google.com/file/d/1l7-LFEdCUyhc4tSa3kVD7fx5XoxkxMbt/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1l7-LFEdCUyhc4tSa3kVD7fx5XoxkxMbt",
+          "title": "enshrouded-hud-clean.png",
+          "file_name": "enshrouded-hud-clean.png",
+          "mime_type": "image/png",
+          "url": "https://drive.google.com/file/d/1l7-LFEdCUyhc4tSa3kVD7fx5XoxkxMbt/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "name": "GroupCompass-0.5.2.zip",
+      "drive": {
+        "id": "1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE",
+        "title": "GroupCompass-0.5.2.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "version": "0.1.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1qgkESczZMHk-Ap4n5B81sPHadIKVIO_4",
+        "title": "GroupCompass-0.1.0.zip",
+        "file_name": "GroupCompass-0.1.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1qgkESczZMHk-Ap4n5B81sPHadIKVIO_4/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1qgkESczZMHk-Ap4n5B81sPHadIKVIO_4",
+          "title": "GroupCompass-0.1.0.zip",
+          "file_name": "GroupCompass-0.1.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1qgkESczZMHk-Ap4n5B81sPHadIKVIO_4/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.2.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1nVHX2DJdPjxNyDtQmluUx3NO_ILhYUJP",
+        "title": "GroupCompass-0.2.0.zip",
+        "file_name": "GroupCompass-0.2.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1nVHX2DJdPjxNyDtQmluUx3NO_ILhYUJP/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1nVHX2DJdPjxNyDtQmluUx3NO_ILhYUJP",
+          "title": "GroupCompass-0.2.0.zip",
+          "file_name": "GroupCompass-0.2.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1nVHX2DJdPjxNyDtQmluUx3NO_ILhYUJP/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.3.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "19U7nba8sgizHnCs21GKM1DLNzjMVkGsC",
+        "title": "GroupCompass-0.3.0.zip",
+        "file_name": "GroupCompass-0.3.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/19U7nba8sgizHnCs21GKM1DLNzjMVkGsC/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "19U7nba8sgizHnCs21GKM1DLNzjMVkGsC",
+          "title": "GroupCompass-0.3.0.zip",
+          "file_name": "GroupCompass-0.3.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/19U7nba8sgizHnCs21GKM1DLNzjMVkGsC/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.4.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1IV61Kx6eXgPv3iIO2HI6MkY9Hm8bxGHu",
+        "title": "GroupCompass-0.4.0.zip",
+        "file_name": "GroupCompass-0.4.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1IV61Kx6eXgPv3iIO2HI6MkY9Hm8bxGHu/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1IV61Kx6eXgPv3iIO2HI6MkY9Hm8bxGHu",
+          "title": "GroupCompass-0.4.0.zip",
+          "file_name": "GroupCompass-0.4.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1IV61Kx6eXgPv3iIO2HI6MkY9Hm8bxGHu/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.4.1",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1tD7ODg0Dq9pREZpBMibAhyiTZkYT2Ivk",
+        "title": "GroupCompass-0.4.1.zip",
+        "file_name": "GroupCompass-0.4.1.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1tD7ODg0Dq9pREZpBMibAhyiTZkYT2Ivk/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1tD7ODg0Dq9pREZpBMibAhyiTZkYT2Ivk",
+          "title": "GroupCompass-0.4.1.zip",
+          "file_name": "GroupCompass-0.4.1.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1tD7ODg0Dq9pREZpBMibAhyiTZkYT2Ivk/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.5.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1Az7ev8vgDnOuzupKV9-Eltd7XIRVg8Cz",
+        "title": "GroupCompass-0.5.0.zip",
+        "file_name": "GroupCompass-0.5.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1Az7ev8vgDnOuzupKV9-Eltd7XIRVg8Cz/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1Az7ev8vgDnOuzupKV9-Eltd7XIRVg8Cz",
+          "title": "GroupCompass-0.5.0.zip",
+          "file_name": "GroupCompass-0.5.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1Az7ev8vgDnOuzupKV9-Eltd7XIRVg8Cz/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.5.1",
+      "drive": {
+        "id": "1cAd12yKhXNJGGtS4zhWVOPizcvNBi1qY",
+        "title": "GroupCompass-0.5.1.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1cAd12yKhXNJGGtS4zhWVOPizcvNBi1qY/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    }
+  ]
+}

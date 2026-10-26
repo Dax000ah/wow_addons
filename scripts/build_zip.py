@@ -10,6 +10,7 @@ toc = addon / "GroupCompass.toc"
 lines = toc.read_text(encoding="utf-8").splitlines()
 version = next(line.split(":", 1)[1].strip() for line in lines if line.startswith("## Version:"))
 files = [toc] + [addon / line.strip() for line in lines if line.strip() and not line.startswith("#")]
+files += sorted((addon / "Textures").glob("*.tga"))
 output = root / "dist" / f"GroupCompass-{version}.zip"
 output.parent.mkdir(exist_ok=True)
 with ZipFile(output, "x", ZIP_DEFLATED) as archive:

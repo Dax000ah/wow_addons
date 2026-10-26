@@ -166,3 +166,37 @@ Differing known continents can identify a remote party member even if UnitPositi
 is absent. Differing world IDs alone use a generic world-area label. Raid members
 skip the party-only lookup. Missing API/data does not establish a continent.
 Primary API reference: https://github.com/Gethe/wow-ui-source/blob/classic/Interface/AddOns/Blizzard_APIDocumentationGenerated/MapDocumentation.lua
+
+## Map appearance settings (0.6.0)
+
+Original transparent 32x32 TGA masks avoid dependencies on changing game atlases.
+SavedVariables initialize on this addon's ADDON_LOADED; invalid values fall back
+or clamp. Plain, nonsecure frames provide a minimap-border button and one-page
+settings menu. Separate sizes feed both marker rendering and minimap edge inset.
+Glow uses a class-tinted additive halo; slow flash uses a pooled Alpha animation
+group (0.8 seconds down to 35% then 0.8 seconds up). Hide/release stops it.
+Class mode remains the default; map overrides do not recolor compass labels.
+Native skinning, animation behavior and UI scale still require client verification.
+Classic slider API reference:
+https://github.com/Gethe/wow-ui-source/blob/classic/Interface/AddOns/Blizzard_APIDocumentationGenerated/SimpleSliderAPIDocumentation.lua
+
+## Personal waypoint coordinates and map input (0.7.0)
+
+Waypoints save UI-map IDs with normalized coordinates, per character. Native
+GetWorldPosFromMapPos converts those to north/west yards and world-space IDs;
+Direction.Calculate reuses existing party math. Native vector axis order is
+consistent with UnitPosition (north first, west second); HereBeDragons map-bound
+and UnitPosition code corroborate this. No library or transform table was copied.
+World-map reprojection accepts only matching returned target UI-map IDs and valid
+normalized coordinates. Same-map pins can use the saved point even during missing
+world conversions; unsupported maps fail adding with an explicit message.
+
+MapCanvas AddCanvasClickHandler receives normalized canvas coordinates before
+navigation. Only Alt + left-click is consumed; normal clicks/pan/zoom remain native.
+A 20-point creation limit bounds rendering with 40 party/raid slots and 60 compass
+labels. Saved points survive appearance reset; no group broadcasts or routes.
+
+Primary references:
+https://github.com/Gethe/wow-ui-source/blob/classic/Interface/AddOns/Blizzard_APIDocumentationGenerated/MapDocumentation.lua
+https://github.com/Gethe/wow-ui-source/blob/classic/Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua
+https://github.com/Nevcairiel/HereBeDragons/blob/master/HereBeDragons-2.0.lua

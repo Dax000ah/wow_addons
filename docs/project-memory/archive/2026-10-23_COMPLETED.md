@@ -93,3 +93,30 @@ Store superseded release packages with their original versioned filenames and
 preserve their associated limits. Keep active TODOs out of the completed area.
 Do not archive native compact-layout validation, native moving-demo test, live group API tests,
 or Forever compatibility as completed until evidence supports them.
+
+## GC-012 — Version 0.6.0: marker styles and saved options
+
+Implemented head/shoulders default, ten original TGA icons, a draggable gold
+minimap-border options button, two size sliders, three effects and six color modes.
+One-page options provides live solo previews, automatic saving, reset and Escape.
+Size-aware minimap inset retains larger icons. Hide/release stops animations.
+Twelve Lua 5.1 suites, transparent texture/structure checks, package integrity and
+25 installed-file hashes passed. Native validation remains active as GC-207.
+No new dependencies, backups, commits or push; prior exploration notes preserved.
+
+## GC-013 — Version 0.6.1: cyan minimap options icon
+
+Changed the launcher's pale tint to saturated cyan on dark teal, keeping the gold
+rim. No marker-settings behavior changed. All 12 Lua 5.1 suites, structure/package
+checks, and 25 installed-file SHA-256 matches passed. Clean install, no backup.
+Native color/contrast review remains active in GC-207. No new commit or push.
+
+## GC-014 — Version 0.7.0: personal waypoints across three views
+
+Implemented up to 20 saved per-character waypoints, gold map pins/[W] compass labels,
+Alt-click zone-map placement, save-current-location/remove UI and commands. Native
+map/world conversions reuse party bearing math and validate coordinate spaces and
+returned map IDs. Appearance reset preserves points; adding exits demo/enables live
+views. 14 Lua suites, structure/package checks and 27 installed-file hashes passed.
+Native coordinate/click/UI/persistence validation remains active as GC-208.
+No dependency, backup, stage, commit or push. Existing changes were preserved.

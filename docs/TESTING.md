@@ -1,3 +1,128 @@
+# TomTom integration 0.9.0 — current native gate GC-212
+
+1. Fully restart WoW (new TOC module/dependency), enable TomTom and Group Compass;
+   /gcompass status should report 0.9.0.
+2. Cyan launcher > Waypoints & help: verify clear creation instructions, configured
+   modifier, facing/visibility note, Open world map and TomTom settings. /tomtom
+   remains the native settings shortcut. Compare displayed shortcut to its settings.
+3. On a zone map, Alt + right-click terrain (default). Exactly TomTom's pin should
+   appear; its point should enter our list and the top bar automatically. New points
+   exit demo/enable live display. Face the point with the character and walk/turn.
+4. Try /way 45 60 Camp and Save my location. No extra Group Compass map pin or
+   Alt-left-click handler should interfere. Party map icons/hover still work.
+5. Edit from our list: rename Camp and choose a shape, Save/Enter. Both TomTom map
+   icons and hover names should update; the bar name follows. Cancel/X/Escape keeps
+   saved values. Keep current icon preserves native themes/custom icons/portraits.
+6. Test icon-only edits, renamed point and another active TomTom arrow. Arrow
+   references should persist when known; an unidentified pre-existing arrow produces
+   an explicit clear-before-rename message. Collisions retain the original point.
+7. /reload and switch TomTom profile: saved points/edits and native profile scope
+   should behave normally. Existing Group Compass records import once; deleting an
+   imported point must not resurrect it on reload. Legacy records are retained.
+8. Remove points through TomTom or our list: bar/list clear. Another addon's points
+   are visible but read-only here. Invalid/missing data cannot leave stale bearings.
+9. With over 20 local points, show nearest 20 only on bar; list all. Points behind
+   or in another world do not get false bearings. Native window/palette sizing,
+   scrolling and keyboard focus need review at Tony's UI scale.
+10. Disable TomTom and restart: waypoint help explains enabling it, controls do not
+    silently create a second store, and ordinary member/demo tracking still works.
+
+Automated: python scripts/run_tests.py PASS 17 Lua 5.1 suites; read-only
+scripts/check_tomtom_offline.py against installed TomTom v4.3.13 PASS. It executes
+actual TomTom.lua registry/API/persistence methods with doubled UI pins. Structure,
+package/ZIP checks and 29 installed SHA-256 comparisons pass. Gameplay is unverified.
+Source fingerprints: docs/research/tomtom-integration-2026-10-26.json.
+
+The following checks record earlier builds. Their independent waypoint placement
+and custom waypoint map rendering are superseded; use GC-212 above for 0.9.0.
+
+# Historical waypoint editor 0.8.1 — superseded by GC-212
+
+1. /reload; /gcompass status should report 0.8.1. Restart if the manifest version
+   has not refreshed. No party or routing provider is needed.
+2. Press M, open a zone map, Alt + left-click terrain: one point is saved and its
+   editor opens above the map, with name selected and ten gold icon previews.
+3. Name it Camp, select Star, Save. Check the star on the world map/minimap,
+   Camp in both hover labels and [WID] Camp on the compass when ahead/same world.
+4. Left-click its world-map pin, then its minimap pin. Both reopen the same saved
+   point. Right-click must not edit; releasing outside a minimap marker must not edit.
+5. Options > Waypoints > Edit opens the same point. Try all ten tiles; selected
+   outline must be clear, names readable, and Save/Cancel reachable at your UI scale.
+6. Cancel, X and Escape discard name/icon changes. Enter saves. Cancelling a newly
+   placed point retains its default saved pin; remove it through the list if unwanted.
+7. Save my location with a name, then Edit its row. Remove a point and ensure it
+   disappears from maps/bar. Keep Navigate/Replace/Stop behavior usable.
+8. /reload: custom names/icons persist. Legacy points stay as gold pins until edited.
+   Reset member appearance must preserve them. Edits must not change coordinates/IDs.
+9. Verify normal map clicks, pan/zoom, group-marker hover and an actual grouped
+   player remain usable; reused party markers must not open waypoint editors.
+
+Automated: all 16 Lua 5.1 suites, structure/XML/artwork and ZIP checks pass.
+Native editor layout/click/focus, other-addon interaction and reload need gameplay
+confirmation. Golden routes/next turns still require the separate compatible provider.
+
+# Routing API bridge 0.8.0 — native gates open
+
+1. Fully restart WoW; /gcompass status should report 0.8.0.
+2. /gcompass waypoints: verify Navigate/Replace, Stop route and routing status;
+   absent provider should report it clearly and keep ordinary waypoints usable.
+3. /gcompass route status and route ID should report the missing provider safely
+   in the current Hardcore install. No live golden route is promised there.
+4. With compatible SPF in Forever: request a route to a saved point; map routes
+   belong to SPF. Active foreign guidance needs a second Replace click. Stop only
+   cancels Group Compass ownership; /gcompass off/demo and removal stop our route.
+5. Base SPF v1.22.4 has no GetGuidance: status must say next-turn API unavailable.
+   With a supported getter/build, verify cyan next step, turn/walk, boarding,
+   cross-world clearing, combat hide/resume, cancel/arrival/replacement/error and
+   unchanged party data/shared bar baselines. Do not display a stale bend.
+6. Reload preserves points/appearance; no automatic session-route restart.
+7. 16 local suites and package/install hashes pass; actual provider navigation,
+   native UI and full Classic provider compatibility remain unverified.
+
+# Historical personal waypoints 0.7.0 — superseded by GC-212
+
+1. Fully restart WoW; verify the current version with /gcompass status. No party required.
+2. On a zone map, Alt + left-click terrain: one gold waypoint pin should appear
+   without navigating/zooming. Plain clicks retain native navigation behavior.
+3. Face toward the point: its gold [W1] name/distance should occupy the same marker
+   baseline as members. Turn/walk; check distance, front/behind filtering, and hover.
+4. Check minimap placement, rotation and edge clamping at different zooms. World-map
+   pan/zoom and switching to a continent/another zone must not create wrong-map pins.
+5. Options > Waypoints opens a scrollable personal list. Save my location with a
+   name, use Enter/Escape, Remove, Done and Open world map. Remove clears all views.
+6. Test /gcompass waypoint here My Camp and waypoint 45 60 Coordinate Camp. Names
+   preserve case and UTF-8. Verify IDs/list/remove and the 20-point creation limit.
+7. Reload: points persist for this character. Another character starts its own list.
+   Reset appearance: points stay. Creating a point exits demo and enables live views.
+8. Different continent/instance, nil/secret coordinates and unavailable APIs must
+   omit invalid bearings; stored-zone world pins can remain visible. No stale pins.
+9. Group with a real player: both people and waypoints appear, with distinct identities;
+   crowded hover, roster changes, off/demo and world-pin reuse should stay correct.
+
+14 Lua 5.1 suites and structure/package checks pass locally. Native map click hooks,
+C_Map return values, artwork, UI and Forever still need in-game confirmation.
+
+# Version 0.6.1 appearance settings — native checks pending
+
+1. Fully restart WoW; confirm 0.6.1 with /gcompass status. A cyan head-and-shoulders
+   minimap-border button should open options. /gcompass options is a fallback.
+2. No party is needed for the two menu previews. Change all ten icons; check
+   recognizable artwork, especially the default head-and-shoulders outline.
+3. Change minimap/world-map sizes independently, including extremes (12/40).
+   Join a real party to confirm actual markers resize and stay within the minimap.
+4. Try None/Glow/Slow flash and every color mode. Changing away from flash must
+   stop animation. Compass names remain class-colored; map hover uses chosen color.
+5. Open/close the menu by button, Done, X and Escape. Open each dropdown twice;
+   choosing an item closes it. Dropdowns should fit at Tony's UI scale.
+6. Drag the border button, including hiding the minimap while dragging. Verify
+   dragging stops and the button remains clickable. Reload: settings/position persist.
+7. Reset defaults: person, 20 minimap, 24 world, None, Class colors, default position.
+8. Party/zone changes, off/demo, map hiding and pin reuse must clear old markers,
+   stop hidden animation and resume the selected effect when shown again.
+
+All 12 Lua 5.1 suites pass locally. Native artwork/UI/combat behavior still needs
+Tony's client; mocked UI tests do not establish native visual compatibility.
+
 # Verification
 
 ## Remote member labels (0.5.1, client verification pending)

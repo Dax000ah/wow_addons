@@ -24,7 +24,7 @@ before treating the prototype as a supported addon.
    The final path must be `Interface/AddOns/GroupCompass/GroupCompass.toc`.
    Copy the addon folder, not this entire project.
 2. Fully restart the client after installing or updating the manifest. Enable
-   Group Compass in AddOns. You should see `Group Compass 0.5.2 loaded` in chat.
+   Group Compass in AddOns. You should see `Group Compass 0.9.0 loaded` in chat.
 3. Use `/gcompass demo` to toggle simulated members, even while solo. They stay
    at fixed world locations, so turning your character moves their labels and
    walking changes the distances. `/gcompass demo reset` places new samples.
@@ -39,9 +39,9 @@ refresh markers immediately, alongside the regular 0.1-second updates.
 
 ## Map and minimap markers
 
-- Open the world map to see numbered, colored party pins. Hover a pin for the
+- Open the world map to see class-colored party icons. Hover a pin for the
   member's name. Pins follow the map currently being viewed and its zoom/pan.
-- The minimap shows the same numbered badges for locatable party/raid members.
+- The minimap shows matching configurable icons for locatable party/raid members.
   Hover for their name and horizontal distance. Badges near or beyond the edge
   stay inside the map border and become slightly translucent as direction cues.
   Minimap zoom and the standard rotate-minimap setting are respected.
@@ -112,7 +112,7 @@ Install test tooling locally with
 `python scripts/run_tests.py`. The development-only Lupa dependency supplies Lua
 5.1; it is not shipped with the addon. A standalone Lua 5.1 interpreter can also
 run each `tests/*_test.lua` file directly.
-Run `python scripts/build_zip.py` to create `dist/GroupCompass-0.5.2.zip`; it
+Run `python scripts/build_zip.py` to create `dist/GroupCompass-0.8.0.zip`; it
 contains only the installable addon folder and refuses to overwrite an existing
 archive. Extract that ZIP into your client's `Interface/AddOns` directory.
 See [testing](docs/TESTING.md) for the required client checks and limitations.
@@ -123,11 +123,11 @@ Tony's reported client is **1.15.9, build 70003, interface 11509**. Version 0.3.
 adds that interface to the manifest and a Classic minimap-radius fallback.
 The previous Forever-only packages were not a verified Classic installation.
 
-1. Exit WoW completely. Extract `dist/GroupCompass-0.5.2.zip` into your active
+1. Exit WoW completely. Extract `dist/GroupCompass-0.8.0.zip` into your active
    Classic installation's `Interface/AddOns` directory (normally under
    `_classic_era_`). Update the existing `GroupCompass` folder with the new files;
    don't put the ZIP or a second nested `GroupCompass` folder inside it.
-2. Verify `GroupCompass/GroupCompass.toc` says `## Version: 0.5.2` and
+2. Verify `GroupCompass/GroupCompass.toc` says `## Version: 0.8.0` and
    `## Interface: 11509, 16001`, and that `Compat.lua` is alongside it.
 3. Start WoW, enable Group Compass in AddOns, and log in. Check for the loaded
    message in chat. This build should no longer be out of date on interface 11509.
@@ -138,7 +138,7 @@ The previous Forever-only packages were not a verified Classic installation.
    you disappear until you turn toward them again. Use `/gcompass demo reset` to
    place new samples after wandering away. They also reset on world-space changes.
    Demo pauses only when player position/facing is unavailable.
-   Run `/gcompass status` to confirm version 0.5.2, interface 11509, and build 70003.
+   Run `/gcompass status` to confirm version 0.8.0, interface 11509, and build 70003.
 5. Run `/gcompass demo` again to return to live mode. Actual party directions
    and map markers need another grouped player, who does not need the addon.
 
@@ -205,3 +205,83 @@ Members on a known different continent appear as `Name - Continent` in status
 and hover. When only differing world IDs are available, the label says
 `Name - Different world area`. Offline or unknown locations remain unavailable.
 No cross-continent bearing or distance is invented. `/reload` loads this update.
+
+## Marker options (introduced in 0.6.0)
+
+Click the cyan head-and-shoulders button with a gold rim on the minimap border, or type
+`/gcompass options` (also `/gcompass`). Drag the button around the border.
+The one-page menu saves changes automatically in `GroupCompassDB`:
+
+- Icon: head & shoulders (default), standing person, face, diamond, map pin,
+  shield, star, flag, circle or square. Names and member numbers stay in hover.
+- Minimap size and world-map size: separate 12–40 sliders with live previews.
+- Effect: None (default), Glow, or Slow flash. Hidden/released markers stop flashing.
+- Marker colors: Class colors (default), Party colors, Gold, Cyan, Pink or White.
+  These settings affect map markers/tooltips; compass names retain class colors.
+- Reset defaults; Done; Escape closes the menu. Settings survive reload/restart.
+
+This version adds Settings.lua, MarkerStyle.lua, Options.lua and twelve original
+32-bit TGA textures in GroupCompass/Textures. Rebuild artwork with
+`python scripts/build_icons.py`; no extra dependency is needed. The full test suite
+now includes settings_test.lua, style_test.lua and options_test.lua (12 suites).
+Restart WoW fully for the new manifest, SavedVariables and artwork before testing.
+
+## Waypoints: use TomTom (0.9.0)
+
+1. **Fully restart WoW** after installing 0.9.0; enable both TomTom and Group Compass.
+2. Click our cyan minimap button > **Waypoints & help**. Creation instructions and
+   TomTom's configured map shortcut are shown there.
+3. Press **M**, open a zone and **Alt + right-click** a spot (TomTom's default;
+   follow the menu if you configured a different modifier). Or `/way 45 60 Camp`.
+4. The TomTom point appears in our list and on the bar automatically. Face toward
+   it with your **character**, rather than only rotating the camera. Points behind
+   you, in another world or beyond the nearest 20 locatable points are omitted.
+5. In **Waypoints & help**, click **Edit** beside the point to set its name and one
+   of ten icon textures. Save/Enter commits; Cancel/X/Escape discards edits.
+6. **TomTom settings** opens its native options for map/minimap theme and size.
+   Our main appearance settings continue to affect group-member markers.
+
+Our Edit window fills a gap in TomTom's installed context menu: it has no rename
+or individual-icon picker. TomTom's API supports titles, per-map textures and
+portraits. **Keep current icon** preserves its current theme/custom texture/portrait;
+our custom textures override its theme on that point. They use their original light
+artwork; TomTom does not apply our class-color or glow/flash settings to waypoints.
+
+There is one live waypoint store and one set of waypoint map pins, both owned by
+TomTom. Existing TomTom points are read automatically; create/remove/profile changes
+synchronize through polling. Names and approximate straight-line bearings appear on
+our bar. TomTom controls persistence/profile scope, so its save settings matter.
+Group Compass-created points are saved persistently; no party is needed to test.
+Old Group Compass points are imported once without deleting their original records;
+confirmed deleted imports do not reappear. Missing TomTom disables waypoint features
+with instructions while group tracking remains available.
+
+Waypoints created by another addon remain visible but are read-only in our list;
+edit/remove them through their owning addon. Rename uses TomTom's API to create the
+renamed point before removing the original, preserving settings and rejecting
+collisions. If an existing arrow could not be identified, clear it in TomTom and
+retry the rename. Icon-only edits preserve the UID/callback/arrow references.
+
+`/gcompass waypoint here Camp`, coordinate creation, list and remove commands remain
+API wrappers around TomTom. List reports session IDs for `/gcompass route ID`.
+No competing Alt-left-click shortcut, local waypoint CRUD or custom waypoint map
+projection/renderer remains. Legacy records are retained solely for import.
+Native menu/map behavior still needs in-game confirmation (GC-212).
+
+## Optional route provider (0.8.0)
+
+The saved-waypoint list now offers Navigate, explicit Replace, provider status and
+Stop route. /gcompass route ID requests a route; route replace ID confirms replacing
+another journey; route stop cancels only ours; route status reports availability.
+Shortest Path Forever API v1 is optional and supplies the map routes. Without a
+compatible provider, waypoints and party tracking keep working and routing is
+explicitly unavailable. Do not expect live route planning on unported Hardcore.
+
+The bar can consume the proposed GetGuidance version-1 target as a cyan next-step
+marker on the same baseline. Current SPF v1.22.4 does not export this getter; the
+original provider-side draft is not installed or upstream-supported. Combat, lost
+ownership, invalid/remote target data and inactive guidance clear that marker.
+Off/demo and removal of the routed point stop only our route. Active route selection
+is session-only; saved points/appearance persist. No fake native navigation APIs.
+See docs/CLASSIC_ROUTING_COMPATIBILITY.md for the observed Classic probe, 16-suite
+verification, remaining provider/native gates and exact current test steps.

@@ -1,0 +1,13 @@
+{
+  "observed_date": "2026-10-26",
+  "timezone": "America/Los_Angeles",
+  "evidence": "classic-routing-probe-2026-10-26.png",
+  "output": "SPF: function function nil nil",
+  "functions": {
+    "canaccessvalue": "function",
+    "C_EncodingUtil.DecompressString": "function",
+    "C_Map.GetUserWaypoint": "nil",
+    "C_SuperTrack.GetHighestPrioritySuperTrackingType": "nil"
+  },
+  "limits": "Presence/type check only. Does not establish namespace absence, decoding success, other APIs or full provider compatibility."
+}

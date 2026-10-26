@@ -1,6 +1,6 @@
 # Product Requirements — Group Compass
 
-Status: living PRD. Updated 2026-10-23. Product owner: Tony.
+Status: living PRD. Updated 2026-10-26. Product owner: Tony.
 
 ## Problem and desired outcome
 
@@ -14,7 +14,7 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
 - R01: Show group-member bearings relative to the character's facing. An ahead
   member appears at the center; left/right members appear on that side.
 - R02: Show member names and approximate horizontal distance. Default each real
-  member's visual color to their class. Keep colors consistent across views.
+  member's visual color to their class. Map marker color overrides are optional.
 - R03: Provide world-map and minimap member visibility when the client supplies
   usable data. Keep names available in map/minimap hover labels without forcing
   permanent name labels across the entire map.
@@ -29,6 +29,22 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
   instances must not automatically pause tracking. Never fabricate real locations.
 - R08: Keep installation simple: install directly to Tony's named addon directory
   using clean replacement, with no installation backup creation.
+- R10: Default map markers to head & shoulders. A minimap-border button opens
+  simple options for icon, independent minimap/world-map sizes, None/Glow/Slow
+  flash and class/other colors. Save choices and provide live previews/reset.
+- R11 (revised 0.9.0): Reuse TomTom's live points, map/minimap pins and persistence.
+  Read them for our compass instead of a parallel store/placement/renderer. Existing
+  Group Compass records are retained and imported once; deleted imports stay deleted.
+- R13: Keep name/icon editing in our list where TomTom's native context menu lacks
+  it. Use Save/Cancel; delegate themes/sizes to TomTom settings. Show map creation,
+  automatic bar sync and character-facing instructions in Waypoints & help.
+  Other addons' managed points are read-only. No fabricated cross-world bearings.
+- R12: Route to a selected saved waypoint locally and across continents, using
+  real walkable paths and available transport. Keep map routes and next local
+  guidance consistent. Optional API controls/consumer implemented in 0.8.0; native
+  provider execution still unverified. Tony selected
+  the optional SPF API provider and accepts combat deferrals for routes. The
+  supported next-target contract and native test-client strategy remain open.
 - R09: Maintain durable project memory in the designated Google Drive development
   project, with local readable copies and completed-work archives.
 
@@ -46,7 +62,11 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
   world-coordinate-space change or explicit demo reset.
 - Current panel is a 620-by-46 UI-unit strip. Ticks share one horizontal baseline;
   names/distances use their respective shared rows. Crowded labels use hover details.
-- No saved settings, options panel, automatic movement, routes or group messages.
+- Waypoints: TomTom profile/persistence and map pins; all points are listed, nearest
+  20 locatable points enter the forward compass as [T] labels. No local pin renderer.
+  Coordinate spaces must match; missing TomTom leaves group tracking usable.
+- Saved map appearance/button-position settings and a one-page options panel
+  are implemented in 0.6.0. No automatic movement or group messages. Routing uses an optional SPF API; native/provider gates remain open.
 
 ## Acceptance criteria
 
@@ -55,7 +75,7 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
   differing world IDs establish a remote location. Fall back to "Different world
   area" when no continent name is available. Do not fabricate bearing/distance.
 
-- AC01: Correctly installed 0.5.0 announces its version and recognizes /gcompass.
+- AC01: Correctly installed 0.9.0 announces its version and recognizes /gcompass.
 - AC02: Solo demo starts A/B/C left/ahead/right at approximately 25/40/60 yards.
   Turning the character moves labels; walking changes distances; reset reseeds.
 - AC03: With a real grouped player, bearing and distance match cardinal direction
@@ -70,10 +90,16 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
 - AC06: Version status, exact checks, native test evidence and remaining work are
   recorded. Completed implementation is distinct from completed client validation.
 
+- AC07 (0.9.0): TomTom map creation appears automatically in our list/bar, with
+  no duplicate map pin/shortcut. Waypoints & help gives configured creation steps
+  and visibility explanation. Edit names/shapes and verify persistence, Cancel,
+  removal, old import and unchanged groups. Local checks pass; native GC-212 remains.
+  Session IDs survive an API rename; TomTom reload/profile changes may create new IDs.
+
 ## Evidence and release gates
 
-All nine Lua 5.1 suites, structure/XML checks and package checks passed locally.
-Installed source hashes match 0.5.0. Classic screenshot confirms older static
+All 17 Lua 5.1 suites, structure/XML checks and package checks passed locally.
+Installed source hashes match 0.9.0 (29 runtime/art files). Classic screenshot confirms older static
 demo rendering only. Real-party APIs, new motion demo, class colors, map rendering,
 minimap replacements and Forever remain native test gates.
 

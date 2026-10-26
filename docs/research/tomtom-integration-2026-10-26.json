@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-26",
+  "provider": "C:\\Program Files (x86)\\World of Warcraft\\_classic_era_\\Interface\\AddOns\\TomTom",
+  "version": "v4.3.13-release",
+  "status": "PASS: 17 Lua 5.1 suites and actual installed TomTom.lua API composition",
+  "provider_files": {
+    "TomTom.lua": "ea1eb0146c8af2d3cbb4eefb6d65ed86564acf0027bfefed873928a269f8745b",
+    "TomTom_Waypoints.lua": "14821faeb7b182cdcd8c28edb2fbc00d1bb08840d2bb723a4ab127acf4094513",
+    "TomTom_Config.lua": "a1ce6083ef588092c8c452c64e620b8b79df2b0425ae8c86734aba81b13a208a",
+    "TomTom.toc": "62a938bd99052ec863d96e37ecc53898ab4b8e3e528785770b77ae1683059549"
+  },
+  "implementation": "TomTom is sole live waypoint store/map renderer. Group Compass consumes points and provides name/icon Edit and nearest-20 compass view. Legacy records retained and imported once. Independent live store, map click hooks and waypoint pin rendering removed.",
+  "checks": [
+    "shared API creation/removal/rename and persistence",
+    "icon refresh preserves UID, callbacks and arrow references",
+    "failed add and icon restore, rename collisions including API deduplication",
+    "manual point and external managed-addon ownership protections",
+    "one-time import, no resurrection after deletion, retained legacy records",
+    "configured map shortcut/help, TomTom settings link and external addition detection",
+    "custom map-marker exclusion and ordinary party map behavior"
+  ],
+  "limitations": [
+    "WoW renderer, HBD pin projection, actual map clicks and gameplay are not exercised",
+    "No live next-turn/golden-route claim; SPF compatibility is separate",
+    "Enumeration depends on TomTom exposed waypoints/UID layout; capability guarded and tested against v4.3.12/v4.3.13",
+    "Unknown pre-existing active TomTom arrow blocks rename until cleared; future arrow changes are tracked through public method post-hook"
+  ]
+}

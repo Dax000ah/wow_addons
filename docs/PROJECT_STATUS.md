@@ -1,8 +1,419 @@
 # Group Compass project checkpoints
 
-Date: 2026-10-23.
+Date: 2026-10-26.
 
-## Latest checkpoint: initial local check-in of 0.5.2
+## Latest checkpoint: local check-in of 0.9.0, 2026-10-26
+
+Tony reports that things look good and explicitly authorized this local check-in.
+Includes all accumulated addon, original artwork, regression tests, routing API
+research/prototype and project notes since 02e0bbe. Generated ZIPs/logs and local
+.test-tools remain ignored. No runtime behavior or installed file changed in this
+check-in task. Only this checkpoint, progress note and feedback item were edited.
+
+Checks repeated: python scripts/run_tests.py PASS all 17 Lua 5.1 suites;
+python scripts/check_structure.py PASS; git diff --check PASS. Inspected current
+status, tracked diff and every untracked candidate; no credential-pattern matches
+in source/test/docs/scripts/integrations. Git staging review/check precedes commit.
+Use git log for the resulting commit ID. This request authorizes a local commit;
+no remote push was requested. The detailed file list and implementation checks
+remain in the previous checkpoint below.
+
+Tony's feedback is broad, not a claim that every native acceptance scenario ran.
+GC-212 remains open for the detailed in-game matrix; SPF Hardcore compatibility
+and actual next-turn/golden routes remain separate GC-105/106/210. Next priority:
+record specific native checks as they are completed, then continue routing work.
+
+## Previous checkpoint: TomTom shared waypoints and options help 0.9.0, 2026-10-26
+
+Completed: switched live waypoint creation/storage/map pins to TomTom, and reads
+its existing/native-created points for our shared compass. No duplicate map pins.
+New points enable live display and leave demo; nearest 20 locatable points enter
+the bar, filtered to the forward half. Group tracking/appearance stays independent.
+
+Menus: cyan launcher > Waypoints & help shows the configured map modifier (default
+Alt + right-click), numbered creation steps, automatic bar sync and character-facing
+visibility note. Both main and waypoint menus link to native TomTom settings.
+The retained Edit window supplies name and ten texture choices missing from its
+context menu. Save/Enter commits, Cancel/X/Escape discards. Keep current preserves
+native theme/custom texture/portrait. TomTom handles its own themes, map sizes and
+profile persistence; group-member glow/flash/class colors do not style its points.
+
+Removed independent waypoint live CRUD, Alt-left-click handler, custom waypoint
+map projection/renderer, map-pin Edit handlers and dead style branches. Legacy
+GroupCompassWaypointsDB records are retained unchanged for once-only confirmed
+API import, not a second live store. Imported deletions are not resurrected. Without
+TomTom, group tracking works and waypoint help says enable/restart; no new fallback.
+
+Bridge details: optional dependency and capability guards; exposed waypoints/UID
+layout read for enumeration (a provider coupling, not a dedicated list API). No
+private frame/profile-key mutation. API Add/Remove owns registry changes. Since
+titles form TomTom's keys and no Rename method exists, rename adds/validates first,
+rejects existing UID/key collisions and removes original last. Same-name icon edits
+refresh the same UID via ClearWaypoint/SetWaypoint and restore options on failure.
+Callbacks/persistence/unknown fields and reload arrow option are preserved. A public
+SetCrazyArrow post-hook tracks known arrow references; if an existing active arrow
+is unknown, rename explicitly asks to clear it first. Other-addon-owned points are
+read-only here. Session IDs can change on TomTom reload/profile changes; routes
+remain session-only. No copies of TomTom code/artwork were redistributed or edited.
+
+Files created this task:
+
+- GroupCompass/TomTomBridge.lua; tests/tomtom_test.lua;
+  scripts/check_tomtom_offline.py;
+  docs/research/tomtom-integration-2026-10-26.json; generated dist/GroupCompass-0.9.0.zip.
+
+Files modified this task (earlier uncommitted work preserved):
+
+- GroupCompass/Waypoints.lua, WaypointUI.lua, Core.lua, Maps.lua, Routing.lua,
+  Options.lua, MarkerStyle.lua and GroupCompass.toc.
+- tests/waypoints_test.lua, waypoint_ui_test.lua, maps_test.lua, options_test.lua,
+  style_test.lua, core_test.lua and classic_test.lua; scripts/check_structure.py.
+- README.md, docs/TESTING.md, docs/PROJECT_STATUS.md.
+- docs/project-memory/00_START_HERE.md, 01_PRD.md, 02_DESIGN.md,
+  03_ACTIONS_AND_TODOS.md, 04_PROGRESS_AND_DECISIONS.md,
+  archive/2026-10-26_COMPLETED.md and drive-manifest.json.
+
+Checks run:
+
+- python scripts/run_tests.py: PASS all 17 Lua 5.1 suites. Covers configured help,
+  settings links, external addition detection, real facade/editor interactions,
+  names/UTF-8, shared CRUD, cancellation, icons/portrait preservation, collisions,
+  failed add/icon restoration, foreign ownership, arrow references, nearest cap,
+  unavailable/secret data, migration/removal/no-resurrection and unchanged groups.
+- python scripts/check_tomtom_offline.py with the installed Classic TomTom path:
+  PASS, actual TomTom.lua Add/Remove/registry/persistence methods; UI pins doubled.
+  The version guard initially caught an external v4.3.12-to-v4.3.13 update. Re-audit
+  found identical TomTom.lua hash and the same dependent icon/settings contracts;
+  final v4.3.13 composition passes. Not a native renderer/HBD/map-click/gameplay test.
+- python scripts/build_zip.py: PASS structure, Classic/Forever TOC order, XML,
+  artwork, no orphan runtime files and ZIP integrity/entries/source bytes.
+- git diff --check: PASS. Reviewed task changes against start-of-task contents and
+  tracked diff; searched callers for deleted HookMap/MapMembers/pin Edit paths.
+  No competing waypoint subsystem remains. Existing unrelated work left intact.
+- Authorized exact-target clean install: PASS version 0.9.0, all 29 installed files
+  match source SHA-256. No backup; TomTom, other addons and WTF untouched. No Git
+  stage/commit/push. Provider fingerprint evidence is in docs/research JSON.
+
+Tony's native check (GC-212): fully restart, confirm /gcompass status 0.9.0, then
+cyan button > Waypoints & help. Press M and Alt + right-click a zone-map spot (or
+the displayed configured shortcut). Face the point with the character; it should
+appear automatically in our list/bar. Edit its name/icon, Cancel a draft, open
+TomTom settings, reload and remove. Check migration and no duplicate pins. Other
+worlds/behind/over nearest-20 cap omit bearings. Detailed steps: docs/TESTING.md.
+
+Remaining: native WoW layout/click/focus/HBD/bar/persistence/migration acceptance
+is unverified. GC-108 implementation archived as GC-019; GC-208/211 superseded by
+GC-212 rather than claimed passed. Next priority is that gameplay check, fixing
+any observed issue, then the separately pending SPF Hardcore compatibility and
+supported next-turn contract (GC-105/106/210). No live golden route was enabled.
+
+## Previous checkpoint: waypoint editor 0.8.1, 2026-10-26
+
+Completed: name and ten-icon editing for personal waypoints. Alt-click map creation
+opens the editor; later left-click either map icon or use Waypoints > Edit. Save/
+Enter commits, Cancel/X/Escape discards edits. New points remain saved as default
+pins when cancelled. Names update both map tooltips and bar; shapes update both maps.
+ID/location/unknown fields and character storage are preserved. Invalid stored
+icons fall back; invalid updates reject without mutation. No route restart or new
+provider capability. Existing member styles/sizes/effects remain usable.
+
+Root cause: map creation supplied no name input, the list had no edit action and
+Waypoints.marker hardcoded pin. Reused shared sanitation and existing icon catalog;
+added one editor to WaypointUI and public Find/Icon/Update helpers. MapCanvas uses
+its native OnClick callback; minimap waypoint markers accept inside left-release,
+party markers pass clicks through. Full native behavior remains a manual gate.
+
+Files changed this task (prior 0.6.x–0.8.0 work preserved):
+
+- GroupCompass/Waypoints.lua, WaypointUI.lua, Maps.lua, GroupCompass.toc.
+- tests/waypoints_test.lua, waypoint_ui_test.lua, maps_test.lua, classic_test.lua.
+- README.md, docs/TESTING.md, docs/PROJECT_STATUS.md.
+- docs/project-memory/00_START_HERE.md, 01_PRD.md, 02_DESIGN.md,
+  03_ACTIONS_AND_TODOS.md, 04_PROGRESS_AND_DECISIONS.md,
+  archive/2026-10-26_COMPLETED.md and drive-manifest.json.
+- Generated dist/GroupCompass-0.8.1.zip; no runtime modules/assets/dependencies added.
+
+Checks actually run:
+
+- Focused Lua 5.1 execution via project-local lupa for waypoint, editor and map
+  suites: PASS. Real editor/storage and lazy map-first composition, all ten tiles,
+  Save/Cancel/Enter/Escape, draft isolation, deletion, reload, UTF-8, empty names,
+  edit at capacity, legacy/bad icon fallback, invalid choice rejection, map events
+  and party-marker reuse/pass-through are covered.
+- python scripts/run_tests.py: PASS all 16 Lua 5.1 suites. Final added lazy-entry
+  case also passed its focused suite. WoW frame/map/API behavior is simulated.
+- python scripts/build_zip.py: PASS structure/TOC/XML/artwork and ZIP integrity,
+  entries and byte-for-byte source match.
+- git diff --check: PASS; reviewed task-specific source/test diff against starting
+  contents, final tracked diff and affected callers. No duplicate editor or orphan.
+- Exact-target PowerShell clean install: PASS, version 0.8.1 and all 28 files
+  SHA-256 match source. No backup; other addons and WTF untouched. No Git mutation.
+
+Tony's verification: /reload then /gcompass status (0.8.1; restart if metadata is
+stale). Press M, open zone, Alt-left-click; name Camp, choose Star, Save. Reopen from
+world pin/minimap/list Edit, try Cancel/Enter/Escape, then reload for persistence.
+Check readable palette/layout/focus and unchanged ordinary map/group behavior.
+Detailed steps: docs/TESTING.md. Native gate GC-211 is open; implementation GC-107
+is recorded in completed archive GC-018. No native 0.8.1 gameplay claim.
+
+Remaining/next: Tony's native editor test first; resolve any observed errors, then
+resume provider-local Hardcore routing compatibility GC-105/106/210. Golden routes
+and next-turn navigation remain unavailable in the current Hardcore provider setup.
+
+## Previous checkpoint: native probe and optional routing bridge 0.8.0, 2026-10-26
+
+Confirmed screenshot output: SPF: function function nil nil. canaccessvalue and
+C_EncodingUtil.DecompressString exist; C_Map.GetUserWaypoint and
+C_SuperTrack.GetHighestPrioritySuperTrackingType are unavailable. This does not
+establish namespace absence, decode success, remaining API availability or client
+build. SPF v1.22.4 still has unguarded uses in JourneyGuide.lua; unchanged native
+guidance cannot run here. No further chat probe needed for this initial finding.
+
+Implemented GroupCompass/Routing.lua, optional public API v1 discovery and saved
+point Navigate/Replace/Stop/status. New same-baseline cyan next step consumes only
+the proposed GetGuidance result; validates version, world space and readable finite
+data. Clear on combat/lost ownership/inactive/missing data. Keep route-turn points
+out of party/map samplers. Missing provider/getter and external errors remain visible.
+Off/demo/removal stop only our owned route; cancellation refusal remains visible.
+Route selection is session-only. New optional TOC dependency; no new library/data.
+
+Created GroupCompass/Routing.lua, tests/routing_test.lua,
+docs/CLASSIC_ROUTING_COMPATIBILITY.md, docs/research/classic-routing-probe-2026-10-26.png
+(copy of Tony's supplied image), its JSON sidecar, and
+ docs/project-memory/archive/2026-10-26_COMPLETED.md. Modified Core.lua, WaypointUI.lua,
+GroupCompass.toc; tests/classic_test.lua, core_test.lua, waypoint_ui_test.lua;
+scripts/check_structure.py; README.md, docs/TESTING.md, ROUTING_FEASIBILITY.md,
+ROUTING_TEST_RESULTS.md, integrations/ShortestPathForever/README.md, this file,
+five active memory Markdown files and drive-manifest.json. Built dist/GroupCompass-0.8.0.zip.
+Prior 0.6.x/0.7.0 uncommitted changes preserved; no staging/commit/push. No SPF edit.
+
+Verification: focused routing/core checks PASS; python scripts/run_tests.py PASS
+all 16 Lua 5.1 suites. Actual consumer + proposed getter composition passes with
+C_Map/C_SuperTrack absent, alongside missing/version/late provider, normalized named
+input, explicit replacement, cancellation refusal, removed point, foreign ownership,
+provider errors/rejection, combat resume, remote/secret clearing and window controls.
+python scripts/build_zip.py PASS, structure/TOC/XML/artwork + ZIP integrity/paths/source
+bytes. git diff --check PASS. Reviewed final tracked diff and new Routing module.
+No duplicate pathfinder, fake native globals or orphan runtime module introduced.
+
+Final clean replacement of only the exact authorized Classic GroupCompass directory
+passed all 28 file SHA-256 matches; no backup. Other addons and WTF untouched. An
+initial preflight ZIP was preserved locally before final removed-route status cleanup;
+only final 0.8.0 is installed/current package. No further runtime edit after final install.
+
+Manual GC-209: fully restart, /gcompass waypoints, check Navigate/Replace/Stop/status
+and safe missing-provider behavior; /gcompass route status gives same status. Existing
+saved pins, demo, class colors and maps must remain usable. No live golden route or
+native next-step test is available in current unported Hardcore. Provider GetGuidance
+remains an uninstalled/unadopted draft; full Classic port and native provider navigation
+are open GC-105/106/210. No live 0.8.0 UI/provider validation was claimed.
+
+Next: native controls/fallback review, provider-local non-native guidance adaptation
+and remaining Classic API/data audit, supported getter/build, then full Forever route
+and transport/cross-continent acceptance. Detailed evidence: docs/CLASSIC_ROUTING_COMPATIBILITY.md.
+
+## Previous checkpoint: guidance prototype and testing, 2026-10-24; installed 0.7.0
+
+Tony selected reuse of the optional SPF public API and accepts combat deferrals
+for waypoint routing. Existing no-auto-pause party/member behavior stays unchanged.
+Prepared an additive provider-side GetGuidance(owner) prototype returning copied
+current/next-turn, step-end and destination world coordinates. It declines foreign
+ownership, combat, corpse-run borrowing, inactive and invalid targets. No private
+frames/hooks or duplicate pathfinder. Not installed or accepted upstream; public
+route controls and our top-bar consumer remain open as GC-104/105.
+
+New files: integrations/ShortestPathForever/GuidanceAPI.lua and README.md,
+tests/guidance_api_test.lua, scripts/check_spf_offline.py,
+docs/ROUTING_TEST_RESULTS.md and docs/research/spf-offline-results-2026-10-24.json.
+Created generated dist/GroupCompass-Routing-Research-2026-10-24.zip; seven entries
+passed integrity and source-byte checks. This is a research artifact, not a release.
+Modified docs/ROUTING_FEASIBILITY.md, this checkpoint, five active memory Markdown
+files, archive/2026-10-24_COMPLETED.md and drive-manifest.json. Prior source/tests/
+artwork worktree changes preserved. No installed-addon edits, third-party source
+copy, dependency, stage, commit or push; source/package/installed addon remains 0.7.0.
+
+Checks: focused guidance test via project-local lupa.lua51 PASS; then
+python scripts/run_tests.py PASS all 15 Lua 5.1 suites (14 existing plus prototype).
+python scripts/check_structure.py PASS. git diff --check PASS. Reviewed new source,
+contract tests, runtime exclusion, fingerprints and changed documentation. No new
+runtime file or obsolete implementation was introduced. No release rebuild/install
+needed because the provider prototype is outside GroupCompass.toc and package.
+
+Real-engine command: python scripts/check_spf_offline.py <installed SPF directory>
+PASS, with actual installed v1.22.4 terrain and search modules loaded read-only.
+Shadowglen/Dolanaar-area: 9 points, searched cost 720.98 yd; Coldridge/Kharanos-area:
+23 points, 1198.37 yd; Goldshire/Stormwind: 17 points, 1073.48 yd. Missing terrain
+returned nodata. Real transport planner produced a 5-leg intercontinental boat
+plan; endpoint walking legs estimated, no known flight paths or live boat clocks.
+Raw output/source hashes saved. This does not prove native path safety, timing,
+UI, API.Navigate or client compatibility. Development runtime reuses existing
+Lupa plus Python standard base64/zlib; these adapters cannot run inside WoW.
+
+Blizzard confirms beta closed October 23, name creation October 27, world launch
+November 4. No public Forever gameplay test realm was established. Recommend
+offline engine coverage plus existing Classic UI checks now. Full provider port
+is plausible but unproven: encoding, native waypoint/supertracking/navigation and
+other client APIs require live inventory before scope is known. A four-API
+read-only WoW chat probe was requested asynchronously; output is still pending.
+No quick-port claim or promise that another WoW version proves Forever is made.
+
+Next: implement owner-scoped Navigate/Stop adapter, establish/load the supported
+getter and bar consumer, use the pending probe to bound any Classic test adapter,
+then execute local/cross-continent and combat-resume acceptance in native Forever.
+Completed prototype/offline work is GC-016; native/consumer gates remain active.
+
+## Previous checkpoint: routing feasibility, 2026-10-24; installed 0.7.0 unchanged
+
+Completed the requested installed-addon inspection. Found Shortest Path Forever
+v1.22.4 in the Forever AddOns folder (interface 16001). It already accepts arbitrary
+map destinations and plans local/cross-continent travel. Public API.Navigate can
+accept our existing saved point coordinates. Recommended an optional Navigate/Stop
+adapter; a complete standalone engine is a separate architecture decision.
+
+Two material limits remain: next-turn coordinates/geometry are not exposed in the
+public API, and searches/progress/map refresh defer in combat. Classic Hardcore
+compatibility is not established. No runtime feature, third-party source copy,
+installed-addon edit, dependency, build/version bump or Git mutation this task.
+Existing uncommitted 0.6.x/0.7.0 source/tests/artwork changes were preserved.
+
+Created docs/ROUTING_FEASIBILITY.md and
+ docs/project-memory/archive/2026-10-24_COMPLETED.md (GC-015 completed research).
+Updated this checkpoint, project-memory 00_START_HERE.md, 01_PRD.md, 02_DESIGN.md,
+03_ACTIONS_AND_TODOS.md, 04_PROGRESS_AND_DECISIONS.md, and drive-manifest.json.
+GC-104/105/106 track proposed integration, next-target API and combat/client policy.
+No completed-implementation claim follows from the completed investigation.
+
+Checks: read-only Python source probe PASS, installed API v1/minor1, Navigate
+signature, ten public functions, no exported GuideTargets; 27 navigation Lua files,
+11,882,769 bytes. python scripts/check_structure.py PASS. git diff --check PASS.
+Final documentation diff reviewed; no new runtime/duplicate implementation created.
+No Lua suite rerun or package/install was needed for documentation-only changes;
+prior 14-suite release evidence remains historical. Initial git status in the
+non-repository parent failed, then succeeded in the active checkout; missing search
+paths were corrected using the installed TOC. No unresolved check failure.
+
+Tony's next native check: in Forever, Shift-click a nearby zone-map point (use
+/path way instead if another addon intercepts clicks), then a zone-map point on
+the other continent, to exercise the existing provider before integration. Record
+actual available legs and combat behavior. No exact starter-to-continent itinerary
+was executed here. Prioritize the optional adapter after the dependency/continuity
+tradeoff is selected, then supported next-target output, then native route coverage.
+
+## Previous checkpoint: personal waypoints, version 0.7.0
+
+Implemented personal waypoints on the world map, minimap and shared horizontal
+compass bar. Gold pins and [Wnumber] names distinguish waypoints from members.
+Alt-left-click a zone map, save the current location in the Waypoints window, or
+use /gcompass waypoint here Camp. /gcompass waypoints opens the list/removal UI;
+/gcompass waypoint 45 60 Camp uses percentages in the player's current zone.
+Up to 20 points persist per character. Adding a real point exits demo, enables
+live views and refreshes immediately; removing points refreshes all views.
+
+Created GroupCompass/Waypoints.lua, GroupCompass/WaypointUI.lua,
+tests/waypoints_test.lua and tests/waypoint_ui_test.lua. Modified Core.lua,
+Maps.lua, MarkerStyle.lua, Options.lua, GroupCompass.toc, scripts/check_structure.py,
+tests/classic_test.lua, core_test.lua, maps_test.lua, style_test.lua and
+options_test.lua. Updated README.md, docs/TESTING.md, FEASIBILITY.md, this file,
+six core project-memory Markdown files and drive-manifest.json. Built
+ dist/GroupCompass-0.7.0.zip. Earlier 0.6.x work remains uncommitted and preserved;
+no staging, commits, push, dependencies or unrelated cleanup this task.
+
+Native C_Map conversions supply world-space bearings and cross-map projections;
+no guessed positions or cross-continent bearings. Same-map pins use their saved
+normalized coordinates during transient conversion failure. Unsupported maps or
+unreadable coordinates are rejected or unavailable. Points behind the character
+are outside the bar's existing forward-facing view. No waypoint sharing yet.
+
+Checks: python scripts/run_tests.py PASS, all 14 Lua 5.1 suites;
+python scripts/check_structure.py PASS (TOC order, XML, assets and runtime orphans);
+python scripts/build_zip.py PASS (integrity, paths and source-byte agreement);
+git diff --check PASS. Reviewed waypoint modules, affected callers, persistence,
+map projection, input hooks, UTF-8 labels, sampler ownership and task diff.
+Coverage includes CRUD/reload/character DB, conversion/facing/turn/walk, map input,
+missing data, UI, gold pin override, demo recovery and merged-array isolation.
+Clean-installed 27 runtime/art files in the exact authorized Classic GroupCompass
+directory; all match source by SHA-256. No backup; other addons/WTF untouched.
+
+Manual gate GC-208 remains open: fully restart WoW for new TOC/modules/character
+SavedVariables. Save Camp with /gcompass waypoint here Camp, walk away, turn toward
+it and inspect both maps plus the top bar. Alt-click a zone map, remove a point,
+/reload and verify persistence and character isolation. Check mixed party markers,
+combat/instances and unavailable coordinates. Automated Lua stubs do not verify
+native client rendering/API behavior. Forever is still unverified. Prioritize
+this native smoke test, then the existing appearance and live-party checks.
+
+## Previous checkpoint: colored minimap launcher, version 0.6.1
+
+Tony requested color instead of the white-looking launcher. Previous tint was
+pale gold. Options.lua now tints the head-and-shoulders icon saturated cyan
+(0.1, 0.8, 1), over dark teal (0.02, 0.16, 0.22), keeping the gold rim.
+
+Changed this task: GroupCompass/Options.lua, GroupCompass/GroupCompass.toc,
+tests/classic_test.lua (version fixture), README.md, docs/TESTING.md, this checkpoint,
+six core project-memory Markdown files and drive-manifest.json. Built
+dist/GroupCompass-0.6.1.zip. All prior 0.6.0 changes/notes were preserved; no new
+dependencies, staging, commits or push. No new behavior test mirrors the RGB literals.
+
+Verification: python scripts/run_tests.py PASS, all 12 Lua 5.1 suites;
+python scripts/check_structure.py PASS; python scripts/build_zip.py PASS, archive
+integrity/paths/source bytes; git diff --check PASS. Reviewed the scoped RGB/version
+edits against the already-reviewed options implementation. Final clean install
+contains 25 files matching source by SHA-256; no backup. Initial install attempt
+was not executed because automatic approval review hit a usage limit. Tony asked
+to continue; the normal approved retry succeeded. Native color/contrast review is
+still open under GC-207. Run /reload to inspect the launcher.
+
+## Previous checkpoint: marker options and default person, version 0.6.0
+
+Tony selected head & shoulders and requested a minimap-border button opening
+simple icon/size/effect/color options. Implemented a one-page 430x490 panel with
+live minimap/world-map previews, ten original marker styles, separate 12–40 size
+sliders, None/Glow/Slow flash, Class/Party/Gold/Cyan/Pink/White colors, reset, close
+and Escape. Defaults are person, minimap 20, world 24, no effect and class colors.
+GroupCompassDB saves appearance and draggable border-button angle across reload.
+/gcompass, options and config open the panel without enabling a hidden compass.
+Map tooltip identity remains available; compass names keep class colors.
+
+Added runtime modules GroupCompass/Settings.lua, MarkerStyle.lua and Options.lua;
+twelve original 32-bit TGA assets under GroupCompass/Textures; generator
+scripts/build_icons.py; tests/settings_test.lua, style_test.lua, options_test.lua.
+Modified Core.lua, GroupCompass.toc, Maps.lua and Projection.lua; size-aware inset
+retains large markers. Maps use pooled styles and stop flash on hide/release.
+Modified scripts/build_zip.py and check_structure.py, tests/classic_test.lua,
+core_test.lua, maps_test.lua and projection_test.lua. Updated README.md,
+docs/FEASIBILITY.md, TESTING.md, this checkpoint, six project-memory Markdown files
+and drive-manifest.json. Generated dist/GroupCompass-0.6.0.zip. Pre-existing
+uncommitted marker-exploration notes in 02_DESIGN.md were preserved and contextualized.
+No new dependencies, staging, commits, pushes, or unrelated source cleanup.
+
+Checks: python scripts/run_tests.py PASS, all 12 Lua 5.1 suites. New UI regression
+caught first-click menu logic comparing two nils; fixed and retested. Coverage
+includes saved reload/reset/invalid settings, menu choices, live previews, independent
+sizes/colors, border dragging/hiding, effects without per-tick restart, hide/release
+cleanup and larger minimap edge clearance. python scripts/build_icons.py PASS;
+python scripts/check_structure.py PASS, texture headers/alpha/paths/TOC/XML/orphans.
+python scripts/build_zip.py PASS, runtime/artwork ZIP paths, integrity and source
+byte agreement. Texture contact sheet visually inspected via a standard-library
+PNG renderer after optional Pillow proved unavailable; no dependency was added.
+git diff --check PASS. Tracked diff and untracked modules/tests reviewed directly.
+
+Final installation: clean-replaced only the authorized Classic GroupCompass folder;
+25 runtime/artwork files match source by SHA-256; no backup. A preflight ZIP was
+retained locally under a distinct name before final drag-hide cleanup was packaged.
+
+Native verification remains GC-207: fully restart WoW for TOC/SavedVariables/TGA,
+click the gold person minimap-border button (fallback /gcompass options), check
+previews, all controls, actual grouped map markers, saved reload, dragging, Escape,
+animation/pin reuse, UI scale and addon skins. Local mocks do not prove native UI
+appearance, combat frame behavior or Forever compatibility. No synthetic markers
+were placed onto maps. Saved appearance is account-wide; compass layout unchanged.
+
+Memory closeout: native project Doc updated through 21 scoped paragraph groups
+with revision guard; readback verified all 193 expected paragraphs, heading styles
+and list membership. Six Markdown mirrors, checkpoint and manifest updated in place.
+0.6.0 package stored in Work; 0.5.2 moved to Archive with verified parent metadata.
+
+## Previous checkpoint: initial local check-in of 0.5.2
 
 Tony requested "check in our code now" on 2026-10-23. This authorizes staging and
 a local commit. No remote push was requested. Initial repository has no prior

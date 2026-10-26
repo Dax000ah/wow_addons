@@ -1,6 +1,6 @@
 # Design Brief and Decisions — Group Compass
 
-Updated 2026-10-23. Current UI: 0.5.2 single-baseline strip. Native visual review pending.
+Updated 2026-10-26. Current UI: 0.9.0 single-baseline strip. Native visual review pending.
 
 ## Tony's feedback
 
@@ -44,12 +44,12 @@ The earlier tall Classic panel is a baseline problem, not the intended final des
 - Tony's Classic screenshot: static demo rendering in Teldrassil with a tall overlay.
   This is the baseline to improve and evidence that version 0.3.0 could display.
 - Enshrouded references: annotated HUD and clean HUD, supplied on 2026-10-23.
-  They confirm alignment/density. The images' waypoint visuals do not establish
-  new WoW waypoint/quest integration as an implemented feature.
+  They confirmed alignment/density. Personal waypoint support was later requested
+  and implemented in 0.7.0; quest integration remains outside current scope.
 - Store design assets in Drive /02 Design. Link accepted revisions with a decision
   date; retain rejected/superseded references in the archive with a reason.
 
-## Marker style proposals — awaiting Tony's choice
+## Earlier marker exploration (superseded by approved 0.6.0 default)
 
 Tony requested alternatives to the square map badges. Previewed round numbered
 badges (recommended), numbered diamonds, minimal ring dots, and class-symbol
@@ -58,7 +58,91 @@ glyphs are illustrative; actual WoW artwork would differ. No choice is approved
 and the installed 0.5.2 addon still uses squares with no style picker. Preview:
 C:/Users/Gaming PC/.codex/visualizations/2026/10/23/01a1692d-351a-7492-90a0-22534ba3148f/group-compass-marker-choices.html
 
+Follow-up proposals: Tony requested more non-circle styles and glow/flashing.
+Previewed diamonds, pointed map pins, shield crests and flags, each with none,
+steady glow, gentle pulse or slow flash. Default preview is steady glow; motion
+respects reduced-motion preference. Recommended starting point: diamonds with a
+subtle class-colored glow. These remain proposals, with no chosen style/effect
+or installed runtime change. New preview:
+C:/Users/Gaming PC/.codex/visualizations/2026/10/23/01a1692d-351a-7492-90a0-22534ba3148f/group-compass-shapes-and-glow.html
+
+## TomTom waypoint interaction — 0.9.0
+
+TomTom owns creation and all waypoint map pins. Remove our previous Alt-left-click
+handler, separate live store, waypoint projection/renderer and map-pin Edit hooks.
+The top bar reads TomTom and keeps its shared baseline/nearest-20 cap. Newly added
+points enable live display and leave demo; no duplicates are planted on either map.
+
+Main options: Waypoints & help plus TomTom settings. The 450-by-620 waypoint window
+shows numbered creation steps with the configured modifier, automatic bar behavior
+and character-facing/remote visibility explanation. Open world map and native
+TomTom settings are direct buttons. Existing Save my location/Edit/Remove and route
+controls remain API wrappers. Other-addon-managed points are read-only.
+
+The 450-by-380 editor remains only for TomTom's missing name/individual-icon controls.
+Save/Enter applies to TomTom, Cancel/X/Escape discards drafts, and Keep current icon
+preserves an existing texture/theme/portrait. Our light textures override the point's
+native theme; member class colors/glow/flash stay independent. TomTom handles its
+own theme/size choices. No frame hooks or copied provider engine/artwork.
+
+Legacy Group Compass saved records are retained for one-time import, not another
+live store. Missing TomTom shows enable/restart instructions. Native review GC-212.
+
+## Historical waypoint editor — 0.8.1 (superseded)
+
+A 450-by-380 editor opens above the world map after Alt-click creation, on either
+map icon's left-click, or from Edit in the list. Name is selected for replacement;
+ten gold icon tiles share the existing artwork catalog. The selected tile has a
+gold border. Save/Enter commits; Cancel/X/Escape keeps the saved values. A newly
+placed point already exists, so cancelling its editor leaves its default pin.
+
+Names update map hover labels and the shared compass row. Individual shapes
+apply on both maps, retain waypoint gold and inherit global map sizes/effects.
+No per-point colors/coordinate movement or imported icons are in this iteration.
+The compact list keeps Edit, Navigate/Replace and Remove; hover retains full names.
+Native visual/focus/click review is GC-211; no route-provider changes were needed.
+
+## Routing interaction — 0.8.0
+
+Saved-point rows have Navigate, an explicit second-click Replace, and Remove.
+The window has provider status and Stop route; stop is enabled only for our owned
+route. An optional SPF API v1 receives saved coordinates and supplies map routes.
+Our bar consumes only the proposed GetGuidance schema, as cyan next step on the
+shared baseline; no duplicate route point is added to the map sampler. Missing
+provider/getter and rejected/error/paused states are explicit. Off/demo/removing
+the routed point cancels only our route. No session route is auto-resumed.
+
+The provider getter is still a locally tested draft, not installed or supported
+upstream. Classic probe confirms two missing native-navigation functions; our
+consumer uses neither, while the full provider needs adaptation. Combat can pause
+routes; party tracking stays independent. Details: docs/CLASSIC_ROUTING_COMPATIBILITY.md.
+
 ## Interaction decisions
+
+- 0.7.0 adds personal gold waypoint pins on both maps and matching [W] compass
+  names on the shared baseline. Alt + left-click a zone map places one. Options >
+  Waypoints opens saved points, optional-name save-current-location and Remove.
+  Up to 20 persist per character. Creating exits demo/enables live views; appearance
+  reset keeps points. Marker sizes/effects apply; gold is retained and 0.8.1 allows per-point shapes.
+  Normal map clicks remain native. Native click/coordinate/UI review is pending.
+
+- Tony requested a colored minimap options icon instead of its near-white look.
+  Version 0.6.1 gives the launcher a saturated cyan person over a dark teal disc,
+  retaining the gold rim. Native color/contrast review remains pending.
+
+- Tony selected head & shoulders as the default and requested a minimap-border
+  options button. Implemented in 0.6.0: ten styles, two size sliders, three effects,
+  six color modes, two live previews, automatic saved settings and Reset defaults.
+  The gold border button is draggable; /gcompass options and Escape are supported.
+  Map settings affect map markers/hover; compass names retain class colors. Native
+  appearance and interaction are still pending Tony's review.
+
+Tony next requested a simple palette rather than map previews. Supplied 25
+illustrative choices covering portraits/faces, head-and-shoulders/body silhouettes,
+fantasy/class symbols, and basic shapes. These outline examples are concepts,
+concept exploration, not final game artwork. Actual character portraits remain
+a separate option. Tony subsequently chose head & shoulders, implemented in 0.6.0.
+Palette: C:/Users/Gaming PC/.codex/visualizations/2026/10/23/01a1692d-351a-7492-90a0-22534ba3148f/group-compass-icon-palette.html
 
 - Version 0.5.2 removes automatic combat/instance pause per Tony. Track readable
   coordinates continuously; missing/secret data clears only affected views. No

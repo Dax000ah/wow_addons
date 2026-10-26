@@ -9,7 +9,7 @@ local function tooltip(marker)
     local member = marker.member
     if not member then return end
     GameTooltip:SetOwner(marker, "ANCHOR_RIGHT")
-    GameTooltip:SetText(string.format("[%d] %s", member.slot, member.name), unpack(member.color))
+    GameTooltip:SetText(member.label or string.format("[%d] %s", member.slot, member.name), unpack(marker.gcColor or member.color))
     if member.distance then
         GameTooltip:AddLine(string.format("~%.0f yards (horizontal)", member.distance), 1, 1, 1)
     end
@@ -22,28 +22,20 @@ local function hideTooltip(marker)
 end
 
 local function decorate(marker)
-    marker:SetSize(18, 18)
-    local border = marker:CreateTexture(nil, "BACKGROUND")
-    border:SetAllPoints()
-    border:SetColorTexture(0.05, 0.05, 0.05, 1)
-    marker.fill = marker:CreateTexture(nil, "ARTWORK")
-    marker.fill:SetPoint("TOPLEFT", 2, -2)
-    marker.fill:SetPoint("BOTTOMRIGHT", -2, 2)
-    marker.label = marker:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    marker.label:SetPoint("CENTER")
-    marker.label:SetTextColor(0, 0, 0)
+    addon.MarkerStyle.Decorate(marker)
 end
 
 local function updateBadge(marker, member)
     marker.member = member
-    marker.fill:SetColorTexture(unpack(member.color))
-    marker.label:SetText(tostring(member.slot))
+    addon.MarkerStyle.Apply(marker, member, marker.gcMapKind or "minimap")
     if GameTooltip:IsOwned(marker) then tooltip(marker) end
 end
 
 -- XML virtual template combines this with Blizzard's MapCanvasPinMixin.
 GroupCompassWorldPinMixin = {}
 function GroupCompassWorldPinMixin:OnLoad()
+    self.gcMapKind = "world"
+    self:SetMouseClickEnabled(false)
     decorate(self)
     self:UseFrameLevelType("PIN_FRAME_LEVEL_GROUP_MEMBER")
     self:SetScalingLimits(1, 0.8, 1.2)
@@ -57,6 +49,7 @@ function GroupCompassWorldPinMixin:UpdateMember(member)
 end
 function GroupCompassWorldPinMixin:OnReleased()
     hideTooltip(self)
+    addon.MarkerStyle.Stop(self)
     self.member = nil
     MapCanvasPinMixin.OnReleased(self)
 end
@@ -112,7 +105,10 @@ local function clearMinimap(first)
 end
 
 function maps.Update(members, enabled)
-    active, latest = enabled, members
+    active, latest = enabled, {}
+    for _, member in ipairs(members) do
+        if member.source ~= "tomtom" then latest[#latest + 1] = member end
+    end
     attachWorld() -- The world-map addon may load long after Group Compass.
     if provider then refreshWorld(provider) end
     if not active or not Minimap or not Minimap:IsShown() then clearMinimap(); return end
@@ -126,7 +122,7 @@ function maps.Update(members, enabled)
         and not (C_Minimap and C_Minimap.IsRotateMinimapIgnored and C_Minimap.IsRotateMinimapIgnored())
     for index, member in ipairs(latest) do
         local x, y, edge = addon.Projection.Minimap(member.north, member.west,
-            member.facing, rotating, radius, width, height)
+            member.facing, rotating, radius, width, height, addon.Settings.Get().minimapSize)
         if x then
             local marker = minimapMarkers[index]
             if not marker then
@@ -149,4 +145,8 @@ function maps.Update(members, enabled)
         end
     end
     clearMinimap(#latest + 1)
+end
+
+function maps.Refresh()
+    maps.Update(latest, active)
 end

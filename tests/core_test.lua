@@ -1,5 +1,17 @@
 -- A small API double validates display logic, not the actual WoW renderer.
 local addon = {}
+local optionsToggled, initialized = 0, false
+addon.Settings = {Initialize = function() initialized = true end}
+addon.Options = {Initialize = function() end, Toggle = function() optionsToggled = optionsToggled + 1 end}
+local waypointEntries, waypointCommands, waypointToggled = {}, {}, 0
+addon.Waypoints = {Refresh = function() end, Initialize = function() end, Sample = function() return waypointEntries, 0 end,
+    Command = function(value) waypointCommands[#waypointCommands + 1] = value end}
+addon.WaypointUI = {Refresh = function() end, Toggle = function() waypointToggled = waypointToggled + 1 end}
+local routeEntries, routeCommands, routeStops = {}, {}, 0
+addon.Routing = {Refresh=function() end, Status=function() return "Route status" end,
+    CanStop=function() return #routeEntries > 0 end, Sample=function() return routeEntries end,
+    Stop=function() routeStops=routeStops+1; routeEntries={}; return true end,
+    Command=function(value) routeCommands[#routeCommands+1]=value end}
 local frame, texts, messages, textures = nil, {}, {}, {}
 local members, message = {}, "No locatable group members"
 local mapMembers, mapsEnabled
@@ -66,6 +78,12 @@ assert(loadfile("GroupCompass/Demo.lua"))("GroupCompass", addon)
 assert(loadfile("GroupCompass/Core.lua"))("GroupCompass", addon)
 local command = SlashCmdList.GROUPCOMPASS
 local status = texts[1]
+frame.scripts.OnEvent(frame, "ADDON_LOADED", "GroupCompass")
+assert(initialized)
+command("options"); command(""); command("config"); assert(optionsToggled == 3)
+command("Waypoints"); command("Waypoint Here My Camp")
+assert(waypointToggled == 1 and waypointCommands[1] == "Here My Camp")
+command("Route 1"); assert(routeCommands[1]=="1")
 local function visible()
     local count = 0
     for i = 2, #texts, 2 do if texts[i].shown then count = count + 1 end end
@@ -124,3 +142,23 @@ assert(frame.events.PLAYER_ENTERING_WORLD and frame.events.GROUP_ROSTER_UPDATE
     and frame.events.PLAYER_REGEN_DISABLED and frame.events.PLAYER_REGEN_ENABLED
     and frame.events.ZONE_CHANGED_NEW_AREA)
 io.write("PASS: compact strip, aligned names/markers/distances, collision hover, commands and lifecycle\n")
+members = {}; message = "No locatable group members"
+waypointEntries = {{kind = "waypoint", waypointId = 1, slot = 41, name = "My Camp",
+    label = "[W1] My Camp", color = {1,0.78,0.25}, angle = 0, distance = 42}}
+command("on"); assert(visible() == 1 and texts[2].text == "[W1] My Camp")
+assert(#members == 0 and #mapMembers == 1, "merging must not mutate party samples")
+frame.scripts.OnUpdate(frame, .1); assert(#mapMembers == 1, "no duplicated waypoints on refresh")
+command("demo"); assert(#mapMembers == 0 and visible() == 3)
+addon.Waypoints.OnChanged("add")
+assert(#mapMembers == 1 and visible() == 1 and mapsEnabled, "adding a real waypoint exits demo")
+command("off"); addon.Waypoints.OnChanged("add")
+assert(frame.shown and #mapMembers == 1, "adding a waypoint enables its views")
+waypointEntries = {}; addon.Waypoints.OnChanged()
+assert(visible() == 0 and #mapMembers == 0, "removing a waypoint clears compass/minimap data")
+routeEntries={{kind="route",slot=1000000,name="Next step",label="[Route] Next step",color={.1,.8,1},angle=0,distance=10}}
+addon.Routing.OnStarted()
+assert(visible()==1 and texts[2].text=="[Route] Next step" and #mapMembers==0,
+    "route points share the bar but must not be copied into party/map samples")
+assert(texts[2].point[5]==-3 and textures[4].point[5]==-20)
+command("demo"); assert(routeStops>0 and visible()==3)
+command("off"); assert(not frame.shown)

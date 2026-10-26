@@ -1,4 +1,7 @@
 local addon = {}
+assert(loadfile("GroupCompass/Settings.lua"))("GroupCompass", addon)
+addon.Settings.Initialize()
+assert(loadfile("GroupCompass/MarkerStyle.lua"))("GroupCompass", addon)
 assert(loadfile("GroupCompass/Compat.lua"))("GroupCompass", addon)
 assert(loadfile("GroupCompass/Projection.lua"))("GroupCompass", addon)
 local mapMembers, requestedMap, mapSamples = {}, nil, 0
@@ -10,6 +13,11 @@ local function near(actual, expected) assert(math.abs(actual - expected) < 0.000
 local function region()
     return {
         SetAllPoints = function() end, SetPoint = function() end,
+        SetSize = function(self, w, h) self.width, self.height = w, h end,
+        SetTexture = function(self, texture) self.texture = texture end,
+        SetVertexColor = function(self, ...) self.color = {...} end,
+        SetAlpha = function(self, value) self.alpha = value end,
+        SetBlendMode = function() end,
         SetColorTexture = function(self, ...) self.color = {...} end,
         SetText = function(self, text) self.text = text end,
         SetTextColor = function() end,
@@ -19,9 +27,10 @@ local minimapFrames, allocations = {}, 0
 local function frame()
     return {
         shown = false, scripts = {},
-        SetSize = function() end, CreateTexture = region, CreateFontString = region,
+        SetSize = function(self, w, h) self.width, self.height = w, h end, CreateTexture = region, CreateFontString = region,
+        HookScript = function(self, event, fn) self.hooks = self.hooks or {}; self.hooks[event] = fn end,
         SetFrameLevel = function() end, EnableMouse = function() end,
-        SetMouseClickEnabled = function() end, ClearAllPoints = function() end,
+        SetMouseClickEnabled = function(self, value) self.clickEnabled = value end, ClearAllPoints = function() end,
         SetPoint = function(self, ...) self.point = {...} end,
         SetAlpha = function(self, alpha) self.alpha = alpha end,
         SetScript = function(self, event, fn) self.scripts[event] = fn end,
@@ -29,6 +38,7 @@ local function frame()
         Hide = function(self)
             self.shown = false
             if self.scripts.OnHide then self.scripts.OnHide(self) end
+            if self.hooks and self.hooks.OnHide then self.hooks.OnHide(self) end
         end,
     }
 end
@@ -72,7 +82,8 @@ addon.Maps.Update({member}, true) -- World map is not loaded yet.
 assert(#minimapFrames == 1 and minimapFrames[1].shown)
 local marker = minimapFrames[1]
 near(marker.point[4], 0); near(marker.point[5], 25)
-assert(marker.label.text == "1" and marker.fill.color[1] == 0.3)
+assert(marker.fill.texture:find("person.tga", 1, true) and marker.fill.color[1] == 0.3 and marker.width == 20)
+assert(not marker.clickEnabled, "party markers must pass map clicks through")
 marker.scripts.OnEnter(marker)
 assert(GameTooltip.text == "[1] Ally")
 assert(GameTooltip.color[1] == member.color[1] and GameTooltip.color[3] == member.color[3])
@@ -85,7 +96,7 @@ near(marker.point[4], 0); near(marker.point[5], 25)
 member.north = 200; member.distance = 200
 addon.Maps.Update({member}, true)
 assert(marker.edge and marker.alpha == 0.75)
-near(marker.point[5], 86)
+near(marker.point[5], 100 - 20 / math.sqrt(2) - 2)
 radius = 0; addon.Maps.Update({member}, true)
 assert(not marker.shown and GameTooltip.owner == nil)
 radius = 100; addon.Maps.Update({member}, true)
@@ -136,8 +147,14 @@ WorldMapFrame = map; mapMembers = {member}
 addon.Maps.Update({member}, true)
 assert(requestedMap == 123 and acquired == 1)
 local pin = next(pins)
-assert(pin.x == 0.2 and pin.y == 0.7 and pin.label.text == "1")
-pin:OnMouseEnter(); assert(GameTooltip.text == "[1] Ally")
+assert(pin.x == 0.2 and pin.y == 0.7 and pin.width == 24)
+assert(not pin.clickEnabled, "party pins should not intercept map clicks")
+addon.Settings.Set("worldSize", 38); addon.Settings.Set("minimapSize", 30)
+addon.Settings.Set("colorMode", "gold"); addon.Settings.Set("icon", "shield")
+addon.Maps.Refresh()
+assert(pin.width == 38 and marker.width == 30 and pin.fill.texture:find("shield.tga", 1, true))
+assert(pin.fill.color[1] == 1 and marker.fill.color[1] == 1)
+pin:OnMouseEnter(); assert(GameTooltip.text == "[1] Ally" and GameTooltip.color[1] == 1)
 member.x = 0.6; addon.Maps.Update({member}, true)
 assert(acquired == 1 and pin.x == 0.6, "pins should be reused, not reacquired each tick")
 map.id = 456; mapMembers = {}; map.provider:RefreshAllData()
@@ -155,3 +172,10 @@ assert(not marker.shown and not next(pins), "no stale roster markers")
 map.provider:OnRemoved(map); map.provider = nil
 addon.Maps.Update({member}, true); assert(map.provider, "provider should reattach after removal")
 print("PASS: lazy map loading, pin lifecycle, minimap markers, zoom/range, rotation, hover and cleanup")
+addon.Maps.Update({}, false); mapMembers = {}
+local tomtomPoint={source="tomtom",kind="waypoint",north=25,west=0,facing=0,color={1,.78,.25},slot=1000001,name="TomTom"}
+addon.Maps.Update({tomtomPoint},true)
+assert(not marker.shown and not next(pins), "TomTom's own pins must not be duplicated")
+addon.Maps.Update({tomtomPoint,member},true)
+assert(marker.shown and marker.member==member, "filtering provider points must retain contiguous member markers")
+io.write("PASS: TomTom points are excluded from custom maps; party pins and click pass-through remain intact\n")

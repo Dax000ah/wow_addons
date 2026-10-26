@@ -24,4 +24,10 @@ for _, dx in ipairs({-9, 9}) do
 end
 assert(not addon.Projection.Minimap(1, 1, 0, false, 0, 200, 200))
 assert(not addon.Projection.Minimap(1, 1, 0, false, 100, 20, 20))
+for _, size in ipairs({12, 20, 30, 40}) do
+    x, y = addon.Projection.Minimap(200, -200, 0, false, 100, 200, 200, size)
+    for _, dx in ipairs({-size/2-1, size/2+1}) do
+        for _, dy in ipairs({-size/2-1, size/2+1}) do assert((x+dx)^2+(y+dy)^2 <= 100^2) end
+    end
+end
 print("PASS: minimap cardinals, rotation, zoom, overlap, clamping, non-square size and invalid dimensions")

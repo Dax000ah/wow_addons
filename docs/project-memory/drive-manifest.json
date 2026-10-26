@@ -1,9 +1,9 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-10-26",
   "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
   "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
   "timezone": "America/Los_Angeles",
-  "installed_version": "0.5.2",
+  "installed_version": "0.9.0",
   "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
   "project_folder": {
     "success": true,
@@ -184,6 +184,121 @@
           "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
         }
       }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\ROUTING_FEASIBILITY.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1lEBgEEJtVDgouQ4zZrl__ONVi8T_ILOA",
+        "title": "ROUTING_FEASIBILITY.md",
+        "file_name": "ROUTING_FEASIBILITY.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1lEBgEEJtVDgouQ4zZrl__ONVi8T_ILOA/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1lEBgEEJtVDgouQ4zZrl__ONVi8T_ILOA",
+          "title": "ROUTING_FEASIBILITY.md",
+          "file_name": "ROUTING_FEASIBILITY.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1lEBgEEJtVDgouQ4zZrl__ONVi8T_ILOA/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-24_COMPLETED.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1AEmGkowC6BNr1IvFmRhtLldLSzDBWWw7",
+        "title": "2026-10-24_COMPLETED.md",
+        "file_name": "2026-10-24_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1AEmGkowC6BNr1IvFmRhtLldLSzDBWWw7/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1AEmGkowC6BNr1IvFmRhtLldLSzDBWWw7",
+          "title": "2026-10-24_COMPLETED.md",
+          "file_name": "2026-10-24_COMPLETED.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1AEmGkowC6BNr1IvFmRhtLldLSzDBWWw7/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\ROUTING_TEST_RESULTS.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx",
+        "title": "ROUTING_TEST_RESULTS.md",
+        "file_name": "ROUTING_TEST_RESULTS.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx",
+          "title": "ROUTING_TEST_RESULTS.md",
+          "file_name": "ROUTING_TEST_RESULTS.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx/view?usp=drivesdk",
+          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\CLASSIC_ROUTING_COMPATIBILITY.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1i_-P2kPAnRvhXhOsusY5tnWKoYImZszY",
+        "title": "CLASSIC_ROUTING_COMPATIBILITY.md",
+        "file_name": "CLASSIC_ROUTING_COMPATIBILITY.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1i_-P2kPAnRvhXhOsusY5tnWKoYImZszY/view?usp=drivesdk",
+        "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1i_-P2kPAnRvhXhOsusY5tnWKoYImZszY",
+          "title": "CLASSIC_ROUTING_COMPATIBILITY.md",
+          "file_name": "CLASSIC_ROUTING_COMPATIBILITY.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1i_-P2kPAnRvhXhOsusY5tnWKoYImZszY/view?usp=drivesdk",
+          "parent_id": "1Hl4xlYLXewM7LdDwj1pMhNoCtGEyOqK5"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-26_COMPLETED.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1qsix4NwKrXNW-i4-ZrqUmwCJ9C5Uz6lN",
+        "title": "2026-10-26_COMPLETED.md",
+        "file_name": "2026-10-26_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1qsix4NwKrXNW-i4-ZrqUmwCJ9C5Uz6lN/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1qsix4NwKrXNW-i4-ZrqUmwCJ9C5Uz6lN",
+          "title": "2026-10-26_COMPLETED.md",
+          "file_name": "2026-10-26_COMPLETED.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1qsix4NwKrXNW-i4-ZrqUmwCJ9C5Uz6lN/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
     }
   ],
   "assets": [
@@ -303,13 +418,26 @@
       }
     },
     {
-      "name": "GroupCompass-0.5.2.zip",
+      "name": "GroupCompass-0.9.0.zip",
       "drive": {
-        "id": "1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE",
-        "title": "GroupCompass-0.5.2.zip",
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
+        "title": "GroupCompass-0.9.0.zip",
+        "file_name": "GroupCompass-0.9.0.zip",
         "mime_type": "application/zip",
-        "url": "https://drive.google.com/file/d/1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE/view?usp=drivesdk",
-        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
+          "title": "GroupCompass-0.9.0.zip",
+          "file_name": "GroupCompass-0.9.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
+          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+        }
       }
     }
   ],
@@ -461,6 +589,202 @@
         "url": "https://drive.google.com/file/d/1cAd12yKhXNJGGtS4zhWVOPizcvNBi1qY/view?usp=drivesdk",
         "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
       }
+    },
+    {
+      "version": "0.5.2",
+      "drive": {
+        "id": "1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE",
+        "title": "GroupCompass-0.5.2.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1WJTrRw1b2qVrOYWjHS4whC6aiuJByAgE/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.6.0",
+      "drive": {
+        "id": "1wmHHKmxsScnmI_gbQz4TfSjxLT0sVvsT",
+        "title": "GroupCompass-0.6.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1wmHHKmxsScnmI_gbQz4TfSjxLT0sVvsT/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.6.1",
+      "drive": {
+        "id": "1xPCMP3sSJdQuKY12g0PApuk6yrtsxNHY",
+        "title": "GroupCompass-0.6.1.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1xPCMP3sSJdQuKY12g0PApuk6yrtsxNHY/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.7.0",
+      "drive": {
+        "id": "1LjmWnLY6372TDpcPf9CkSvrX1j2i-mB5",
+        "title": "GroupCompass-0.7.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1LjmWnLY6372TDpcPf9CkSvrX1j2i-mB5/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.8.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1cV9FFAAWMWhMpawpSfW3Lf7VN24KPKXT",
+        "title": "GroupCompass-0.8.0.zip",
+        "file_name": "GroupCompass-0.8.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1cV9FFAAWMWhMpawpSfW3Lf7VN24KPKXT/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1cV9FFAAWMWhMpawpSfW3Lf7VN24KPKXT",
+          "title": "GroupCompass-0.8.0.zip",
+          "file_name": "GroupCompass-0.8.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1cV9FFAAWMWhMpawpSfW3Lf7VN24KPKXT/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.8.1",
+      "drive": {
+        "id": "1yz9s1f3dcCuN8bomeXs-ecQSVeqiCri1",
+        "title": "GroupCompass-0.8.1.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1yz9s1f3dcCuN8bomeXs-ecQSVeqiCri1/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
     }
-  ]
+  ],
+  "routing_research": {
+    "date": "2026-10-24",
+    "report": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx",
+      "title": "ROUTING_TEST_RESULTS.md",
+      "file_name": "ROUTING_TEST_RESULTS.md",
+      "mime_type": "text/markdown",
+      "url": "https://drive.google.com/file/d/19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx/view?usp=drivesdk",
+      "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+      "structuredContent": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx",
+        "title": "ROUTING_TEST_RESULTS.md",
+        "file_name": "ROUTING_TEST_RESULTS.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/19w3e8Gyf-OEx0ilAQXL8NgBjKcGGPVFx/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+      }
+    },
+    "prototype_and_test_zip": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "1qY0Tj81LaHpQiNeFljlHgFN1OIeU9vZj",
+      "title": "GroupCompass-Routing-Research-2026-10-24.zip",
+      "file_name": "GroupCompass-Routing-Research-2026-10-24.zip",
+      "mime_type": "application/zip",
+      "url": "https://drive.google.com/file/d/1qY0Tj81LaHpQiNeFljlHgFN1OIeU9vZj/view?usp=drivesdk",
+      "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
+      "structuredContent": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1qY0Tj81LaHpQiNeFljlHgFN1OIeU9vZj",
+        "title": "GroupCompass-Routing-Research-2026-10-24.zip",
+        "file_name": "GroupCompass-Routing-Research-2026-10-24.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1qY0Tj81LaHpQiNeFljlHgFN1OIeU9vZj/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+      }
+    },
+    "status": "October 24 prototype/engine evidence; optional Group Compass bridge installed as 0.8.0 on October 26. Provider getter still uninstalled; native provider gates open."
+  },
+  "native_probe_2026_10_26": {
+    "output": "function function nil nil",
+    "screenshot": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "1kPDIEjf4AUhiU842wcvZ8bXNL8viHDXS",
+      "title": "classic-routing-probe-2026-10-26.png",
+      "file_name": "classic-routing-probe-2026-10-26.png",
+      "mime_type": "image/png",
+      "url": "https://drive.google.com/file/d/1kPDIEjf4AUhiU842wcvZ8bXNL8viHDXS/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+      "structuredContent": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1kPDIEjf4AUhiU842wcvZ8bXNL8viHDXS",
+        "title": "classic-routing-probe-2026-10-26.png",
+        "file_name": "classic-routing-probe-2026-10-26.png",
+        "mime_type": "image/png",
+        "url": "https://drive.google.com/file/d/1kPDIEjf4AUhiU842wcvZ8bXNL8viHDXS/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    "sidecar": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "1gq4E4o7rSOE68ngQMJl51bs63IiHM2zQ",
+      "title": "classic-routing-probe-2026-10-26.json",
+      "file_name": "classic-routing-probe-2026-10-26.json",
+      "mime_type": "application/json",
+      "url": "https://drive.google.com/file/d/1gq4E4o7rSOE68ngQMJl51bs63IiHM2zQ/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+      "structuredContent": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1gq4E4o7rSOE68ngQMJl51bs63IiHM2zQ",
+        "title": "classic-routing-probe-2026-10-26.json",
+        "file_name": "classic-routing-probe-2026-10-26.json",
+        "mime_type": "application/json",
+        "url": "https://drive.google.com/file/d/1gq4E4o7rSOE68ngQMJl51bs63IiHM2zQ/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    }
+  },
+  "waypoint_editor_2026_10_26": {
+    "version": "0.8.1",
+    "implementation": "GC-107 / archive GC-018",
+    "native_gate": "GC-211 pending",
+    "checks": "16 Lua 5.1 suites, package checks and 28 installed SHA-256 comparisons pass",
+    "notes": "Name and ten-icon edit palette, automatic map-create editor, map/list reopen. No Hardcore provider port.",
+    "superseded_by": "0.9.0 TomTom approach; native review GC-212"
+  },
+  "tomtom_integration_2026_10_26": {
+    "version": "0.9.0",
+    "implementation": "GC-108 / completed archive GC-019",
+    "native_gate": "GC-212 pending",
+    "evidence": {
+      "accepted_input": "file_uri",
+      "success": true,
+      "id": "1IL-XuEqQCruFVPbSlHqLq9HXuisQGYVS",
+      "title": "tomtom-integration-2026-10-26.json",
+      "file_name": "tomtom-integration-2026-10-26.json",
+      "mime_type": "application/json",
+      "url": "https://drive.google.com/file/d/1IL-XuEqQCruFVPbSlHqLq9HXuisQGYVS/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+      "structuredContent": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1IL-XuEqQCruFVPbSlHqLq9HXuisQGYVS",
+        "title": "tomtom-integration-2026-10-26.json",
+        "file_name": "tomtom-integration-2026-10-26.json",
+        "mime_type": "application/json",
+        "url": "https://drive.google.com/file/d/1IL-XuEqQCruFVPbSlHqLq9HXuisQGYVS/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    "checks": "17 Lua 5.1 suites, actual installed TomTom.lua API composition, package checks and 29 installed SHA-256 comparisons pass",
+    "provider": "v4.3.13-release",
+    "design": "TomTom owns live waypoints/map pins; independent CRUD/placement/waypoint rendering removed; legacy retained for confirmed one-time import."
+  }
 }

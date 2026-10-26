@@ -2,14 +2,24 @@
 ## Title: Group Compass
 ## Notes: Experimental compass, world-map and minimap group locator for Classic Era/Hardcore and Forever.
 ## Author: Tony
-## Version: 0.5.2
+## Version: 0.9.0
+## OptionalDeps: ShortestPathForever, TomTom
+## SavedVariables: GroupCompassDB
+## SavedVariablesPerCharacter: GroupCompassWaypointsDB
 
 Compat.lua
+Settings.lua
 Direction.lua
 Projection.lua
 Layout.lua
 Tracking.lua
 Demo.lua
+TomTomBridge.lua
+Waypoints.lua
+Routing.lua
+MarkerStyle.lua
 Maps.lua
 Maps.xml
+WaypointUI.lua
+Options.lua
 Core.lua

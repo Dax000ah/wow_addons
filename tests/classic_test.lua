@@ -9,6 +9,7 @@ local function region()
         SetAllPoints = function() end, SetColorTexture = function() end,
         SetWidth = function() end, SetTextColor = function() end,
         SetSize = function() end, SetWordWrap = function() end,
+        GetFont = function() return 'test-font',10,'' end, SetFont = function() end,
         GetStringWidth = function(self) return #(self.text or "") * 6 end,
         SetShown = function(self, shown) self.shown = shown end,
         SetPoint = function() end, ClearAllPoints = function() end,
@@ -35,7 +36,7 @@ end
 SlashCmdList = {}
 C_Minimap, C_AddOns, issecretvalue = nil, nil, nil
 GetAddOnMetadata = function(name, field)
-    assert(name == "GroupCompass" and field == "Version"); return "0.9.0"
+    assert(name == "GroupCompass" and field == "Version"); return toc:match("## Version:%s*([^\r\n]+)")
 end
 GetBuildInfo = function() return "1.15.9", "70003", "Sep 23 2026", 11509 end
 IsInInstance = function() return false end
@@ -55,7 +56,7 @@ local core = frames[#frames]
 core.scripts.OnEvent(core, "ADDON_LOADED", "SomeOtherAddon")
 assert(#messages == 0, "must not announce other addons")
 core.scripts.OnEvent(core, "ADDON_LOADED", "GroupCompass")
-assert(messages[1]:find("0.9.0 loaded", 1, true))
+assert(messages[1]:find("0.10.2 loaded", 1, true))
 SlashCmdList.GROUPCOMPASS("demo")
 assert(texts[1].text:find("DEMO") and texts[2].shown and texts[4].shown and texts[6].shown)
 SlashCmdList.GROUPCOMPASS("status")

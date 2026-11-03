@@ -103,13 +103,46 @@ function addon.Tracking.MapMembers(uiMapID)
     return members
 end
 
+-- Heading remains useful while solo or when the client withholds coordinates.
+function addon.Tracking.Facing()
+    local facing = GetPlayerFacing and GetPlayerFacing()
+    if number(facing) then return facing end
+end
+
+-- Routing takes a snapshot of a real member's current UI-map location. It does
+-- not invent coordinates for offline members or continuously chase a patrol.
+function addon.Tracking.RouteTargets()
+    local targets = {}
+    for _, member in ipairs(roster()) do
+        local connected = UnitIsConnected(member.unit)
+        member.id = UnitGUID and UnitGUID(member.unit) or member.unit
+        if not readable(member.id) then member.id = member.unit end
+        if readable(connected) and connected and C_Map and C_Map.GetBestMapForUnit
+            and C_Map.GetPlayerMapPosition then
+            local map = C_Map.GetBestMapForUnit(member.unit)
+            if number(map) and map > 0 then
+                local point = C_Map.GetPlayerMapPosition(map, member.unit)
+                if readable(point) and point then
+                    local x, y = point:GetXY()
+                    if number(x) and number(y) and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
+                        member.mapID, member.x, member.y = map, x, y
+                    end
+                end
+            end
+        end
+        member.reason = not member.mapID and "Member location unavailable (offline, another area, or withheld by the client)." or nil
+        targets[#targets + 1] = member
+    end
+    return targets
+end
+
 function addon.Tracking.PlayerState()
     -- Combat/instances do not disable the addon. Use only coordinates the client
     -- actually exposes; nil/secret/invalid values still clear affected markers.
     if not UnitPosition or not GetPlayerFacing then
         return nil, "Position or facing API unavailable"
     end
-    local facing = GetPlayerFacing()
+    local facing = addon.Tracking.Facing()
     local px, py, _, playerMap = position("player")
     if not number(facing) or not px then
         return nil, "Player position or facing unavailable"

@@ -24,3 +24,21 @@ reloaded.Settings.Reset()
 assert(GroupCompassDB.icon == "person" and GroupCompassDB.minimapSize == 20 and GroupCompassDB.worldSize == 24)
 assert(GroupCompassDB.effect == "none" and GroupCompassDB.colorMode == "class")
 print("PASS: settings defaults, validation, bounds, callbacks, saved reload and reset")
+
+s.Initialize()
+assert(s.Get().compassWidth==620 and s.Get().compassHeight==46 and s.Get().textSize==10)
+for _,key in ipairs({'compassWidth','compassHeight','textSize'}) do
+    local range=s.Ranges[key]
+    s.Set(key,-100); assert(s.Get()[key]>=range[1])
+    s.Set(key,10000); assert(s.Get()[key]==range[2])
+    s.Set(key,0/0); assert(s.Get()[key]<=range[2])
+    s.Set(key,math.huge); assert(s.Get()[key]<=range[2])
+end
+s.Reset(); s.Set('textSize',20); assert(s.Get().compassHeight==76 and s.MinimumHeight()==76)
+s.Set('compassHeight',40); assert(s.Get().compassHeight==76)
+s.Set('compassWidth',713.6); assert(s.Get().compassWidth==714)
+s.Initialize(); assert(s.Get().compassWidth==714 and s.Get().textSize==20 and s.Get().compassHeight==76)
+GroupCompassDB={textSize=20,compassHeight=40,compassWidth=900}
+s.Initialize(); assert(s.Get().compassHeight==76 and s.Get().compassWidth==900)
+s.Reset(); assert(s.Get().compassWidth==620 and s.Get().compassHeight==46 and s.Get().textSize==10)
+print('PASS: compass sizing bounds, legacy defaults, finite values, rounding, dynamic height minimum, persistence and reset')

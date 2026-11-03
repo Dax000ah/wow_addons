@@ -13,6 +13,13 @@ local function near(actual, expected) assert(math.abs(actual - expected) < 0.000
 local function region()
     return {
         SetAllPoints = function() end, SetPoint = function() end,
+        ClearAllPoints = function() end, SetWordWrap = function() end,
+        GetFont = function() return "test-font", 10, "" end, SetFont = function() end,
+        SetWidth = function() end,
+        GetStringWidth = function(self) return #(self.text or "") * 6 end,
+        SetShown = function(self, value) self.shown = value end,
+        Hide = function(self) self.shown = false end,
+        Show = function(self) self.shown = true end,
         SetSize = function(self, w, h) self.width, self.height = w, h end,
         SetTexture = function(self, texture) self.texture = texture end,
         SetVertexColor = function(self, ...) self.color = {...} end,
@@ -35,6 +42,8 @@ local function frame()
         SetAlpha = function(self, alpha) self.alpha = alpha end,
         SetScript = function(self, event, fn) self.scripts[event] = fn end,
         Show = function(self) self.shown = true end,
+        SetShown = function(self, value) if value then self:Show() else self:Hide() end end,
+        RegisterEvent = function() end,
         Hide = function(self)
             self.shown = false
             if self.scripts.OnHide then self.scripts.OnHide(self) end
@@ -116,7 +125,7 @@ assert(marker.shown)
 near(marker.point[5], 25 / ((466 + 2/3) / 2) * 100)
 C_Minimap = modernMinimap
 
-local pins, acquired, removed = {}, 0, 0
+local pins, acquired, removed, inactive, created = {}, 0, 0, {}, 0
 local map = {shown = true, id = 123}
 map.IsShown = function(self) return self.shown end
 map.GetMapID = function(self) return self.id end
@@ -126,18 +135,29 @@ map.AddDataProvider = function(self, provider)
 end
 map.AcquirePin = function(_, template, data)
     assert(template == "GroupCompassWorldPinTemplate")
-    local pin = frame()
-    for key, value in pairs(GroupCompassWorldPinMixin) do pin[key] = value end
-    pin.UseFrameLevelType = function() end
-    pin.SetScalingLimits = function() end
-    pin.SetPosition = function(self, x, y) self.x, self.y = x, y end
-    pin:OnLoad(); pin:OnAcquired(data)
+    local pin = table.remove(inactive)
+    if not pin then
+        pin = frame()
+        for key, value in pairs(GroupCompassWorldPinMixin) do pin[key] = value end
+        pin.UseFrameLevelType = function() end
+        pin.SetScalingLimits = function() end
+        pin.SetPosition = function(self, x, y) self.x, self.y = x, y end
+        -- Blizzard's frame pool resets a newly created pin BEFORE AcquirePin
+        -- calls OnLoad. This is not an initialized marker yet.
+        pin:Hide(); pin:ClearAllPoints(); pin:OnReleased()
+        assert(not pin.fill and not pin.glow and not pin.outline)
+        pin:OnLoad()
+        created = created + 1
+    end
+    pin:Show(); pin:OnAcquired(data)
     pins[pin] = true; acquired = acquired + 1
     return pin
 end
 map.RemovePin = function(_, pin)
     assert(pins[pin], "removing an unowned pin")
-    pins[pin] = nil; pin:OnReleased(); removed = removed + 1
+    pins[pin] = nil; pin:Hide(); pin:ClearAllPoints(); pin:OnReleased()
+    inactive[#inactive + 1] = pin
+    removed = removed + 1
 end
 map.RemoveAllPinsByTemplate = function(self, template)
     assert(template == "GroupCompassWorldPinTemplate")
@@ -160,6 +180,8 @@ assert(acquired == 1 and pin.x == 0.6, "pins should be reused, not reacquired ea
 map.id = 456; mapMembers = {}; map.provider:RefreshAllData()
 assert(requestedMap == 456 and not next(pins) and removed == 1 and GameTooltip.owner == nil)
 mapMembers = {member}; addon.Maps.Update({member}, true)
+assert(next(pins) == pin and pin.shown and pin.member == member and created == 1,
+    "released pins must be reused with artwork and member data intact")
 map.provider:OnHide(); assert(not next(pins))
 map.shown = false; local before = mapSamples
 addon.Maps.Update({member}, true); assert(mapSamples == before)
@@ -179,3 +201,49 @@ assert(not marker.shown and not next(pins), "TomTom's own pins must not be dupli
 addon.Maps.Update({tomtomPoint,member},true)
 assert(marker.shown and marker.member==member, "filtering provider points must retain contiguous member markers")
 io.write("PASS: TomTom points are excluded from custom maps; party pins and click pass-through remain intact\n")
+
+-- Compose the actual compass with the map provider: first party-pin allocation
+-- must not abort the refresh before the member's name is drawn on the bar.
+addon.Maps.Update({}, false)
+inactive = {} -- The next party refresh must construct a fresh pooled pin.
+local core, names = nil, {}
+CreateFrame = function(_, name)
+    local result = frame()
+    if name == "GroupCompassFrame" then
+        core = result
+        result.CreateFontString = function()
+            local text = region(); names[#names + 1] = text; return text
+        end
+    end
+    return result
+end
+UIParent, SlashCmdList = {}, {}
+addon.Options = {Initialize = function() end}
+addon.WaypointUI = {Refresh = function() end}
+addon.Waypoints = {Initialize = function() end, Refresh = function() end,
+    Sample = function() return {}, 0 end}
+addon.Routing = {Refresh = function() end,
+    CanStop = function() return false end}
+addon.Tracking.Facing = function() return 0 end
+addon.Tracking.Sample = function() return mapMembers, "Character facing - center is ahead" end
+member.angle = 0
+assert(loadfile("GroupCompass/Direction.lua"))("GroupCompass", addon)
+assert(loadfile("GroupCompass/Layout.lua"))("GroupCompass", addon)
+assert(loadfile("GroupCompass/Core.lua"))("GroupCompass", addon)
+core.scripts.OnEvent(core, "ADDON_LOADED", "GroupCompass")
+for _ = 1, 3 do
+    mapMembers = {member}
+    core.scripts.OnEvent(core, "GROUP_ROSTER_UPDATE")
+    assert(names[2].shown and names[2].text == "[1] Ally" and next(pins),
+        "first party pin and compass name must both render on roster update")
+    -- OpenMap's zone/world switching refreshes the map data providers.
+    map.id = 947; map.provider:RefreshAllData()
+    map.provider:OnHide(); assert(not next(pins))
+    map.id = 1438
+    core.scripts.OnUpdate(core, 0.1)
+    assert(names[2].shown and next(pins))
+    mapMembers = {}
+    core.scripts.OnEvent(core, "GROUP_ROSTER_UPDATE")
+    assert(not names[2].shown and not next(pins))
+end
+io.write("PASS: pre-OnLoad pool reset, pin recycling, party join/leave and actual compass/map refresh composition\n")

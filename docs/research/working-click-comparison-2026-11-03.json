@@ -1,0 +1,35 @@
+{
+  "player": {
+    "map": 1.0,
+    "x": 9948.900390625,
+    "y": 2091.60009765625
+  },
+  "goal": {
+    "map": 1.0,
+    "x": 10082.162109375,
+    "y": 2041.90234375
+  },
+  "capture_source_sha256": "906b7e09feca1282b139bc29e1da81a2b3603b2d74d97ee6593f12855e0ece43",
+  "revision": 584,
+  "world_map": 1457,
+  "points": 12,
+  "minimap_strokes": 13,
+  "world_strokes": 16,
+  "measured": true,
+  "drawn": true,
+  "goal_distance_from_prior_failed_yards": 1604.0685949620367,
+  "owner_not_stored_in_snapshot": true,
+  "member_route": "Tony reports selecting a member from GC menu works; screenshot shows intercontinental cyan curve",
+  "route_color": "Provider COLORS.boat=(0,.75,1); walk=NORMAL_FONT_COLOR; no member class-color passed by GC",
+  "exact_saved_point_control": {
+    "command": "/path way #1414 44.800972673 8.387378696 Exact saved point",
+    "user_result": "No route appears"
+  },
+  "conclusion": "This saved destination fails through native provider command too. Successful click had a different start and goal. No menu-specific failure established for this case; precise engine/nav refusal reason remains unknown.",
+  "native_fresh_tomtom_control": {
+    "result": "Tony confirms it worked",
+    "selection": "Fresh TomTom road waypoint via GC menu, per immediately preceding instructions",
+    "scope": "Single route acceptance only; no new point coordinates/counts/capture supplied",
+    "runtime_change_required": false
+  }
+}

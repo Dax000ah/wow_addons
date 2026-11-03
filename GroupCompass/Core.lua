@@ -1,6 +1,5 @@
 local addonName, addon = ...
 local frame = CreateFrame("Frame", "GroupCompassFrame", UIParent)
-frame:SetSize(620, 46)
 frame:SetPoint("TOP", 0, -54)
 frame:EnableMouse(true)
 frame:SetMouseClickEnabled(false)
@@ -8,27 +7,60 @@ local background = frame:CreateTexture(nil, "BACKGROUND")
 background:SetAllPoints()
 background:SetColorTexture(0, 0, 0, 0.22)
 local baseline = frame:CreateTexture(nil, "ARTWORK")
-baseline:SetSize(600, 1)
-baseline:SetPoint("TOP", 0, -23)
 baseline:SetColorTexture(0.85, 0.85, 0.75, 0.45)
 local center = frame:CreateTexture(nil, "ARTWORK")
 center:SetSize(1, 12)
-center:SetPoint("TOP", 0, -17)
 center:SetColorTexture(1, 0.85, 0.5, 0.9)
 local status = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-status:SetPoint("CENTER")
-status:SetWidth(600)
+status:SetWordWrap(false)
 local markers = {}
 for index = 1, 61 do
     local name = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    name:SetWidth(120)
     name:SetWordWrap(false)
     local distance = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    distance:SetWidth(80)
     distance:SetWordWrap(false)
     local tick = frame:CreateTexture(nil, "OVERLAY")
     tick:SetSize(3, 7)
     markers[index] = {name = name, distance = distance, tick = tick}
+end
+
+local cardinals = {}
+for _, direction in ipairs({{"N", 0}, {"E", -math.pi / 2}, {"S", math.pi}, {"W", math.pi / 2}}) do
+    local label = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    label:SetWordWrap(false)
+    label:SetText(direction[1])
+    label:SetTextColor(1, 0.88, 0.64)
+    cardinals[#cardinals + 1] = {label = label, bearing = direction[2]}
+end
+
+local appearance
+local function applyAppearance()
+    local settings = addon.Settings.Get()
+    if appearance and appearance.width == settings.compassWidth
+        and appearance.height == settings.compassHeight and appearance.font == settings.textSize then
+        return appearance
+    end
+    appearance = addon.Layout.Compass(settings)
+    local function font(region, width)
+        local path, _, flags = region:GetFont()
+        region:SetFont(path, appearance.font, flags)
+        region:SetWidth(width)
+    end
+    frame:SetSize(appearance.width, appearance.height)
+    baseline:SetSize(appearance.width - 20, 1)
+    baseline:ClearAllPoints()
+    baseline:SetPoint("TOP", 0, appearance.tickY - 3)
+    center:ClearAllPoints()
+    center:SetPoint("TOP", 0, appearance.tickY + 1)
+    status:ClearAllPoints()
+    status:SetPoint("TOP", 0, appearance.nameY)
+    font(status, appearance.width - 20)
+    for _, marker in ipairs(markers) do
+        font(marker.name, appearance.labelWidth)
+        font(marker.distance, appearance.distanceWidth)
+    end
+    for _, cardinal in ipairs(cardinals) do font(cardinal.label, 1.8 * appearance.font) end
+    return appearance
 end
 
 local enabled, demo, elapsed = true, false, 0
@@ -63,7 +95,21 @@ frame:SetScript("OnEnter", showDetails)
 frame:SetScript("OnLeave", hideDetails)
 frame:SetScript("OnHide", hideDetails)
 local function refresh()
+    local layout = applyAppearance()
     addon.Waypoints.Refresh()
+    addon.Routing.Refresh()
+    local facing = addon.Tracking.Facing()
+    for _, cardinal in ipairs(cardinals) do
+        cardinal.label:Hide()
+        if facing then
+            local angle = addon.Direction.Relative(cardinal.bearing, facing)
+            if math.abs(angle) <= math.pi / 2 then
+                cardinal.label:ClearAllPoints()
+                cardinal.label:SetPoint("TOP", frame, "TOP", angle / (math.pi / 2) * layout.span, layout.headingY)
+                cardinal.label:Show()
+            end
+        end
+    end
     for _, marker in ipairs(markers) do
         marker.name:Hide(); marker.distance:Hide(); marker.tick:Hide()
     end
@@ -85,35 +131,29 @@ local function refresh()
     end
     -- Never place synthetic demo locations onto actual maps.
     addon.Maps.Update(demo and {} or members, enabled and not demo)
-    if not demo then
-        local route = addon.Routing.Sample()
-        if #members == 0 and addon.Routing.CanStop() then message = addon.Routing.Status() end
-        if #route > 0 then
-            local combined = {}
-            for _, member in ipairs(members) do combined[#combined + 1] = member end
-            combined[#combined + 1] = route[1]
-            members = combined
-        end
+    if not demo and #members == 0 and addon.Routing.CanStop() then
+        message = addon.Routing.Status()
     end
     local visible = 0
     for _, member in ipairs(members) do
         if math.abs(member.angle) <= math.pi / 2 then
             visible = visible + 1
             local marker = markers[visible]
-            local x = member.angle / (math.pi / 2) * 240
+            local x = member.angle / (math.pi / 2) * layout.span
             marker.name:ClearAllPoints()
-            marker.name:SetPoint("TOP", frame, "TOP", x, -3)
+            marker.name:SetPoint("TOP", frame, "TOP", x, layout.nameY)
             marker.name:SetTextColor(unpack(member.color))
             marker.name:SetText(member.label or string.format("[%d] %s", member.slot, member.name))
             marker.distance:ClearAllPoints()
-            marker.distance:SetPoint("TOP", frame, "TOP", x, -29)
+            marker.distance:SetPoint("TOP", frame, "TOP", x, layout.distanceY)
             marker.distance:SetText(string.format("~%.0f yd", member.distance))
             marker.tick:ClearAllPoints()
-            marker.tick:SetPoint("TOP", frame, "TOP", x, -20)
+            marker.tick:SetPoint("TOP", frame, "TOP", x, layout.tickY)
             marker.tick:SetColorTexture(unpack(member.color))
             marker.tick:Show()
             visibleMembers[visible] = {member = member, marker = marker, x = x,
-                width = math.max(80, math.min(120, marker.name:GetStringWidth()))}
+                width = math.max(math.min(layout.distanceWidth, marker.distance:GetStringWidth()),
+                    math.min(layout.labelWidth, marker.name:GetStringWidth()))}
         end
     end
     if #members > 0 and visible == 0 then
@@ -126,10 +166,15 @@ local function refresh()
     displayMessage = message
     status:SetText(message)
     status:SetShown(visible == 0)
-    baseline:SetShown(visible > 0)
-    center:SetShown(visible > 0)
+    baseline:SetShown(facing ~= nil or visible > 0)
+    center:SetShown(facing ~= nil or visible > 0)
     if GameTooltip:IsOwned(frame) then showDetails() end
 end
+
+addon.Compass = {RefreshAppearance = function()
+    applyAppearance()
+    if enabled then refresh() end
+end}
 
 for _, event in ipairs({ "ADDON_LOADED", "PLAYER_ENTERING_WORLD", "GROUP_ROSTER_UPDATE",
     "PLAYER_REGEN_DISABLED", "PLAYER_REGEN_ENABLED", "ZONE_CHANGED_NEW_AREA", "MINIMAP_UPDATE_ZOOM" }) do
@@ -140,6 +185,7 @@ frame:SetScript("OnEvent", function(_, event, name)
         if name == addonName then
             addon.Settings.Initialize()
             addon.Waypoints.Initialize()
+            applyAppearance()
             addon.Routing.OnChanged = addon.WaypointUI.Refresh
             addon.Routing.OnStarted = function()
                 demo, enabled = false, true

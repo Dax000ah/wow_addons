@@ -1,6 +1,6 @@
 # Product Requirements — Group Compass
 
-Status: living PRD. Updated 2026-10-26. Product owner: Tony.
+Status: living PRD. Updated 2026-10-30. Product owner: Tony.
 
 ## Problem and desired outcome
 
@@ -10,6 +10,28 @@ minimal obstruction of the game world. World-map and minimap member markers are
 also in scope. This is not an addon for recruiting strangers or browsing LFG.
 
 ## Confirmed requirements
+
+- R18: Work with the unmodified addons in Tony's Forever installation. Work with
+  Shortest Path Forever out of the box through its
+  existing public API. Never inject support methods, modify private settings or
+  depend on the private Hardcore compatibility copy. Preserve this constraint
+  when API limitations prevent an originally desired one-click feature.
+- R17: Right-click cyan launcher opens golden-path targets; left-click options.
+  TomTom and fresh member snapshots call upstream Navigate. Native tracked quest
+  is capability-dependent. Retry/Stop apply only to our route. RestedXP resumes
+  through the provider's native settings, because its API exposes no resume/source
+  selection. Automatic followers remain user-configured. No supported next-turn
+  getter exists; provider native guidance handles turns. Corrected in 0.10.2;
+  the incompatible 0.10.0 extension design is superseded. Native GC-217/HC-008 open.
+
+- R16: Provide a Compass options tab with saved live sliders for bar width,
+  height and text size, displaying limits and values. Enforce readable row spacing,
+  preserve shared member rows and real bearings, and retain map controls in a
+  separate tab. Implemented 0.9.2; native review GC-214.
+
+- R15: Show N/E/S/W on the compass using the character-facing bearing scale, even
+  while solo. Keep the thin strip and shared member rows. Implemented in 0.9.1;
+  in-game readability and movement review remain GC-213.
 
 - R01: Show group-member bearings relative to the character's facing. An ahead
   member appears at the center; left/right members appear on that side.
@@ -23,8 +45,9 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
   Final height, styling and label-density rules need validation with Tony.
 - R05: Support solo compass testing. Simulated members must remain clearly labeled;
   turning and moving should exercise the actual bearing/distance calculation.
-- R06: First support Tony's available Classic Hardcore client (1.15.9/70003/11509)
-  for testing while retaining the Forever target (interface 16001).
+- R06: Forever (interface16001) is the primary release and acceptance target.
+  Classic Hardcore is a secondary development aid. Its privately patched addons
+  must never become required by Group Compass or substitute for Forever testing.
 - R07: Report unavailable data honestly. Clear stale custom markers; combat and
   instances must not automatically pause tracking. Never fabricate real locations.
 - R08: Keep installation simple: install directly to Tony's named addon directory
@@ -44,7 +67,10 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
   guidance consistent. Optional API controls/consumer implemented in 0.8.0; native
   provider execution still unverified. Tony selected
   the optional SPF API provider and accepts combat deferrals for routes. The
-  supported next-target contract and native test-client strategy remain open.
+  native provider handles turn guidance; no unsupported next-target extension is allowed. For pre-launch testing only, keep
+  the private Hardcore SPF compatibility copy outside Group Compass, with no
+  distribution. The existing consumer must work without Classic-specific changes.
+  Native Hardcore and unmodified Forever launch checks remain separate gates.
 - R09: Maintain durable project memory in the designated Google Drive development
   project, with local readable copies and completed-work archives.
 

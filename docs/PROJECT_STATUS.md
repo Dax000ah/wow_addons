@@ -1,6 +1,432 @@
 # Group Compass project checkpoints
 
-Date: 2026-10-26.
+## November 3 — milestone checkpoint and arrow roles
+
+Tony authorized a milestone commit of current Group Compass work. Documented
+arrow ownership in docs/NAVIGATION_GUIDE.md: our horizontal compass, RXP blue
+Step arrow, TomTom gold name/yards/stars arrow, and SPF travel route/turn guidance.
+Member selection changes the SPF request only; other arrows retain their own
+targets. Cyan map line means boat travel. No new runtime behavior or third-party
+changes in this checkpoint. All17 suites, structure, actual Forever API/TomTom
+checks and both stock-engine switching replays pass. Fresh TomTom/member native
+Hardcore controls are user-confirmed; repeated A/B/A and native Forever tests
+remain open. Milestone is a local Git commit; no push requested.
+
+## November 3 — fresh TomTom point through GC menu PASSED
+
+Tony confirms the suggested fresh road waypoint works when selected through GC.
+Record HC-013 / GC-035 as a native single-waypoint selection pass. No new report,
+coordinates or stroke counts supplied; do not invent them. Member selection was
+also user-confirmed working earlier. The old saved point fails via the native
+provider command too, so that specific case is not a GC menu handoff defect.
+No runtime/provider/install changes were needed. General repeated A/B/A routes,
+precise cause of the old point's refusal, and unmodified Forever acceptance are
+separate remaining checks. GC0.10.2 is still not installed in Forever. No new
+runtime tests run for this documentation-only acceptance update.
+
+## November 3 — same saved point also fails without GC; cyan means boat
+
+Read working capture as text: rev584, map1457(Darnassus),12 measured/drawn walk
+points,13mini/16world strokes. Playerworld1(9948.900390625,2091.60009765625),
+goal(10082.162109375,2041.90234375). Both start and goal differ from failed GC
+TomTom case; goals are about1604yd apart. Snapshot has no owner field.
+Tony confirms member selection through GC menu works. Screenshot's cyan curve
+is stock SPF's boat-leg color, not member class color; GC sends coordinates/name
+only. Gold walking, green flight. No color, runtime or installed-addon edits.
+
+Exact-point control: Tony ran `/path way #1414 44.800972673 8.387378696 Exact
+saved point` (the stored TomTom UID, bypassing GC) and confirms NO route appears.
+This case is therefore not menu-specific: the provider cannot currently plan
+to that saved destination. Combined with stock-engine replay, do not patch GC
+or a provider to hide the refusal. This is not proof of physical inaccessibility
+or the precise terrain defect. Suggest a fresh uniquely named TomTom point on
+a known road where map-click navigation works, then select it in GC's menu.
+No user waypoint was deleted or changed. GC-218's exact saved-point case is
+explained; general native repeated TomTom selections and unmodified Forever
+acceptance remain open. Evidence: working-click-comparison-2026-11-03.json.
+
+## November 3 — stock Forever audit and menu/click discrepancy
+
+Forever is the primary acceptance target; all third-party addons must remain
+unmodified. AGENTS.md and R06/R18 now enforce this. Audited24 addon folders:
+SPFv1.22.18, TomTomv4.3.13, OpenMapv0.7.5-beta/API4, RXPv4.11.29. GC0.10.2
+is not installed in Forever yet; its30-file ZIP matches source. Private hc-test.9
+still uses v1.22.9 (24 upstream files changed,2 added); it is NOT a current full
+simulation and was not partially upgraded. No runtime or installed-addon changes.
+
+17 GC suites, stock API/TomTom checks, structure and7 private suites pass.
+New scripts/check_spf_journeys.py loads actual stock API/GC/Nav/Planner/Search/
+Walks without HC modules: five alternating selections pass on both v1.22.9 and
+v1.22.18. Exact saved failed world goal has no plan; valid goal recovers.
+Projection/driver/time are doubled, so this is not native Forever acceptance.
+
+Tony confirms direct long control rendered9 points/14mini/8world strokes,103s.
+Later GC menu request: ownerGroupCompass, guidedoff, settled2rounds/no plan,
+paths0. Saved goal world1(10742.2080078125,579.92578125); player
+(10335.7001953125,820.7000122070312). TomTom UID is map1414 fractions
+(0.4480097267300475,0.08387378695540161), not report's rounded map1438 location.
+Tony subsequently says Alt+left-click works where our UI does not. Do not close
+GC-218: working-click /path report + /reload capture requested to compare exact
+destinations. Native GC known-reachable point test also pending. Stock SPF's
+OpenMap conversion remains a separate unverified launch concern. Full versions,
+checks, boundaries and next steps: docs/FOREVER_LAUNCH_CHECKLIST.md and
+CLOSEOUT_2026-11-03_FOREVER_AUDIT.md. Hardcore control passed; all rendering and
+menu/client acceptance are NOT declared complete.
+
+## 2026-11-02 — direct provider route exists; short-path drawing unresolved
+
+Additional check after Tony said continue: using the exact reported player and
+zone-bounds approximation of58.6,44.8 gives32.081yd; actual world-map Strokes.Map
+with1002x668canvas,10px goal andzoom0.2/0.5/1/2 yields0 strokes at every zoom;
+minimap0. Approximate projection is NOT the exact saved endpoint/view.
+A longer control, map1438 55.9,57.8, routes from reported player through actual
+Nav1/Path in9 points,722.915yd. Actual stroke generation gives6world/12minimap
+strokes in tested views with goal gaps enabled. No character movement required:
+first close /path report and /reload to save; then /path way #1438 55.9 57.8 Long
+path test. Stay still, wait15s, check both maps and /path report if absent.
+No native success or code fix claimed; original gate remains OPEN.
+
+Tony ran `/path way #1438 58.6 44.8 Path test` directly. New native report:
+player Teldrassil 58.9,44.0; Journey Path test, owner player, guided on;
+search settled in one round; walk4s, measured=true, two drawable points;
+revision2; minimap visible/alpha1/radius233.333 with0 strokes; world1438
+visible/stitched, one route pin and0 strokes; no caught errors. First point
+matches player world1(10337.700195312,813.40002441406). Route creation and
+geometry now confirmed; this differs from the earlier no-journey/rev0 report
+and the separate exact destination that the engine refused.
+
+Current destination is close. A read-only replay of actual FlightLines/Strokes
+with a synthetic28yd segment,140px minimap,1.53 scale,233.333yd radius and8px
+goal radius yields0 strokes because all breadcrumbs fall inside the stop gap.
+The same fixture at179yd yields8 strokes. This establishes normal short-route
+suppression, NOT the exact cause of Tony's report: its endpoint/zoom/frame
+values are not yet saved. Earlier farther-away failure remains unverified.
+
+GC-218 / HC-011 OPEN: asked Tony to close report, /reload once and reply saved.
+Read the latest character capture as text; replay exact path endpoints and map
+view before editing. Disk still held older paths0/revision0 capture when checked.
+If exact short route is entirely covered, test a farther routable destination
+without walking before reporting; do not invent a straight-line fallback.
+No runtime edit, install, public API, Group Compass or Forever change in this
+checkpoint. Seven private suites and git diff --check pass; native visibility
+is NOT declared fixed. See private SHORT_ROUTE_CLOSEOUT_2026-11-02.md.
+
+## 2026-11-02 — native capture received; exact destination rejected by engine
+
+hc-test.9 capture: paths0, no walking leg, minimap visible/alpha1/radius233.33,
+zero strokes; world map closed at capture. Player world1 (10435.6005859375,
+958.6000366210938), goal (10742.2080078125,579.92578125). Only initial route event;
+capture4.041s after request. Search status was not stored, so the capture alone
+cannot distinguish still calculating from settled failure. It rules out minimap
+opacity as the reason for zero lines in that sample.
+
+Replayed EXACT captured world positions through the real unchanged Path and
+JourneySearch/Walks/Nav. Direct result: unreachable. Full journey settles with
+no plan, pending0, one round. Controls from the SAME player position succeed:
+Shadowglen anchor4 points/186.15yd; Dolanaar11 points/897.80yd; 25/50/75% toward the
+failed target also succeed. Suggested TomTom point58.6,44.8 projects approximately
+to the tested nearby anchor and produces4 points in the zone-bounds fixture.
+This is a recorded-engine reachability refusal, not proof the place cannot be
+walked to in the real game; the precise data/geometry reason remains unverified.
+
+Installed Foreverv1.22.14 has byte-identical Path.lua, PathGrid.lua and all14
+Kalimdor navigation chunks. No runtime file, data, GC or Forever change made in
+this diagnosis. hc-test.9 remains installed. Seven private suites and expanded
+actual-engine replay pass. No invented straight-line fallback or terrain edits.
+
+Native control requested: while in Teldrassil, /tway 58.6 44.8 Path test, then
+GC cyan right-click > TomTom waypoints > Path test; wait15s without moving. If this draws, the
+original destination's rejection explains the missing path. If not, take another
+/path report and /reload capture for the valid control; another issue remains.
+GC-218/HC-011 remains OPEN until that distinction is observed. Evidence JSON,
+raw local SV copy and engine output live in the private workspace. Use the
+CAPTURE_ANALYSIS_CLOSEOUT_2026-11-02.md inventory/commands for handoff.
+
+## 2026-11-02 — hc-test.9 rendering diagnostics; both-map failure remains open
+
+Tony confirms the golden path is absent on BOTH maps in Hardcore after hc-test.8.
+Installed source/manifest still match the private test copy. Saved options have
+journeys/mapRoutes on, RestedXP/TomTom-arrow follow off. Existing FrameXML.log only
+has an old unrelated addon-load error; no persisted render capture existed.
+/path debug traces rides; the old /path report lacks paint/geometry visibility.
+The prior projection repair did not resolve the reported symptom.
+
+hc-test.9 adds private diagnostics to existing /path report: source point count,
+walk measurement/error, minimap/world stroke count, visibility/alpha, map/radius,
+player/path coordinates. It saves a detached snapshot to the existing character
+SavedVariables field ShortestPathForeverCharDB.hardcoreRenderCapture, including
+frame levels, first stroke geometry/alpha/width, paint revision/time and the last
+16 route updates. WoW flushes this on /reload/logout; no SavedVariables file was
+edited by Codex. No Group Compass or public-provider API change, no engine/terrain
+change, no extra support extension, no Forever writes or provider distribution.
+
+Capture steps: /reload to load hc-test.9, reproduce the missing path, leave the
+main map open, run /path report, close the report and /reload again. Tell Codex
+when done; it can read the character's saved file directly, so pasting is optional.
+Only the last requested report capture is retained; normal gameplay does not
+continuously write snapshots. Existing preferences/waypoints/progress are retained.
+
+Seven private suites pass, including actual Route/Core Report composition with
+both-map painters, empty geometry without errors, detached bounded captures,
+false/secret values, stale-stroke clearing and report size. Existing real terrain
+and repeated/moved searches still pass. All116 installed source hashes match;
+18 reviewed upstream differences plus one Compat module, 115 originals unchanged.
+Two pre-existing inactive installed support files remain unreferenced.
+GC-218 / HC-010 remains OPEN: awaiting a native failed-state capture, not a claimed
+routing fix. Group Compass remains0.10.2. See DIAGNOSTICS_CLOSEOUT_2026-11-02.md
+in the private workspace for exact files, commands and remaining checks.
+
+## Current hc-test.8 — stitched-map projection repair
+
+Tony supplied a native hc-test.7 report: build 70576, level-4 NightElf Rogue,
+Teldrassil 56.0,41.0 to 63.6,35.6; owner player, guided on, settled one-walk plan
+66s, no caught errors, RXP following off. This is a player-selected provider route,
+not a GC-owned API route. The previous nearby offmesh fixture is not its cause.
+
+Rounded-coordinate replay with bundled zone bounds finds five terrain points,
+469.18 yards / 67.03s. Rounding/projection is approximate; native report says66s.
+Found a concrete independent bug: UI/OpenMap.lua projected continent/world yards
+through C_Map.GetWorldPosFromMapPos, which expects UI-map fractions. OpenMap's
+public CanvasFromWorldPos already takes continent/world yards. That unnecessary
+conversion can silently return nil or wrongly place lines on the stitched map.
+The new regression fails before repair; now passes using the actual installed
+OpenMap v1.2.1 API plus Route.lua's resolver and both-map stroke generators.
+
+hc-test.8 passes the existing world point directly to OpenMap's public API.
+This is a separate provider/OpenMap bug fix, not an interface added for GC.
+GC 0.10.2 stays stock-API-only. Six private suites, real terrain/repeated-journey
+checks and 116 installed source hashes pass. The 17th reviewed changed upstream
+file is UI/OpenMap.lua; terrain/Planner/API/RXP/TomTom remain unchanged.
+
+The same faulty adapter exists in the read-only installed Forever v1.22.14.
+It was NOT modified. GC's API compatibility is verified offline, but an unmodified
+Forever + OpenMap rendering pass remains a launch gate; we cannot promise an
+upstream drawing bug is absent. No message/issue/PR sent to its maintainer.
+
+Native GC-218 / HC-009 stays OPEN until Tony reloads/reopens maps and repeats
+point A, moved start, point B, return to A. If world lines return but minimap
+still fails, capture that distinction; this fix only changes world-map projection.
+Two inert installed support modules remain unreferenced; prior deletion block
+GC-219 is unchanged. No backups, SavedVariables or live Forever writes.
+
+## Stock API correction — 0.10.2, first installed with hc-test.7
+
+Tony clarified that Group Compass must work with the unmodified Forever addon.
+The 0.10.0 source menu depended on custom provider methods and violated that
+boundary. They were not upstream APIs. That implementation is superseded.
+
+Group Compass now calls only upstream API v1 Navigate, CurrentStop, Active,
+Cancel and optional Ended. No private namespace/DB, injected methods, source
+setting writes or engine code is used. TomTom/member selection sends coordinates;
+members are snapshots. Retry resubmits our owned destination; Stop cancels only
+GroupCompass-owned routes. Shortest Path's automatic followers stay as configured.
+RestedXP opens native settings: Guidance > Follow RestedXP guides, then RestedXP
+guide > Resume guide. Native arrow/compass supplies turns; our bar still shows
+member and TomTom destination bearings. No next-turn getter exists in stock API.
+
+Blizzard tracked quest means the quest selected in Blizzard's tracker, whose
+exposed destination can be submitted when available. That lookup is unavailable
+on the tested Hardcore client; TomTom and RestedXP routing are separate features.
+API acceptance/Active is not proof that walking geometry was found. Route report
+opens the provider's existing /path report; our status does not invent progress.
+
+Removed both private app-support modules and their TOC entries from source.
+Private hc-test.7 retains only Hardcore compatibility changes. The current
+unmodified Forever v1.22.14 install was read only. Composition passes with its
+unchanged Core/API.lua and the pinned original v1.22.9 API. Seventeen GC suites,
+five private suites, actual TomTom composition, structure/ZIP and real terrain
+checks pass. Real Search/Walks/Nav tests pass after moving start, switching goals,
+returning to an existing goal, repeating it and warm replanning.
+
+Installed GC 0.10.2: all 30 filenames/hashes match. Installed private hc-test.7:
+all 116 source files match; two obsolete files remain on disk because automatic
+approval review blocked deletion without a specific reason. The TOC references
+neither file, so neither loads after restart. No backups or SavedVariables edits.
+
+GC-218 remains OPEN: Tony reports no Lua error and a path that works once but
+sometimes fails after moving and selecting another/existing point. Offline tests
+do not reproduce that exact failure; an approximate offmesh fixture is not its
+proven cause. The native hc-test.7 report has since been received; the hc-test.8 projection
+repair above requires native retest.
+Full client restart, then right-click cyan icon > TomTom waypoints > select a
+nearby point, move, select another and return to the first. No second map click
+is needed. GC-217/HC-008 native review and Forever launch acceptance remain open.
+See docs/CLOSEOUT_2026-10-30_STOCK_API.md for file inventory and commands.
+
+Historical checkpoints below retain the facts and limitations recorded at the time. Earlier private getter/source-menu instructions are superseded by this correction.
+
+Date: 2026-10-30.
+
+## Latest checkpoint: golden-path targets 0.10.0 / hc-test.6, 2026-10-30
+
+Right-click launcher selects RXP, named TomTom points or a member's current
+location snapshot; left-click retains options. Menu exposes target/search/failure
+state, Retry, Stop and unavailable native quest reasons. Group Compass only calls
+optional provider APIs; all compatibility/settings control remains in the separate
+private provider. Source selection is an explicit replacement. Manual targets
+disable RXP/TomTom automatic followers; selecting RXP resumes native progression.
+
+18 consumer and seven provider suites pass, including actual RXP/selector/consumer
+composition. Three real terrain searches and both-map geometry pass; approximate
+points near the pictured area return offmesh. This is a possible lone-dot cause,
+not confirmation of the exact live failure. GC-217/HC-008 and GC-218 stay open.
+Original release hashes were re-pinned locally after Forever independently
+updated to v1.22.14; all 115 original v1.22.9 hashes match the published release.
+See docs/CLOSEOUT_2026-10-30_ROUTE_TARGETS.md. Full restart for new TOC modules.
+
+## Latest checkpoint: first party-pin lifecycle fix 0.9.4, 2026-10-29
+
+Tony's nil fill at MarkerStyle.lua:13 is reproduced by the real documented pool
+order: OnReleased precedes OnLoad on first acquisition. Cleanup now tolerates
+the expected pre-artwork state. The old test skipped this reset and missed the
+failure. A map exception could abort Core before drawing the friend's name.
+
+All 17 Lua 5.1 suites, actual installed TomTom API and structure/ZIP checks pass.
+New coverage includes repeated party joins/leaves, new/reused pins, map switching
+and actual Core/Maps composition. Source/package/install are 0.9.4; all 29
+installed hashes and file names match. Automatic approval blocked directory
+clearing; in-place copying succeeded without backups or extra files. Native
+party/OpenMapClassic behavior remains GC-216; no full-client pass is claimed.
+No changes to OpenMapClassic, Shortest Path, Forever or SavedVariables. Details:
+docs/CLOSEOUT_2026-10-29_PARTY_PIN.md.
+
+## Latest checkpoint: route-source clarity 0.9.3, 2026-10-27
+
+Zero TomTom points can coexist with a separate Shortest Path journey. Screenshot
+confirms foreign-journey status, not its owner. RestedXP is likely from source/
+defaults, but not natively confirmed. Owned waypoint-deletion cancellation passes.
+0.9.3 identifies RestedXP/TomTom through the public owner query, explains separate
+journeys and adds Route settings in the waypoint window. No provider preferences
+changed or foreign journeys cancelled. Native source/clearing review is GC-215.
+
+17 suites, actual TomTom API, five private provider consumer suites, package and
+29 installed hashes pass. Three changed runtime files installed; no provider,
+Forever, SavedVariables or Git mutations. Full file/check/manual details:
+docs/CLOSEOUT_2026-10-27_ROUTE_SOURCE.md.
+
+## Latest checkpoint: hc-test.5 XML map artwork, 2026-10-27
+
+Tony confirms native gold path rendering on both maps. Map.xml:10 still warned
+about missing UI-QuestPoi-OuterGlow, repeated 19 times. Hidden atlas attributes
+are resolved by XML before Lua guards. All six are removed from the separate
+provider template; dock/flight callbacks use checked native art or existing
+Classic ring/goal fallbacks. Goal-stop artwork remains checked on acquisition.
+
+Five private suites pass, including reproduction before the fix, actual pin
+callbacks and repeated missing/native art profiles. Syntax/XML/TOC, unchanged
+original source and 117 installed SHA-256 checks pass. Five private runtime files
+updated; Group Compass 0.9.2 runtime, Forever and SavedVariables unchanged.
+/reload and close/reopen the main map; native warning-free lifecycle remains
+HC-007 / GC-113. Full movement/turn/transport/launch acceptance remains open.
+Private file/check/manual details: shortest-path-hardcore-test/XML_ART_CLOSEOUT_2026-10-27.md.
+
+## Latest checkpoint: compass appearance controls 0.9.2, 2026-10-27
+
+Added Compass (default) and Map markers tabs without enlarging the options window.
+Compass sliders adjust width (320–1200), height (40–160), and all bar text (8–20),
+with current values, limits and live saved preview. Height also enforces a minimum
+of 3 * text size + 16 to prevent overlapping rows. Defaults stay 620/46/10.
+Geometry, N/E/S/W/member bearings, collision widths and hover resize together;
+hidden bars stay hidden. Existing map controls and global reset remain available.
+
+All 17 suites, actual installed TomTom API composition, structure/ZIP/source,
+29 installed SHA-256 comparisons and the four private-provider consumer suites
+pass. Five changed addon files installed without backups; no provider runtime or
+Git changes. Native interaction/layout/persistence review is GC-214. Details and
+exact file/check list: docs/CLOSEOUT_2026-10-27_COMPASS_APPEARANCE.md.
+
+## Latest checkpoint: 0.9.1 headings and hc-test.4 map artwork, 2026-10-27
+
+Tony confirmed golden path rendering on the minimap. Opening the world map then
+failed because StopPin dereferenced a missing Forever-only waypoint atlas. The
+separate hc-test.4 provider now uses its existing gold dot when goal/ring/button
+art is absent, with readable font numbers for fallback stops. Native art remains
+unchanged when available. Four private regression suites and three terrain/map
+geometry checks pass; all 117 installed files match source. Reopen-map verification
+is HC-006; sustained RXP/turns/movement/transports and Forever remain open.
+
+Group Compass 0.9.1 adds N/E/S/W without increasing the 46-unit strip. Labels
+follow the same angular convention as members, work solo and without coordinates,
+and clear with unavailable facing. All 17 suites, actual TomTom API composition,
+structure/ZIP/source checks and 29 installed hashes pass. Visual gate GC-213.
+
+Automatic approval review rejected directory clearing; changed-file copies into
+both exact addon folders succeeded with complete hash/file-set verification, no
+backups or SavedVariables edits. No Git mutations. Detailed files, commands,
+limitations and retest: docs/CLOSEOUT_2026-10-27_CARDINALS_AND_MAP_ART.md.
+
+## Latest checkpoint: private hc-test.3 hazard/planner watchdog fix, 2026-10-27
+
+Tony's native timeout at 13:13:12 goes RXP.UpdateGotoSteps > JourneySearch.Start >
+Planner.Plan/BakedCost > Hazards.Segment/Clip. Initial graph preview was synchronous
+and had no active deadline. Reused-batch proof and timer planning could also enter
+directly. The new private search_budget_test.lua reproduces synchronous excessive
+map reads before the fix using actual data/graph/hazards/search/scheduler.
+
+Provider-only runtime changes: PathJobs.lua adds cancellable deferred work using
+its existing notification queue; JourneySearch.lua queues preview/reuse/timer
+planning with revision guards; Hazards.lua yields between zone checks; TOC is
+hc-test.3. Core path/Planner/Nav/Strokes and avoidance rules are preserved.
+Timer jobs coalesce, work is FIFO, path callbacks retain priority, unexpected
+errors remain visible. No Group Compass runtime, RXP source or Forever edit.
+
+Checks: private verify.py passes three suites, source hashes, syntax/TOC/XML,
+unchanged consumer composition, stale-work cancellation, replacement, combat,
+warm/timer cache rebuild, scheduling order, error delivery and original penalty
+equivalence. Fixture max slice 2.902 ms over 452 aggregate slices uses simulated
+map API cost, not native timing. check_engine.py passes three cold asynchronous
+terrain jobs with identical synchronous costs plus both-map strokes and the
+historical limited cross-world plan. Four private files installed; all 117 hashes
+match. Native RXP/manual routes and responsiveness remain HC-005/GC-109; /reload
+and retest. Detailed inventory/checks: private TIMEOUT_FIX_CLOSEOUT_2026-10-27.md.
+
+## Latest checkpoint: private provider hc-test.2 startup event fix
+
+Tony's first native load failed with unknown SUPER_TRACKING_CHANGED in both
+journey and flight-pin startup. Journey initialization stopped before attaching
+its event handler/final Hide. The adjacent USER_WAYPOINT_UPDATED registration was
+also incompatible. The existing test double accepted every event and missed this.
+New private tests/events_test.lua reproduces the exact fault using both actual
+initializers, then verifies unsupported/supported/no-query profiles after the fix.
+
+Private Classic/Compat.lua now registers optional navigation events only when
+supported; Journey/Journey.lua and UI/FlightPins.lua use it at three call sites.
+TOC version is v1.22.9-hc-test.2. Normal required events and unexpected errors are
+not suppressed. Private tools/verify.py passes both suites including unchanged
+Group Compass consumer composition and original Forever SHA checks. Four deployed
+runtime files changed; all 117 installed hashes match. No Group Compass runtime,
+Forever or SavedVariables file changed; prior documentation edits are preserved.
+Detailed files/checks: private EVENT_FIX_CLOSEOUT.md. /reload and Navigate to the
+nearby point; native route visibility/movement remain pending. No Git mutation.
+
+## Latest checkpoint: separate private SPF Hardcore test copy, 2026-10-26
+
+Tony explicitly selected a separate, undistributed provider test for pre-launch
+testing. Workspace: C:\Users\Gaming PC\Documents\git\Wow_Addons\shortest-path-hardcore-test.
+Based on installed SPF v1.22.9, version v1.22.9-hc-test.1/interface 11509. It is
+installed into Hardcore AddOns\ShortestPathForever; all 117 source/installed file
+SHA-256 values match. Group Compass remains 0.9.0. No GroupCompass/ runtime file,
+original Forever source, other addon or SavedVariables was modified.
+
+Provider-only work: nine original files changed, two Classic modules added. The
+full upstream engine/nav/route geometry remains unchanged and SHA-pinned. Native
+waypoint capability guards choose its existing fallback arrow; added private
+read-only GetGuidance and local minimap/map opening/item cooldown/flight tracking
+guards. Initial duplicate compass/TomTom-follow/sharing/release popup disabled;
+bend progression enabled. Licence/attribution retained. No Git init/commit/push.
+
+Checks: private tools/verify.py passes Lua 5.1 syntax for all source, XML/TOC paths,
+upstream immutability and real Guide/Arrow/API regression plus unchanged Group
+Compass consumer composition. tools/check_engine.py passes three real walking
+paths and world/minimap geometry (9/23/17 points, 182/139/151 world strokes,
+8/9/8 minimap strokes), missing terrain and an estimated cross-continent plan.
+UI/client services and map projection are doubled; encoding uses Python adapters.
+Native loading, placement, movement/arrival/combat, transports and Forever launch
+verification remain open. Private README.md/STATUS.md/install-report.json,
+upstream-manifest.json, compatibility.patch, tools and tests record the exact work.
+
+This checkout changes only these notes, active tracker/design and Drive manifest;
+the separate test source is not added to the Group Compass repository or package.
 
 ## Latest checkpoint: local check-in of 0.9.0, 2026-10-26
 

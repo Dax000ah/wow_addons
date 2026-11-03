@@ -1,0 +1,49 @@
+{
+  "received": "2026-10-30",
+  "provider": "v1.22.9-hc-test.7",
+  "consumer": "0.10.1",
+  "client": {
+    "version": "1.15.9",
+    "build": 70576,
+    "interface": 11509
+  },
+  "character": {
+    "level": 4,
+    "race": "NightElf",
+    "class": "ROGUE",
+    "faction": "Alliance"
+  },
+  "place": {
+    "uiMapID": 1438,
+    "name": "Teldrassil",
+    "x_percent": 56.0,
+    "y_percent": 41.0
+  },
+  "goal": {
+    "uiMapID": 1438,
+    "x_percent": 63.6,
+    "y_percent": 35.6
+  },
+  "settings": {
+    "journeys": true,
+    "teleports": true,
+    "tomtom": true,
+    "tomtom_follow": false,
+    "restedxp": false
+  },
+  "journey": {
+    "owner": "player",
+    "guided": true,
+    "search": "settled",
+    "settle_rounds": 1,
+    "legs": [
+      {
+        "mode": "walk",
+        "seconds": 66
+      }
+    ]
+  },
+  "errors": "none caught; BugGrabber not loaded",
+  "openmap": "1.2.1",
+  "limits": "Coordinates rounded to one decimal, not exact world positions. Report does not give line visibility, stroke count or native projection results."
+}

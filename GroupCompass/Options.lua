@@ -4,6 +4,7 @@ local options, settings = addon.Options, addon.Settings
 local panel, borderButton, openMenu, controls = nil, nil, nil, {}
 local previewMember = {slot = 1, color = {0.25, 0.78, 0.92}}
 local miniPreview, worldPreview
+local compassPage, mapPage, compassTab, mapTab
 
 local function text(parent, value, x, y, template)
     local label = parent:CreateFontString(nil, "OVERLAY", template or "GameFontHighlightSmall")
@@ -20,9 +21,9 @@ local function closeMenu()
     if openMenu then openMenu:Hide(); openMenu = nil end
 end
 local function dropdown(title, key, choices, y)
-    text(panel, title, 24, y)
+    text(mapPage, title, 24, y)
     local picker, menu
-    picker = button(panel, "", 230, 24, y - 20, function()
+    picker = button(mapPage, "", 230, 24, y - 20, function()
         local wasOpen = menu and openMenu == menu
         closeMenu()
         if wasOpen then return end
@@ -50,11 +51,14 @@ local function dropdown(title, key, choices, y)
         end
     end
 end
-local function slider(title, key, y)
-    local label = text(panel, title, 24, y)
-    local s = CreateFrame("Slider", nil, panel)
+local function slider(title, key, y, parent)
+    local label = text(parent, title, 24, y)
+    local range = settings.Ranges[key]
+    local low = text(parent, tostring(range[1]), 24, y - 48)
+    text(parent, tostring(range[2]), 224, y - 48)
+    local s = CreateFrame("Slider", nil, parent)
     s:SetSize(230, 16); s:SetPoint("TOPLEFT", 24, y - 24)
-    s:SetOrientation("HORIZONTAL"); s:SetMinMaxValues(12, 40)
+    s:SetOrientation("HORIZONTAL"); s:SetMinMaxValues(unpack(range))
     s:SetValueStep(1); s:SetObeyStepOnDrag(true)
     local track = s:CreateTexture(nil, "BACKGROUND")
     track:SetPoint("LEFT"); track:SetPoint("RIGHT"); track:SetHeight(4)
@@ -66,9 +70,18 @@ local function slider(title, key, y)
         if not syncing then settings.Set(key, value) end
     end)
     controls[key] = function()
-        syncing = true; s:SetValue(settings.Get()[key]); syncing = false
+        syncing = true
+        local minimum = key == "compassHeight" and settings.MinimumHeight() or range[1]
+        s:SetMinMaxValues(minimum, range[2]); low:SetText(tostring(minimum))
+        s:SetValue(settings.Get()[key]); syncing = false
         label:SetText(title .. ": " .. settings.Get()[key] .. " px")
     end
+end
+local function selectPage(compass)
+    closeMenu()
+    compassPage:SetShown(compass); mapPage:SetShown(not compass)
+    compassTab:SetEnabled(not compass); mapTab:SetEnabled(compass)
+    options.Refresh()
 end
 local function updateBorderButton()
     if not borderButton then return end
@@ -81,7 +94,7 @@ function options.Refresh()
     updateBorderButton()
     if not panel then return end
     for _, refresh in pairs(controls) do refresh() end
-    if panel:IsShown() then
+    if panel:IsShown() and mapPage:IsShown() then
         addon.MarkerStyle.Apply(miniPreview, previewMember, "minimap")
         addon.MarkerStyle.Apply(worldPreview, previewMember, "world")
     end
@@ -94,20 +107,29 @@ local function createPanel()
     panel:SetBackdropColor(0.06, 0.08, 0.07, 0.98)
     panel:SetBackdropBorderColor(0.55, 0.5, 0.35, 1)
     text(panel, "Group Compass", 24, -20, "GameFontNormalLarge")
-    text(panel, "Group member map markers (waypoints use TomTom)", 24, -46)
     button(panel, "X", 26, 390, -12, function() panel:Hide() end)
-    dropdown("Icon", "icon", settings.Icons, -82)
-    slider("Minimap size", "minimapSize", -148)
-    slider("World map size", "worldSize", -210)
-    dropdown("Effect", "effect", settings.Effects, -272)
-    dropdown("Marker colors", "colorMode", settings.Colors, -338)
-    text(panel, "Preview", 302, -82, "GameFontNormal")
-    text(panel, "Minimap", 300, -142)
-    text(panel, "World map", 300, -242)
-    miniPreview = CreateFrame("Frame", nil, panel)
-    miniPreview:SetPoint("CENTER", panel, "TOPLEFT", 332, -115)
-    worldPreview = CreateFrame("Frame", nil, panel)
-    worldPreview:SetPoint("CENTER", panel, "TOPLEFT", 332, -212)
+    compassTab = button(panel, "Compass", 130, 24, -53, function() selectPage(true) end)
+    mapTab = button(panel, "Map markers", 130, 172, -53, function() selectPage(false) end)
+    compassPage = CreateFrame("Frame", nil, panel); compassPage:SetAllPoints()
+    mapPage = CreateFrame("Frame", nil, panel); mapPage:SetAllPoints()
+    text(compassPage, "Compass appearance — changes apply immediately", 24, -90)
+    slider("Bar width (horizontal)", "compassWidth", -128, compassPage)
+    slider("Bar height (vertical)", "compassHeight", -218, compassPage)
+    slider("Text size", "textSize", -308, compassPage)
+    text(compassPage, "Larger text raises the minimum height to keep rows readable.", 24, -377)
+    text(mapPage, "Member icons (waypoints use TomTom)", 24, -90)
+    dropdown("Icon", "icon", settings.Icons, -112)
+    slider("Minimap size", "minimapSize", -168, mapPage)
+    slider("World map size", "worldSize", -224, mapPage)
+    dropdown("Effect", "effect", settings.Effects, -280)
+    dropdown("Marker colors", "colorMode", settings.Colors, -336)
+    text(mapPage, "Preview", 302, -112, "GameFontNormal")
+    text(mapPage, "Minimap", 300, -172)
+    text(mapPage, "World map", 300, -272)
+    miniPreview = CreateFrame("Frame", nil, mapPage)
+    miniPreview:SetPoint("CENTER", mapPage, "TOPLEFT", 332, -145)
+    worldPreview = CreateFrame("Frame", nil, mapPage)
+    worldPreview:SetPoint("CENTER", mapPage, "TOPLEFT", 332, -242)
     addon.MarkerStyle.Decorate(miniPreview); addon.MarkerStyle.Decorate(worldPreview)
     button(panel, "Waypoints & help", 130, 24, -402, function()
         closeMenu(); panel:Hide(); addon.WaypointUI.Toggle()
@@ -118,6 +140,7 @@ local function createPanel()
     panel:SetScript("OnHide", closeMenu)
     panel:SetScript("OnShow", options.Refresh)
     UISpecialFrames[#UISpecialFrames + 1] = "GroupCompassOptions"
+    selectPage(true)
 end
 function options.Toggle()
     if not panel then createPanel(); options.Refresh(); return end
@@ -126,7 +149,15 @@ end
 function options.Initialize()
     settings.OnChanged = function(key)
         if key == "buttonAngle" then updateBorderButton()
-        else options.Refresh(); addon.Maps.Refresh() end
+        else
+            options.Refresh()
+            if not key or key == "compassWidth" or key == "compassHeight" or key == "textSize" then
+                addon.Compass.RefreshAppearance()
+            end
+            if not key or (key ~= "compassWidth" and key ~= "compassHeight" and key ~= "textSize") then
+                addon.Maps.Refresh()
+            end
+        end
     end
     if borderButton or not Minimap then return end
     borderButton = CreateFrame("Button", "GroupCompassMinimapButton", Minimap)
@@ -140,14 +171,17 @@ function options.Initialize()
     local icon = borderButton:CreateTexture(nil, "ARTWORK")
     icon:SetPoint("CENTER"); icon:SetSize(19, 19)
     icon:SetTexture(addon.MarkerStyle.Path .. "person.tga"); icon:SetVertexColor(0.1, 0.8, 1, 1)
-    borderButton:RegisterForClicks("LeftButtonUp")
+    borderButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     borderButton:RegisterForDrag("LeftButton")
-    borderButton:SetScript("OnClick", function()
-        if not borderButton.dragged and GetTime() >= (borderButton.suppressClickUntil or 0) then options.Toggle() end
+    borderButton:SetScript("OnClick", function(_, mouseButton)
+        if not borderButton.dragged and GetTime() >= (borderButton.suppressClickUntil or 0) then
+            if mouseButton == "RightButton" then addon.RouteMenu.Toggle(borderButton)
+            else options.Toggle() end
+        end
     end)
     borderButton:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT"); GameTooltip:SetText("Group Compass")
-        GameTooltip:AddLine("Click for options. Drag around the minimap border.", 1, 1, 1); GameTooltip:Show()
+        GameTooltip:AddLine("Left-click: options. Right-click: golden path targets. Drag: move button.", 1, 1, 1); GameTooltip:Show()
     end)
     borderButton:SetScript("OnLeave", function(self) if GameTooltip:IsOwned(self) then GameTooltip:Hide() end end)
     borderButton:SetScript("OnDragStart", function(self)

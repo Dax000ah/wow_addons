@@ -2,7 +2,11 @@ local addon = {}
 assert(loadfile("GroupCompass/Settings.lua"))("GroupCompass", addon)
 addon.Settings.Initialize()
 local updates, applied = 0, {}
+local compassUpdates = 0
+addon.Compass = {RefreshAppearance=function() compassUpdates=compassUpdates+1 end}
 local waypointsOpened = 0
+local routesOpened = 0
+addon.RouteMenu = {Toggle = function(anchor) assert(anchor == GroupCompassMinimapButton); routesOpened = routesOpened + 1 end}
 addon.WaypointUI = {Toggle = function() waypointsOpened = waypointsOpened + 1 end}
 addon.Maps = {Refresh = function() updates = updates + 1 end}
 addon.MarkerStyle = {Path = "test/", Decorate = function() end, Apply = function(frame, _, kind)
@@ -21,6 +25,14 @@ CreateFrame = function(kind, name, parent)
     f.SetSize = function(self, w, h) self.width, self.height = w, h end
     f.SetPoint = function(self, ...) self.point = {...} end
     f.ClearAllPoints = function() end; f.CreateTexture = region; f.CreateFontString = region
+    f.SetAllPoints = function() end
+    f.SetEnabled = function(self, enabled) self.enabled = enabled end
+    f.SetMinMaxValues = function(self, low, high)
+        self.minimum,self.maximum=low,high
+        if self.value and (self.value<low or self.value>high) then
+            self:SetValue(math.max(low,math.min(high,self.value)))
+        end
+    end
     f.SetText = function(self, value) self.text = value end
     f.SetScript = function(self, key, value) self.scripts[key] = value end
     f.HookScript = f.SetScript
@@ -30,7 +42,7 @@ CreateFrame = function(kind, name, parent)
     f.SetShown = function(self, value) if value then self:Show() else self:Hide() end end
     for _, method in ipairs({"SetFrameStrata", "EnableMouse", "SetClampedToScreen", "SetBackdrop",
         "SetBackdropColor", "SetBackdropBorderColor", "SetFrameLevel", "RegisterForClicks", "RegisterForDrag",
-        "SetOrientation", "SetMinMaxValues", "SetValueStep", "SetObeyStepOnDrag", "SetThumbTexture"}) do
+        "SetOrientation", "SetValueStep", "SetObeyStepOnDrag", "SetThumbTexture"}) do
         f[method] = function() end
     end
     f.GetThumbTexture = region
@@ -49,18 +61,29 @@ GameTooltip = {IsOwned = function() return false end}
 assert(loadfile("GroupCompass/Options.lua"))("GroupCompass", addon)
 addon.Options.Initialize(); addon.Options.Initialize()
 assert(#frames == 1 and GroupCompassMinimapButton.width == 30, "one border button, lazy panel")
+GroupCompassMinimapButton.scripts.OnClick(GroupCompassMinimapButton, "RightButton")
+assert(routesOpened == 1 and not GroupCompassOptions, "right click opens routing without opening options")
 GroupCompassMinimapButton.scripts.OnClick()
 assert(GroupCompassOptions.shown and UISpecialFrames[1] == "GroupCompassOptions")
-assert(applied.minimap == 20 and applied.world == 24)
 local function click(label)
     for _, frame in ipairs(frames) do
         if frame.text == label then frame.scripts.OnClick(frame); return frame end
     end
     error("button not found: " .. label)
 end
+assert(#sliders==5 and sliders[1].parent.shown and not sliders[4].parent.shown)
+local mapBefore=updates
+sliders[1]:SetValue(1000); sliders[3]:SetValue(20)
+assert(GroupCompassDB.compassWidth==1000 and GroupCompassDB.textSize==20)
+assert(GroupCompassDB.compassHeight==76 and sliders[2].minimum==76 and sliders[2].value==76)
+assert(compassUpdates==2 and updates==mapBefore, 'compass changes must not rebuild world pins')
+sliders[2]:SetValue(120); assert(GroupCompassDB.compassHeight==120)
+click('Map markers')
+assert(not sliders[1].parent.shown and sliders[4].parent.shown)
+assert(applied.minimap == 20 and applied.world == 24)
 click("Head & shoulders  v"); click("Star")
 assert(GroupCompassDB.icon == "star" and updates == 1)
-sliders[1]:SetValue(32); sliders[2]:SetValue(38)
+sliders[4]:SetValue(32); sliders[5]:SetValue(38)
 assert(applied.minimap == 32 and applied.world == 38)
 click("None  v"); click("Glow"); assert(GroupCompassDB.effect == "glow")
 click("Class colors  v"); click("Pink"); assert(GroupCompassDB.colorMode == "pink")
@@ -68,6 +91,8 @@ click("Done"); assert(not GroupCompassOptions.shown)
 addon.Options.Toggle(); assert(GroupCompassOptions.shown)
 local before = updates
 GroupCompassMinimapButton.scripts.OnDragStart(GroupCompassMinimapButton)
+GroupCompassMinimapButton.scripts.OnClick(GroupCompassMinimapButton, "RightButton")
+assert(routesOpened == 1, "drag must suppress route menu too")
 GroupCompassMinimapButton.scripts.OnUpdate()
 GroupCompassMinimapButton.scripts.OnDragStop(GroupCompassMinimapButton)
 assert(GroupCompassDB.buttonAngle == 0 and updates == before, "dragging must not refresh world pins")
@@ -78,6 +103,9 @@ assert(not GroupCompassMinimapButton.dragged and GroupCompassMinimapButton.scrip
 time = 11; click("Reset defaults")
 assert(GroupCompassDB.icon == "person" and GroupCompassDB.effect == "none" and GroupCompassDB.colorMode == "class")
 assert(applied.minimap == 20 and applied.world == 24)
+assert(GroupCompassDB.compassWidth==620 and GroupCompassDB.compassHeight==46 and GroupCompassDB.textSize==10)
+click('Compass'); assert(sliders[1].parent.shown and not sliders[4].parent.shown)
+assert(sliders[1].value==620 and sliders[2].minimum==46 and sliders[3].value==10)
 addon.Options.Toggle(); assert(not GroupCompassOptions.shown)
 GroupCompassMinimapButton.scripts.OnClick(); assert(GroupCompassOptions.shown)
 click("Waypoints & help"); assert(waypointsOpened == 1 and not GroupCompassOptions.shown)

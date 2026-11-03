@@ -1,6 +1,10 @@
 local _, addon = ...
 addon.Direction = {}
 
+function addon.Direction.Relative(bearing, facing)
+    return (facing - bearing + math.pi) % (2 * math.pi) - math.pi
+end
+
 -- UnitPosition axes: X increases north, Y increases west.
 -- Facing: north = 0, west = pi/2. Positive relative angle means right.
 function addon.Direction.Calculate(playerX, playerY, memberX, memberY, facing)
@@ -10,6 +14,6 @@ function addon.Direction.Calculate(playerX, playerY, memberX, memberY, facing)
         return 0, 0
     end
     local bearing = math.atan2(west, north)
-    local relative = (facing - bearing + math.pi) % (2 * math.pi) - math.pi
+    local relative = addon.Direction.Relative(bearing, facing)
     return relative, distance
 end

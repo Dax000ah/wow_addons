@@ -10,7 +10,8 @@ function style.Color(member)
 end
 function style.Stop(marker)
     if marker.flash then marker.flash:Stop() end
-    marker.fill:SetAlpha(1)
+    -- MapCanvas's pool resets new pins before OnLoad decorates them.
+    if marker.fill then marker.fill:SetAlpha(1) end
     marker.gcEffect = nil
 end
 function style.Decorate(marker)

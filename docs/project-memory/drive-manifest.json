@@ -1,9 +1,9 @@
 {
-  "updated": "2026-10-26",
+  "updated": "2026-11-03",
   "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
   "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
   "timezone": "America/Los_Angeles",
-  "installed_version": "0.9.0",
+  "installed_version": "0.10.2",
   "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
   "project_folder": {
     "success": true,
@@ -299,6 +299,49 @@
           "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
         }
       }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-27_COMPLETED.md",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1ihp3gGiBnjbK4pHP-2pR5aXOFXuQFFUi",
+        "title": "2026-10-27_COMPLETED.md",
+        "file_name": "2026-10-27_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1ihp3gGiBnjbK4pHP-2pR5aXOFXuQFFUi/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1ihp3gGiBnjbK4pHP-2pR5aXOFXuQFFUi",
+          "title": "2026-10-27_COMPLETED.md",
+          "file_name": "2026-10-27_COMPLETED.md",
+          "mime_type": "text/markdown",
+          "url": "https://drive.google.com/file/d/1ihp3gGiBnjbK4pHP-2pR5aXOFXuQFFUi/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-29_COMPLETED.md",
+      "drive": {
+        "id": "1Sbceem2ZIY7npvOnBO5zpiu8_WhsV5qO",
+        "title": "2026-10-29_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1Sbceem2ZIY7npvOnBO5zpiu8_WhsV5qO/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\docs\\project-memory\\archive\\2026-10-30_COMPLETED.md",
+      "drive": {
+        "id": "1_IySsr6Hto7eY18fECKQSapTDj0joy9S",
+        "title": "2026-10-30_COMPLETED.md",
+        "mime_type": "text/markdown",
+        "url": "https://drive.google.com/file/d/1_IySsr6Hto7eY18fECKQSapTDj0joy9S/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
     }
   ],
   "assets": [
@@ -418,26 +461,31 @@
       }
     },
     {
-      "name": "GroupCompass-0.9.0.zip",
+      "name": "GroupCompass-0.10.0.zip",
       "drive": {
-        "accepted_input": "file_uri",
-        "success": true,
-        "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
-        "title": "GroupCompass-0.9.0.zip",
-        "file_name": "GroupCompass-0.9.0.zip",
+        "id": "1l6OgVWWj1uuA0JxPj_LOq7gMIEYTiZQ6",
+        "title": "GroupCompass-0.10.0.zip",
         "mime_type": "application/zip",
-        "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
-        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-",
-        "structuredContent": {
-          "accepted_input": "file_uri",
-          "success": true,
-          "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
-          "title": "GroupCompass-0.9.0.zip",
-          "file_name": "GroupCompass-0.9.0.zip",
-          "mime_type": "application/zip",
-          "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
-          "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
-        }
+        "url": "https://drive.google.com/file/d/1l6OgVWWj1uuA0JxPj_LOq7gMIEYTiZQ6/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "status": "superseded; archived"
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\dist\\GroupCompass-0.10.1.zip",
+      "drive": {
+        "id": "1agIrsnb7Tv0KtxzXF0MDdRqXl_HtAUfy",
+        "url": "https://drive.google.com/file/d/1agIrsnb7Tv0KtxzXF0MDdRqXl_HtAUfy/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "status": "superseded; archived"
+      }
+    },
+    {
+      "local_path": "C:\\Users\\Gaming PC\\Documents\\git\\Wow_Addons\\wow_addons-checkout\\dist\\GroupCompass-0.10.2.zip",
+      "drive": {
+        "id": "1Dc8HUtNKtlMe5KmIfrTKP_5Kw9n79UtY",
+        "url": "https://drive.google.com/file/d/1Dc8HUtNKtlMe5KmIfrTKP_5Kw9n79UtY/view?usp=drivesdk",
+        "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
       }
     }
   ],
@@ -662,6 +710,69 @@
         "url": "https://drive.google.com/file/d/1yz9s1f3dcCuN8bomeXs-ecQSVeqiCri1/view?usp=drivesdk",
         "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
       }
+    },
+    {
+      "version": "0.9.0",
+      "drive": {
+        "accepted_input": "file_uri",
+        "success": true,
+        "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
+        "title": "GroupCompass-0.9.0.zip",
+        "file_name": "GroupCompass-0.9.0.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL",
+        "structuredContent": {
+          "accepted_input": "file_uri",
+          "success": true,
+          "id": "1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc",
+          "title": "GroupCompass-0.9.0.zip",
+          "file_name": "GroupCompass-0.9.0.zip",
+          "mime_type": "application/zip",
+          "url": "https://drive.google.com/file/d/1LRcBe5ak3dZDx71Rf7PLJhXgI3pRuZZc/view?usp=drivesdk",
+          "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+        }
+      }
+    },
+    {
+      "version": "0.9.1",
+      "drive": {
+        "id": "1Kr2nhiGzxPbb5nvJg-FFSsVsBE31XRLq",
+        "title": "GroupCompass-0.9.1.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1Kr2nhiGzxPbb5nvJg-FFSsVsBE31XRLq/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.9.2",
+      "drive": {
+        "id": "1p3natCX00IBKqKsnIphwExkEp86OGKeD",
+        "title": "GroupCompass-0.9.2.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1p3natCX00IBKqKsnIphwExkEp86OGKeD/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.9.3",
+      "drive": {
+        "id": "1gk33BJGX5I9n2NNcXecgaYktvyBbUXP-",
+        "title": "GroupCompass-0.9.3.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1gk33BJGX5I9n2NNcXecgaYktvyBbUXP-/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    {
+      "version": "0.9.4",
+      "drive": {
+        "id": "1PphU4ZhKAJlTik3Gah5agzJU-Nw4KWQI",
+        "title": "GroupCompass-0.9.4.zip",
+        "mime_type": "application/zip",
+        "url": "https://drive.google.com/file/d/1PphU4ZhKAJlTik3Gah5agzJU-Nw4KWQI/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
     }
   ],
   "routing_research": {
@@ -786,5 +897,292 @@
     "checks": "17 Lua 5.1 suites, actual installed TomTom.lua API composition, package checks and 29 installed SHA-256 comparisons pass",
     "provider": "v4.3.13-release",
     "design": "TomTom owns live waypoints/map pins; independent CRUD/placement/waypoint rendering removed; legacy retained for confirmed one-time import."
+  },
+  "private_hardcore_routing_test_2026_10_26": {
+    "purpose": "Private pre-launch test only; no distribution",
+    "workspace": "C:/Users/Gaming PC/Documents/git/Wow_Addons/shortest-path-hardcore-test",
+    "provider_version": "v1.22.9-hc-test.9",
+    "install_target": "C:/Program Files (x86)/World of Warcraft/_classic_era_/Interface/AddOns/ShortestPathForever",
+    "installed_files": 118,
+    "sha256_matches": true,
+    "group_compass_runtime_changed": false,
+    "forever_install_changed": false,
+    "native_gate": "HC-001 through HC-004 open; HC-005 native watchdog-fix retest pending",
+    "status_mirror": {
+      "id": "1mznxeuCOkeVftOviSw2p-t5gac7rei2a",
+      "url": "https://drive.google.com/file/d/1mznxeuCOkeVftOviSw2p-t5gac7rei2a/view?usp=drivesdk",
+      "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+    },
+    "event_startup_fix": {
+      "error": "SUPER_TRACKING_CHANGED unknown during first native load",
+      "regression": "PASS both actual initializers with strict event registry",
+      "native_retest": "pending"
+    },
+    "watchdog_fix_2026_10_27": {
+      "reported": "RXP UpdateGotoSteps > synchronous initial hazard-weighted Planner.Plan > script ran too long",
+      "fix": "Existing scheduler handles initial/reused/timer journey planning; per-zone yield checkpoints; avoidance and RXP retained",
+      "checks": "Three private suites; original penalty equivalence; cold asynchronous terrain costs match synchronous; 117 installed SHA-256 matches",
+      "native_retest": "pending"
+    },
+    "version": "v1.22.9-hc-test.9",
+    "map_art_fix_2026_10_27": {
+      "reported": "StopPin.lua:107 nil waypoint atlas on world-map open",
+      "fix": "Provider-local goal/ring/button fallback using shipped dot, font numbers; native art preserved",
+      "checks": "Four private suites, three terrain/geometry checks, 117 installed SHA matches",
+      "native": "Tony confirms minimap gold line; world-map HC-006, sustained RXP/movement/transports/Forever remain open",
+      "closeout": {
+        "id": "10C_4gpporh_qtSWYOz3-HPEWK3-K0MIg",
+        "url": "https://drive.google.com/file/d/10C_4gpporh_qtSWYOz3-HPEWK3-K0MIg/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      }
+    },
+    "xml_art_fix_2026_10_27": {
+      "native_evidence": "Tony confirms gold paths on both maps; XML outer-glow warnings repeated 19 times",
+      "fix": "All six Map.xml atlas assignments deferred; checked dock/flight native art or existing Classic fallbacks",
+      "checks": "Five private suites; syntax/XML/TOC/source audit; 117 installed SHA-256 matches",
+      "native_gate": "HC-007 / GC-113 reload/reopen/zoom/hover pending; full navigation/transports/Forever open",
+      "closeout": {
+        "id": "1M3ufVpKUsFkwylQedQEvYNgBKX1yyHoU",
+        "url": "https://drive.google.com/file/d/1M3ufVpKUsFkwylQedQEvYNgBKX1yyHoU/view?usp=drivesdk",
+        "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+      },
+      "drive_sync": "Native Doc 347 paragraphs text/headings/lists verified; current Markdown/status mirrors updated"
+    },
+    "active_source_files": 116,
+    "inactive_extras": [
+      "Classic/GuidanceAPI.lua",
+      "Classic/RouteSources.lua"
+    ]
+  },
+  "cardinals_2026_10_27": {
+    "version": "0.9.1",
+    "checks": "17 suites, TomTom composition, package/source, 29 installed SHA matches",
+    "native_gate": "GC-213 pending",
+    "install": "Changed files copied; directory clearing blocked by automatic approval review; complete hashes match; no backups",
+    "closeout": {
+      "id": "1sBVWRLfGliKGXK96s8WyO3SzAYs_G5rK",
+      "url": "https://drive.google.com/file/d/1sBVWRLfGliKGXK96s8WyO3SzAYs_G5rK/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    },
+    "drive_sync": "Native Doc 321 paragraphs text/headings/list flags verified; eight Markdown mirrors and private status updated. 0.9.1 package in Work; 0.9.0 archived."
+  },
+  "compass_appearance_2026_10_27": {
+    "version": "0.9.2",
+    "implementation": "GC-112 / GC-025 archived",
+    "native_gate": "GC-214 pending",
+    "limits": {
+      "width": [
+        320,
+        1200
+      ],
+      "height": [
+        40,
+        160
+      ],
+      "text": [
+        8,
+        20
+      ],
+      "minimum_height": "3 * text size + 16"
+    },
+    "defaults": [
+      620,
+      46,
+      10
+    ],
+    "checks": "17 Lua suites, 78 geometry cases, actual TomTom API, four separate provider consumer suites, package/source and 29 installed hashes PASS",
+    "install": "Five changed files copied into exact GroupCompass folder; no backups or SavedVariables writes",
+    "drive_sync": "Native Doc 336 paragraphs text/headings/lists verified; current package in Work, 0.9.1 archived",
+    "closeout": {
+      "id": "1B2yYmmrCT5IO3UKlmcGlEicPC2NRx2RY",
+      "url": "https://drive.google.com/file/d/1B2yYmmrCT5IO3UKlmcGlEicPC2NRx2RY/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    }
+  },
+  "route_source_2026_10_27": {
+    "version": "0.9.3",
+    "implementation": "GC-114 / GC-027 archived",
+    "native_gate": "GC-215; actual foreign owner and clearing unconfirmed",
+    "finding": "Screenshot reports separate provider journey; RestedXP likely, not confirmed. Owned deletion regression passes. No provider preference changed.",
+    "checks": "17 suites, actual TomTom API, five private consumer suites, package/source and 29 installed hashes PASS",
+    "closeout": {
+      "id": "1BtDAVBqyWAjpQHMgO0dnA-9XV5A67OvG",
+      "url": "https://drive.google.com/file/d/1BtDAVBqyWAjpQHMgO0dnA-9XV5A67OvG/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    },
+    "drive_sync": "Native Doc 358 paragraphs text/headings/lists verified; current release in Work, 0.9.2 archived; dated mirrors updated"
+  },
+  "party_pin_fix_2026_10_29": {
+    "version": "0.9.4",
+    "implementation": "GC-115 / GC-028 archived",
+    "native_gate": "GC-216 pending real-party/OpenMapClassic retest",
+    "root_cause": "Blizzard pool resets a new pin before OnLoad creates fill; Maps.Update precedes compass name drawing",
+    "checks": "Exact nil-fill error reproduced before fix; all 17 Lua suites, actual installed TomTom API, structure/ZIP/source and 29 installed SHA-256 files pass",
+    "install": "Directory clearing blocked by automatic approval review; in-place copy succeeded, no extra files or backups",
+    "drive_sync": "Native Doc text and heading verified; all six changed Markdown/archive/closeout mirrors read back equal to local text; 0.9.4 package in Work, 0.9.3 archived",
+    "closeout": {
+      "id": "17EHYulMhuuKlYm97Y3UyW6GCd1ybw8C6",
+      "url": "https://drive.google.com/file/d/17EHYulMhuuKlYm97Y3UyW6GCd1ybw8C6/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    }
+  },
+  "route_targets_2026_10_30": {
+    "version": "0.10.0",
+    "provider": "v1.22.9-hc-test.6",
+    "implementation": "GC-116 / GC-029 archived",
+    "native_gate": "GC-217 / HC-008 pending",
+    "original_bug": "GC-218 OPEN: exact live yellow-dot failure unconfirmed; nearby approximate sample offmesh",
+    "checks": "18 consumer and seven private suites; actual RXP/selector/consumer composition; three real geometry cases; 30/118 installed hashes",
+    "member_routes": "Current-position snapshots, GUID resolved on selection; no continuous chase",
+    "native_quest": "Required waypoint API absent in Hardcore; explained in UI",
+    "source_reference": "Published v1.22.9 recovered locally after live Forever updated to v1.22.14; all 115 original hashes match",
+    "drive_sync": "Native memory and Addons instructions/table preservation verified; all eight changed Markdown/archive/closeout mirrors read back equal to local text; 0.10.0 package in Work and 0.9.4 archived; GC-217/HC-008 and GC-218 remain open",
+    "closeout": {
+      "id": "1B7xNuCRMBVyo7WnGjcaTWOmIw-Kt60rh",
+      "url": "https://drive.google.com/file/d/1B7xNuCRMBVyo7WnGjcaTWOmIw-Kt60rh/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    },
+    "private_closeout": {
+      "id": "1GeHxX8clA8cP7oD0Liy83Yao4ZzJfUtU",
+      "url": "https://drive.google.com/file/d/1GeHxX8clA8cP7oD0Liy83Yao4ZzJfUtU/view?usp=drivesdk",
+      "parent_id": "1TWoObOy9CK4bASErLJ0RLGE594bzkRsL"
+    },
+    "superseded_by": "stock_api_correction_2026_10_30; custom methods were not upstream supported"
+  },
+  "stock_api_correction_2026_10_30": {
+    "version": "0.10.2",
+    "provider": "v1.22.9-hc-test.8",
+    "constraint": "Unmodified upstream API only; no provider support extensions",
+    "checks": "17 GC and 6 private suites; original v1.22.9/live v1.22.14 API, actual TomTom, actual OpenMap API/Route/Strokes projection; real Nav/Search/Walks repeated/report-coordinate replay;30/116 installed source hashes PASS",
+    "native_gate": "GC-217/HC-008 open; GC-218/HC-009 projection fix needs native retest",
+    "cleanup": "GC-219: automatic approval review blocked deletion, no specific reason; 2 old installed modules inert, no TOC entries",
+    "drive_sync": "Final0.10.2 package verified in Work;0.10.1 archived. Both native Docs verified, table structure preserved, all10 raw Markdown/status/closeout readbacks match local text. Native gates remain open.",
+    "closeout": {
+      "id": "1IrKmzxYAUkKo_JUuC3FGZYiDAVP8k3Cx",
+      "url": "https://drive.google.com/file/d/1IrKmzxYAUkKo_JUuC3FGZYiDAVP8k3Cx/view?usp=drivesdk"
+    },
+    "package": {
+      "id": "1Dc8HUtNKtlMe5KmIfrTKP_5Kw9n79UtY",
+      "url": "https://drive.google.com/file/d/1Dc8HUtNKtlMe5KmIfrTKP_5Kw9n79UtY/view?usp=drivesdk",
+      "parent_id": "1OeiPkZblqotMXrG-HXDRKCZOz1i0HUu-"
+    }
+  },
+  "projection_fix_2026_10_30": {
+    "version": "v1.22.9-hc-test.8",
+    "native_report": "docs/research/route-report-2026-10-30.json",
+    "root_issue": "SPF OpenMap adapter feeds world-yard coordinates to normalized UI-map conversion",
+    "checks": "Reproduced failing projection, then six private suites incl actual installed OpenMap API+Route/Strokes pass; rounded goal replay5 points/67.026s;116 installed source hashes match",
+    "native_gate": "GC-218/HC-009 OPEN; same faulty upstream adapter untouched, Forever/OpenMap acceptance required",
+    "closeout": {
+      "id": "1y7xPShW8BT8REsRyMQxfDFtA1uXuLTnx",
+      "url": "https://drive.google.com/file/d/1y7xPShW8BT8REsRyMQxfDFtA1uXuLTnx/view?usp=drivesdk"
+    }
+  },
+  "render_diagnostics_2026_11_02": {
+    "version": "v1.22.9-hc-test.9",
+    "finding": "Both maps still fail; root cause unknown",
+    "capture": "/path report writes character DB hardcoreRenderCapture; /reload flushes",
+    "native_gate": "Capture received; exact target unreachable replay; GC-218/HC-011 valid-point native control pending",
+    "checks": "Seven private suites, real terrain/repeated searches and116 source hashes PASS",
+    "gc_runtime_changed": false,
+    "forever_changed": false,
+    "drive_sync": "Both native Docs verified; table rows preserved; eight raw diagnostic/status/closeout mirrors read back equal to local text. Native capture pending.",
+    "closeout": {
+      "id": "1Hj1EuWQee-0wjpmh3b_SyxSjsSCwHzcv",
+      "url": "https://drive.google.com/file/d/1Hj1EuWQee-0wjpmh3b_SyxSjsSCwHzcv/view?usp=drivesdk"
+    },
+    "archive": {
+      "id": "1b7FPyo0Mhws410flRoVEr8-jS0NpyZGn",
+      "url": "https://drive.google.com/file/d/1b7FPyo0Mhws410flRoVEr8-jS0NpyZGn/view?usp=drivesdk"
+    }
+  },
+  "capture_analysis_2026_11_02": {
+    "native": "paths0/no walk, minimap visible alpha1, 4.041s after request, world map closed",
+    "exact_engine": "unreachable; settled no plan",
+    "valid_control": "Teldrassil58.6,44.8;4 points offline, native pending",
+    "upstream": "v1.22.14 Path/PathGrid/all14 Kalimdor Nav chunks identical",
+    "runtime_changed": false,
+    "native_gate": "GC-218/HC-011 OPEN",
+    "drive_sync": "Native memory/addon instructions updated; eight Markdown/status/archive/closeout readbacks match local. Sanitized evidence in Work; raw SV copy kept local only. HC-011 control pending.",
+    "closeout": {
+      "id": "19wTi_yxCg7oGOOrUVfoohclQ5fDpepz0",
+      "url": "https://drive.google.com/file/d/19wTi_yxCg7oGOOrUVfoohclQ5fDpepz0/view?usp=drivesdk"
+    },
+    "evidence": {
+      "id": "1bK5Zbrx4ZHpIOuWGocXqwXIxIHJ4YARA",
+      "url": "https://drive.google.com/file/d/1bK5Zbrx4ZHpIOuWGocXqwXIxIHJ4YARA/view?usp=drivesdk"
+    }
+  },
+  "short_route_diagnosis_2026_11_02": {
+    "native": "Direct provider command: Journey Path test owner player, settled measured2point walk4s, rev2, both painters0 strokes",
+    "observation": "Synthetic28yd minimap0 strokes;179yd8, due goal icon gap. Exact native endpoint/view capture pending",
+    "runtime_changed": false,
+    "checks": "Seven private suites and git diff --check pass",
+    "native_gate": "GC-218/HC-011 OPEN; close report and reload to save newest capture",
+    "drive_sync": "Native memory heading/body and six Markdown mirrors verified by readback; closeout saved to Work. Native gate remains open.",
+    "closeout": {
+      "id": "1Xb2jMk12C2rV45SppPz38NdcK2u0iDfi",
+      "url": "https://drive.google.com/file/d/1Xb2jMk12C2rV45SppPz38NdcK2u0iDfi/view?usp=drivesdk"
+    },
+    "long_control": "map1438 55.9,57.8;9 terrain points/722.915yd;6world/12mini strokes offline; stay still for native test"
+  },
+  "forever_acceptance_audit_2026_11_03": {
+    "primary_target": "Unmodified Forever addons; Hardcore secondary only",
+    "provider": "v1.22.18",
+    "hardcore_base": "v1.22.9 (stale; not upgraded)",
+    "runtime_changed": false,
+    "installed_addons_changed": false,
+    "checks": "17 GC suites; stock API and TomTom; two-version five-selection actual API/GC/engine replay;7 private suites;30-file ZIP source match;2811 protected files unchanged",
+    "native_control": "Direct player-owned long route passed9points/14mini/8world strokes",
+    "native_gate": "Native GC fresh TomTom single route and member selection user-confirmed. Old saved point fails independently. Repeated A/B/A and unmodified Forever acceptance pending; GC not installed in Forever yet.",
+    "drive_sync": "Native memory heading/body verified; all11 Markdown/instructions/status/checklist/closeout/archive mirrors match local normalized readback hashes and lengths. Three evidence JSON uploads completed with metadata verified. Native menu/click capture and Forever gates remain open.",
+    "artifacts": {
+      "checklist": "1xrZSrlIN2zOivqT5EhiorYH8ctXJMfRc",
+      "closeout": "1CNqJVoVHgtOSzzY27UG2-i1Sgy-8ocIe",
+      "completed_audit_archive": "1FZP2KFSi-zyuJx5-WGcK0kczKz6muJQh",
+      "audit_json": "1J8JVOBTFB1blJ1akUDaSi66nval8ZSET",
+      "current_engine_json": "1ob8OJXSgBVtdKBLocge8zLkZlTpQkS_7",
+      "old_engine_json": "10cVp4E2CgmtDwrmq5pBNkv8hX3gRRPpf"
+    }
+  },
+  "exact_saved_point_2026_11_03": {
+    "working_capture": "rev584 map1457,12walk points,13mini/16world strokes; different start and goal,1604.07yd goal difference",
+    "member_route": "Tony confirms GC member selection works; cyan is stock boat-leg color",
+    "direct_exact_point": "User ran /path way #1414 44.800972673 8.387378696 Exact saved point; no route appears",
+    "conclusion": "This saved point fails independently of GC; precise terrain/engine reason unknown. Fresh road point suggested; no user waypoint changed.",
+    "runtime_changed": false,
+    "checks": "Text-only scalar extraction/comparison PASS; current stock route colors read; git diff --check PASS; no runtime suites rerun for docs-only diagnosis",
+    "native_gate": "GC-218 exact saved-point case explained; general native TomTom switching and unmodified Forever acceptance remain open",
+    "drive_sync": "Native memory and8 changed raw mirrors verified by readback; comparison JSON upload completed",
+    "evidence": {
+      "id": "1RmwoEQIvjTL3o1BPXJcxODNT3yzvxWos",
+      "url": "https://drive.google.com/file/d/1RmwoEQIvjTL3o1BPXJcxODNT3yzvxWos/view?usp=drivesdk"
+    }
+  },
+  "fresh_tomtom_native_2026_11_03": {
+    "result": "PASS user-confirmed fresh road waypoint selected through GC menu",
+    "archive": "GC-035 / HC-013",
+    "remaining": "General repeated A/B/A, unmodified Forever native acceptance and GC install in Forever",
+    "runtime_changed": false,
+    "checks": "git status inspected; diff --check; no runtime suites rerun for docs-only acceptance",
+    "drive_sync": "Native memory and8 changed Markdown mirrors verified by readback hashes/lengths; comparison JSON update completed. Single fresh TomTom route passed; repeated-route and Forever gates stay open."
+  },
+  "milestone_2026_11_03": {
+    "version": "0.10.2",
+    "commit_message": "Milestone: stock routing, compass controls and navigation guide",
+    "scope": "Group Compass checkout only; private Hardcore source excluded",
+    "authorization": "Tony requested milestone check-in on November3",
+    "arrow_roles": "GC horizontal compass; RXP Step arrow; TomTom floating bookmark arrow; SPF travel route and turn guidance",
+    "checks": "17 suites, structure, actual Forever API/TomTom and v1.22.9/v1.22.18 real API/engine switching replays PASS",
+    "remaining": "Native Forever install/acceptance, repeated A/B/A, exact reason for old saved target refusal",
+    "drive_sync": "Native memory updated;6 existing mirrors and new guide/milestone uploaded and read back. Commit hash recorded in native memory after creation.",
+    "navigation_guide": {
+      "id": "1xAjePfhVHQw3BjbeWnLsIBpmdRaO-wjC",
+      "url": "https://drive.google.com/file/d/1xAjePfhVHQw3BjbeWnLsIBpmdRaO-wjC/view?usp=drivesdk"
+    },
+    "closeout": {
+      "id": "1In6Yv7uZOAge1Gt3cYixWwtIiOmivI7N",
+      "url": "https://drive.google.com/file/d/1In6Yv7uZOAge1Gt3cYixWwtIiOmivI7N/view?usp=drivesdk"
+    }
   }
 }

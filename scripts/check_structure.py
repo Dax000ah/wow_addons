@@ -19,8 +19,10 @@ required = [
     "GroupCompass/Settings.lua", "GroupCompass/MarkerStyle.lua", "GroupCompass/Options.lua",
     "tests/settings_test.lua", "tests/options_test.lua", "tests/style_test.lua", "scripts/build_icons.py",
     "GroupCompass/Routing.lua", "tests/routing_test.lua",
+    "scripts/check_spf_api.py", "tests/fixtures/stock_spf_api.lua",
     "GroupCompass/TomTomBridge.lua", "tests/tomtom_test.lua",
     "GroupCompass/Waypoints.lua", "GroupCompass/WaypointUI.lua", "tests/waypoints_test.lua", "tests/waypoint_ui_test.lua",
+    "GroupCompass/RouteMenu.lua", "tests/route_menu_test.lua",
 ]
 for name in required:
     path = root / name
@@ -29,7 +31,7 @@ toc = root / "GroupCompass/GroupCompass.toc"
 lines = toc.read_text(encoding="utf-8").splitlines()
 assert "## Interface: 11509, 16001" in lines
 scripts = [line.strip() for line in lines if line.strip() and not line.startswith("#")]
-assert scripts == ["Compat.lua", "Settings.lua", "Direction.lua", "Projection.lua", "Layout.lua", "Tracking.lua", "Demo.lua", "TomTomBridge.lua", "Waypoints.lua", "Routing.lua", "MarkerStyle.lua", "Maps.lua", "Maps.xml", "WaypointUI.lua", "Options.lua", "Core.lua"], "Incorrect load order"
+assert scripts == ["Compat.lua", "Settings.lua", "Direction.lua", "Projection.lua", "Layout.lua", "Tracking.lua", "Demo.lua", "TomTomBridge.lua", "Waypoints.lua", "Routing.lua", "MarkerStyle.lua", "Maps.lua", "Maps.xml", "WaypointUI.lua", "RouteMenu.lua", "Options.lua", "Core.lua"], "Incorrect load order"
 assert "## OptionalDeps: ShortestPathForever, TomTom" in lines
 assert "## SavedVariables: GroupCompassDB" in lines
 assert "## SavedVariablesPerCharacter: GroupCompassWaypointsDB" in lines

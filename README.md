@@ -1,10 +1,28 @@
 # Group Compass for WoW Classic Era/Hardcore and Forever
 
+**Which arrow is ours?** Our display is the horizontal compass strip. The blue
+Step arrow is RestedXP; the gold name/distance arrow is TomTom. Shortest Path
+draws the travel route. Selecting a member in our menu changes that route while
+the other arrows keep their own targets. See [the simple navigation guide](docs/NAVIGATION_GUIDE.md).
+
+**November 3 launch target:** Forever with its unmodified CurseForge addons.
+Current installed Shortest Path v1.22.18 API and TomTom v4.3.13 composition pass;
+the private Hardcore provider still has a v1.22.9 base and is only a test aid.
+See [the launch checklist](docs/FOREVER_LAUNCH_CHECKLIST.md) for exact versions,
+offline checks and the remaining native tests. Our0.10.2 ZIP is ready; Group
+Compass has not yet been installed in the Forever folder.
+
 An experimental addon inspired by Enshrouded's group direction indicator. Turn
 your **character** toward a group member and their name moves toward the center
 of a compass strip near the top of the screen. The strip shows locatable members
 within 90 degrees to either side of your character, with approximate horizontal
 distance in yards. Members behind you are omitted; turning around reveals them.
+
+N, E, S and W slide across the same angular scale as you turn your character.
+They remain visible while solo, in their own row within the compact strip.
+Open /gcompass options > Compass for saved width, height and text-size sliders.
+Defaults remain 620 by 46 with size 10 text. Width is 320–1200 UI pixels, height
+40–160 and text 8–20. The height minimum rises with text size so rows fit.
 
 Version 0.2.0 also adds **world-map party pins** and **minimap group badges**.
 Each real member uses their class color by default across all three views, with
@@ -24,7 +42,7 @@ before treating the prototype as a supported addon.
    The final path must be `Interface/AddOns/GroupCompass/GroupCompass.toc`.
    Copy the addon folder, not this entire project.
 2. Fully restart the client after installing or updating the manifest. Enable
-   Group Compass in AddOns. You should see `Group Compass 0.9.0 loaded` in chat.
+   Group Compass in AddOns. You should see `Group Compass 0.10.2 loaded` in chat.
 3. Use `/gcompass demo` to toggle simulated members, even while solo. They stay
    at fixed world locations, so turning your character moves their labels and
    walking changes the distances. `/gcompass demo reset` places new samples.
@@ -38,6 +56,30 @@ Running `demo` while hidden shows the display. Roster, zone, and combat events
 refresh markers immediately, alongside the regular 0.1-second updates.
 
 ## Map and minimap markers
+
+Right-click the cyan minimap button for **Golden path targets**; left-click opens
+options. Select a TomTom waypoint or member to request a route through the
+unmodified Shortest Path public API v1. No provider patch is required on Forever.
+Members are current-location snapshots: reselect after they move. Retry resubmits
+our current target; Stop cancels only our route. For other journeys use Shortest
+Path's controls. Its automatic guide/arrow followers stay as configured there.
+
+**RestedXP guide settings...** opens Shortest Path settings. Choose Guidance >
+Follow RestedXP guides, then RestedXP guide > Resume guide. The upstream API has
+no one-click guide-resume or next-turn getter. Use Shortest Path's native arrow/
+compass for turns; our bar continues to show members and TomTom destinations.
+
+**Blizzard tracked quest** uses the selected Blizzard quest's destination only
+when this client exposes it. That lookup is absent on the tested Hardcore build;
+TomTom/RestedXP routing does not depend on it. Starred choices explain the limit.
+
+Alt + right-click saves a TomTom point. Select its name in our target menu to
+request the golden route; no second map click is needed. A yellow dot and an
+accepted request do not prove a walking path was found. If lines disappear, use
+Route report (/path report) and preserve the failed state for diagnosis. The
+reported intermittent failure now has a privately repaired SPF/OpenMap projection
+bug (hc-test.8); native retest remains open. No GC support API was added, and the
+original Forever addon is unchanged. See docs/PROJECT_STATUS.md.
 
 - Open the world map to see class-colored party icons. Hover a pin for the
   member's name. Pins follow the map currently being viewed and its zoom/pan.
@@ -62,7 +104,7 @@ targets the default round map; other shapes use a conservative inset ellipse.
 
 The current manifest targets interfaces `11509` and `16001`. Confirm your installed
 build with `/dump GetBuildInfo()`; update the manifest only after checking that
-build's API compatibility. Settings do not persist yet. Group members do not
+build's API compatibility. Appearance settings save between sessions. Group members do not
 need this addon installed. No external libraries or addon messages are used.
 
 ## Project layout
@@ -285,3 +327,16 @@ Off/demo and removal of the routed point stop only our route. Active route selec
 is session-only; saved points/appearance persist. No fake native navigation APIs.
 See docs/CLASSIC_ROUTING_COMPATIBILITY.md for the observed Classic probe, 16-suite
 verification, remaining provider/native gates and exact current test steps.
+
+## Empty waypoint list with a golden route
+
+TomTom points and Shortest Path journeys are separate. An active RestedXP guide
+can supply a golden route even with no TomTom points. Version 0.9.3 identifies
+RestedXP or TomTom ownership through the provider API when known, and offers
+Route settings in Waypoints & help. /path opens the same native settings.
+
+If the status identifies RestedXP and you want only manual waypoint routes,
+uncheck Follow RestedXP guides there. This changes Shortest Path's integration,
+not RestedXP's guide progress. A different journey source gets its own message.
+Deleting a point routed by Group Compass already cancels that owned route;
+removing unrelated TomTom points does not cancel another addon's journey.

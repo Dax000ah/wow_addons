@@ -1,6 +1,19 @@
 local _, addon = ...
 addon.Layout = {}
 
+-- Each text row and the bearing ticks keep their own shared baseline. Extra
+-- height is spacing, while width changes every bearing's scale together.
+function addon.Layout.Compass(settings)
+    local width, height, font = settings.compassWidth, settings.compassHeight, settings.textSize
+    local extra = (height - (3 * font + 16)) / 3
+    local labelWidth = math.min(120 * font / 10, width / 3)
+    return {width = width, height = height, font = font, labelWidth = labelWidth,
+        distanceWidth = math.min(80 * font / 10, width / 3),
+        span = (width - labelWidth - 20) / 2,
+        nameY = -3, headingY = -(5 + font + extra),
+        tickY = -(6 + 2 * font + 2 * extra), distanceY = -(13 + 2 * font + 3 * extra)}
+end
+
 -- Keep every bearing marker at its true X. When labels collide, prefer the
 -- member nearest straight ahead; full identities remain in the hover details.
 function addon.Layout.SelectLabels(items)

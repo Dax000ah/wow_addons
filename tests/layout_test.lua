@@ -27,3 +27,18 @@ for a = 1, #items do
 end
 addon.Layout.SelectLabels({})
 print("PASS: single-row label spacing, center priority, stable ties, crowded raids and unmodified bearings")
+
+for _,width in ipairs({320,620,1200}) do
+    for font=8,20 do
+        local minimum=3*font+16
+        for _,height in ipairs({minimum,160}) do
+            local g=addon.Layout.Compass({compassWidth=width,compassHeight=height,textSize=font})
+            assert(g.span>0 and g.span+g.labelWidth/2<=width/2-9)
+            assert(g.nameY-font>=g.headingY+1)
+            assert(g.headingY-font>=g.tickY)
+            assert(g.tickY-7>=g.distanceY-1e-6)
+            assert(-g.distanceY+font<=height-2)
+        end
+    end
+end
+print('PASS: compass row fit and edge padding at minimum/maximum widths, heights and every supported font size')

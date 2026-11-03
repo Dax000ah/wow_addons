@@ -1,7 +1,115 @@
+# Current target: unmodified Forever — November3
+
+See [FOREVER_LAUNCH_CHECKLIST.md](FOREVER_LAUNCH_CHECKLIST.md) for the current
+versions, API/engine checks and native gates. Hardcore checkpoints below are
+historical secondary checks, not launch acceptance. GC menu versus working
+Alt-click still needs exact saved-goal comparison; GC-218 remains open.
+
+# Stock API integration 0.10.2 / hc-test.8 — native GC-217 / HC-008, GC-218 OPEN
+
+1. Fully exit/reopen Hardcore. Confirm GC 0.10.2 and SPF v1.22.9-hc-test.8.
+   The two old provider app-support files are unreferenced and must not load.
+2. Alt + right-click a nearby road to save a TomTom point. Right-click the cyan
+   icon > TomTom waypoints > select its name. No second map click is required.
+3. Check gold lines on both maps; walk to another position, select a second saved
+   point and return to the first. Retry resubmits our current destination. This
+   is the reported intermittent sequence and remains unverified in the client.
+4. Select a nearby party member; verify a current-position snapshot, not pursuit.
+   Retry and Stop affect only our route. Other sources use the provider's controls.
+5. RestedXP guide settings... opens /path. Guidance > Follow RestedXP guides, then
+   RestedXP guide > Resume guide. Automatic followers remain user-configured;
+   disable Follow RestedXP guides there if only manual targets are wanted.
+6. Blizzard tracked quest explains the missing Hardcore destination lookup.
+   TomTom and RestedXP still have their own routing inputs. No next-turn marker
+   is invented on our bar; use the provider's native arrow/compass.
+7. hc-test.8 fixes the independently reproduced SPF/OpenMap world-yard projection
+   bug. Reopen the same Teldrassil map and check main map AND minimap separately.
+   Native report received from hc-test.7; exact successful retest remains open.
+8. If the yellow-dot-only state returns, open Route report or /path report BEFORE
+   changing the target. Paste it and indicate map Alt-left-click versus menu
+   selection. No Lua error was reported; the exact cause remains unconfirmed.
+
+Offline checks: python scripts/run_tests.py; python scripts/check_spf_api.py
+PROVIDER_DIRECTORY; python scripts/check_tomtom_offline.py TOMTOM_DIRECTORY;
+python scripts/build_zip.py (new archive only). The sibling provider verify.py
+and check_engine.py include real Search/Walks/Nav repeated/moved-target checks.
+UI/projection services are doubled; these do not establish native compatibility.
+
+# First party-pin lifecycle 0.9.4 — native gate GC-216
+
+1. /reload; confirm Group Compass 0.9.4 in chat or /gcompass status. If demo is
+   on, /gcompass demo toggles it off. /gcompass on enables live display.
+2. Join a friend nearby outdoors on the same continent. Face them with your
+   character: their name/class color/distance should appear on the bar. Members
+   behind you intentionally disappear until you turn toward them.
+3. With OpenMapClassic enabled, open/close the world map, zoom between zone and
+   world views and pan. Check party pins on both maps and continued compass
+   updates, with no new nil-fill error. Leave/rejoin the party and repeat.
+4. If absent, report /gcompass status and any fresh Lua error. A different
+   continent or client-withheld coordinates still cannot yield a true bearing.
+
+Automated: corrected pool reset-before-OnLoad regression reproduced the original
+MarkerStyle.lua:13 error before the fix. All 17 suites pass afterward, including
+pin recycling and real Core/Maps composition through three join/leave cycles.
+Installed TomTom API composition and ZIP/source checks pass; all 29 installed
+files match SHA-256. These are offline checks; native GC-216 remains open.
+
+# Route source clarity 0.9.3 — native gate GC-215
+
+1. /reload, open Waypoints & help with no TomTom points. If another journey is
+   active, check the new status: RestedXP, TomTom arrow, or unknown separate journey.
+   The screenshot's actual source is not yet confirmed; RestedXP is a likely cause.
+2. Click Route settings. For a RestedXP-owned route, uncheck Follow RestedXP guides
+   if you want only manual routes. Verify that guide path clears, then add a point
+   and Navigate: manual routing should still work. Guide progress is unaffected.
+3. Delete that routed TomTom point: our owned route should clear. With another
+   addon's route active, deleting unrelated points must preserve it and Stop route
+   stays disabled. Provider ownership and settings errors must remain visible.
+
+# Compass appearance 0.9.2 — native gate GC-214
+
+1. /reload; click the cyan minimap button or /gcompass options. The Compass tab
+   opens first. Move Bar width (horizontal), Bar height (vertical), and Text size.
+   Check immediate changes in the actual bar and visible values/limits.
+2. Width is 320–1200 UI pixels. Height is 40–160, with its minimum also enforcing
+   3 * text size + 16 (46 at default size 10; 76 at size 20). Text is 8–20.
+   Check that increasing text updates both the height slider's lower limit and
+   the actual bar when necessary. Reducing text does not discard chosen spacing.
+3. /gcompass demo. Try smallest width with largest text, then largest width/height.
+   Turn and hover: names/headings/ticks/distances keep shared rows and correct
+   bearings; crowded names may hide but hover must retain identities. No clipping
+   past the frame or overlapping rows. Review at your own UI scale.
+4. Map markers tab: previous shape, map sizes, effect, colors and previews remain
+   usable. Waypoints & help / TomTom settings and Done/X/Escape still work.
+5. Choose custom sizes, /reload and reopen options: values and bar should persist.
+   /gcompass off, change a slider, confirm it stays hidden; /gcompass on restores
+   the chosen layout. Reset defaults restores 620/46/10 and existing map defaults.
+
+Automated: 17 Lua 5.1 suites pass, including Settings/Core composition, callback
+reentrancy when a slider's range clamps its value, persistent defaults/bounds,
+78 geometry combinations, resized hover and off/reset behavior. Native UI remains
+unverified. Package/source checks and 29 installed SHA-256 matches pass.
+
+# Compass headings 0.9.1 — native gate GC-213
+
+1. /reload, then /gcompass on. N/E/S/W should remain visible without a party.
+2. Turn the character through a full circle. The direction faced moves to center;
+   facing north shows W left and E right. Camera-only rotation should not move it.
+3. /gcompass demo: headings and demo members move together. All names share one
+   row, ticks another and distances another; headings have their own row. Check
+   readability at your UI scale. The frame remains 620 by 46 units.
+4. Toggle demo off, check a real waypoint/member, then /gcompass off/on. Missing
+   facing should clear heading labels; missing coordinates alone should not.
+
+For the separate hc-test.4 provider: /reload and reopen the map that failed with
+StopPin.lua:107. Verify gold world-map lines plus a destination mark; close/reopen,
+zoom and try a multi-stop guide. Tony has confirmed minimap gold lines; world-map
+appearance, further timeout checks and movement/arrival remain open.
+
 # TomTom integration 0.9.0 — current native gate GC-212
 
 1. Fully restart WoW (new TOC module/dependency), enable TomTom and Group Compass;
-   /gcompass status should report 0.9.0.
+   /gcompass status should report 0.9.1 (includes the 0.9.0 integration).
 2. Cyan launcher > Waypoints & help: verify clear creation instructions, configured
    modifier, facing/visibility note, Open world map and TomTom settings. /tomtom
    remains the native settings shortcut. Compare displayed shortcut to its settings.

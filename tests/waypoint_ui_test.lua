@@ -1,8 +1,10 @@
 local addon, points, frames = {}, {}, {}
 local opened, settingsOpened = 0, 0
+local routeSettingsOpened = 0
 local regions = {}
 local attempts, force, stops = 0, nil, 0
 addon.Routing = {Status=function() return "Provider status" end, CanStop=function() return true end,
+    OpenSettings=function() routeSettingsOpened=routeSettingsOpened+1; return true end,
     Refresh=function() end, Stop=function() stops=stops+1; return true,"Stopped" end,
     Start=function(id,replace)
         attempts=attempts+1; force=replace
@@ -79,6 +81,8 @@ assert(#points == 1 and points[1].name == "Camp" and input:GetText() == "")
 click("Navigate"); assert(attempts==1 and not force)
 click("Replace"); assert(attempts==2 and force)
 click("Stop route"); assert(stops==1)
+click("Route settings"); assert(routeSettingsOpened==1 and not GroupCompassWaypointWindow.shown)
+addon.WaypointUI.Toggle()
 click("Edit")
 local editor = GroupCompassWaypointEditor
 assert(editor.shown and UISpecialFrames[2] == "GroupCompassWaypointEditor")

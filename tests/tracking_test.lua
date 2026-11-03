@@ -31,6 +31,15 @@ local function sample(expected, text)
     return members
 end
 reset()
+assert(addon.Tracking.Facing()==0)
+state.positions.player=nil
+assert(addon.Tracking.Facing()==0, 'heading must not require player coordinates')
+for _, invalid in ipairs({secret, 0/0, math.huge, -math.huge, 'north', false}) do
+    GetPlayerFacing=function() return invalid end
+    assert(addon.Tracking.Facing()==nil, 'unreadable headings must not reach compass math')
+end
+GetPlayerFacing=nil; assert(addon.Tracking.Facing()==nil)
+reset()
 local members = sample(1)
 assert(members[1].angle == 0 and members[1].distance == 10)
 assert(members[1].unit == "party1" and members[1].slot == 1 and members[1].color)
@@ -180,3 +189,18 @@ assert(sample(1)[1].color == fallback)
 UnitClass, C_ClassColor, RAID_CLASS_COLORS = nil, nil, nil
 assert(sample(1)[1].color == fallback)
 print("PASS: class-color defaults and member names across compass/map data, legacy/modern APIs and safe fallbacks")
+
+reset()
+UnitGUID = function() return "friend-guid" end
+C_Map = {GetBestMapForUnit = function() return 1438 end,
+    GetPlayerMapPosition = function() return point(.4, .5) end}
+local target = addon.Tracking.RouteTargets()[1]
+assert(target.id == "friend-guid" and target.mapID == 1438 and target.x == .4)
+state.offline.party1 = true
+target = addon.Tracking.RouteTargets()[1]; assert(not target.mapID and target.reason)
+reset(); C_Map.GetPlayerMapPosition = function() return point(secret, .5) end
+assert(not addon.Tracking.RouteTargets()[1].mapID)
+C_Map = nil; assert(addon.Tracking.RouteTargets()[1].reason)
+UnitGUID = function() return secret end
+assert(addon.Tracking.RouteTargets()[1].id == "party1")
+print("PASS: party route snapshot, stable GUID, unavailable/offline and secret-coordinate handling")

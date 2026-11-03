@@ -1,0 +1,471 @@
+{
+  "date": "2026-11-03",
+  "purpose": "Unmodified Forever dependency audit; Hardcore is a secondary test aid",
+  "forever_addons": [
+    {
+      "folder": "AggroWarning",
+      "manifests": [
+        {
+          "toc": "AggroWarning.toc",
+          "interface": "16001",
+          "version": "0.6.0-beta"
+        }
+      ]
+    },
+    {
+      "folder": "Auctionator",
+      "manifests": [
+        {
+          "toc": "Auctionator.toc",
+          "interface": "120100, 120105, 16001, 50504, 38000, 20506, 11508, 11509",
+          "version": "341"
+        }
+      ]
+    },
+    {
+      "folder": "Baganator",
+      "manifests": [
+        {
+          "toc": "Baganator.toc",
+          "interface": "120100, 120105, 16001, 50504, 38001, 20506, 11509",
+          "version": "839"
+        }
+      ]
+    },
+    {
+      "folder": "BetterBlizzPlates",
+      "manifests": [
+        {
+          "toc": "BetterBlizzPlates.toc",
+          "interface": "120105, 120100",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_Camelot.toc",
+          "interface": "16001",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_Cata.toc",
+          "interface": "40402",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_Mists.toc",
+          "interface": "50504",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_TBC.toc",
+          "interface": "20506, 20505",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_Vanilla.toc",
+          "interface": "11509, 11508",
+          "version": "v2.2.3c"
+        },
+        {
+          "toc": "BetterBlizzPlates_Wrath.toc",
+          "interface": "30405, 38000, 38002",
+          "version": "v2.2.3c"
+        }
+      ]
+    },
+    {
+      "folder": "Dejunk",
+      "manifests": [
+        {
+          "toc": "Dejunk.toc",
+          "interface": "120105, 50504, 20506, 16001, 11509",
+          "version": "3.4.1"
+        }
+      ]
+    },
+    {
+      "folder": "DoesItDie",
+      "manifests": [
+        {
+          "toc": "DoesItDie.toc",
+          "interface": "16001",
+          "version": "v0.9.0"
+        }
+      ]
+    },
+    {
+      "folder": "ForeverQuestMark",
+      "manifests": [
+        {
+          "toc": "ForeverQuestMark.toc",
+          "interface": "120100, 120105, 16001",
+          "version": "1.4.1"
+        }
+      ]
+    },
+    {
+      "folder": "Leatrix_Plus",
+      "manifests": [
+        {
+          "toc": "Leatrix_Plus.toc",
+          "interface": "16001",
+          "version": "1.60.25"
+        }
+      ]
+    },
+    {
+      "folder": "LootTriage",
+      "manifests": [
+        {
+          "toc": "LootTriage.toc",
+          "interface": "16001, 120100, 120105",
+          "version": "1.1.2"
+        }
+      ]
+    },
+    {
+      "folder": "Lueur",
+      "manifests": [
+        {
+          "toc": "Lueur.toc",
+          "interface": "11509, 16001",
+          "version": "1.4.0"
+        }
+      ]
+    },
+    {
+      "folder": "MerchantMap",
+      "manifests": [
+        {
+          "toc": "MerchantMap.toc",
+          "interface": "16001",
+          "version": "1.1.7"
+        }
+      ]
+    },
+    {
+      "folder": "OpenMap",
+      "manifests": [
+        {
+          "toc": "OpenMap.toc",
+          "interface": "16001",
+          "version": "v0.7.5-beta"
+        }
+      ]
+    },
+    {
+      "folder": "Pawn",
+      "manifests": [
+        {
+          "toc": "Pawn.toc",
+          "interface": "16001",
+          "version": "2.14.1"
+        }
+      ]
+    },
+    {
+      "folder": "Questie",
+      "manifests": [
+        {
+          "toc": "Questie.toc",
+          "interface": "00000"
+        },
+        {
+          "toc": "Questie_Camelot.toc",
+          "interface": "16001",
+          "version": "12.4.0"
+        },
+        {
+          "toc": "Questie_Mists.toc",
+          "interface": "50503, 50504",
+          "version": "12.4.0"
+        },
+        {
+          "toc": "Questie_TBC.toc",
+          "interface": "20506",
+          "version": "12.4.0"
+        },
+        {
+          "toc": "Questie_Vanilla.toc",
+          "interface": "11508, 11509",
+          "version": "12.4.0"
+        },
+        {
+          "toc": "Questie_Wrath.toc",
+          "interface": "38002",
+          "version": "12.4.0"
+        }
+      ]
+    },
+    {
+      "folder": "RXPGuides",
+      "manifests": [
+        {
+          "toc": "RXPGuides.toc",
+          "interface": "11509, 38002, 50504, 120007, 120105, 16001",
+          "version": "v4.11.29"
+        },
+        {
+          "toc": "RXPGuides_Mists.toc",
+          "interface": "50504",
+          "version": "v4.11.29"
+        },
+        {
+          "toc": "RXPGuides_TBC.toc",
+          "interface": "20506",
+          "version": "v4.11.29"
+        },
+        {
+          "toc": "RXPGuides_Vanilla.toc",
+          "interface": "11509",
+          "version": "v4.11.29"
+        }
+      ]
+    },
+    {
+      "folder": "ShortestPathForever",
+      "manifests": [
+        {
+          "toc": "ShortestPathForever.toc",
+          "interface": "16001",
+          "version": "v1.22.18"
+        }
+      ]
+    },
+    {
+      "folder": "Spoken",
+      "manifests": [
+        {
+          "toc": "Spoken.toc",
+          "interface": "16001",
+          "version": "3.8.0"
+        },
+        {
+          "toc": "Spoken_TBC.toc",
+          "interface": "20506",
+          "version": "3.8.0"
+        },
+        {
+          "toc": "Spoken_Vanilla.toc",
+          "interface": "11509",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "Spoken_Bosses",
+      "manifests": [
+        {
+          "toc": "Spoken_Bosses.toc",
+          "interface": "11509, 20506, 16001",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "Spoken_Places",
+      "manifests": [
+        {
+          "toc": "Spoken_Places.toc",
+          "interface": "11509, 20506, 16001",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "Spoken_Quests",
+      "manifests": [
+        {
+          "toc": "Spoken_Quests.toc",
+          "interface": "16001",
+          "version": "3.8.0"
+        },
+        {
+          "toc": "Spoken_Quests_TBC.toc",
+          "interface": "20506",
+          "version": "3.8.0"
+        },
+        {
+          "toc": "Spoken_Quests_Vanilla.toc",
+          "interface": "11509",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "Spoken_Readables",
+      "manifests": [
+        {
+          "toc": "Spoken_Readables.toc",
+          "interface": "11509, 20506, 16001",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "SpokenContributions",
+      "manifests": [
+        {
+          "toc": "SpokenContributions.toc",
+          "interface": "11509, 20506, 30403, 16001",
+          "version": "3.8.0"
+        }
+      ]
+    },
+    {
+      "folder": "Syndicator",
+      "manifests": [
+        {
+          "toc": "Syndicator.toc",
+          "interface": "120100, 120105, 16001, 50504, 38001, 20506, 11509",
+          "version": "289"
+        }
+      ]
+    },
+    {
+      "folder": "TomTom",
+      "manifests": [
+        {
+          "toc": "TomTom.toc",
+          "interface": "120105, 120007, 120100, 11509, 16001, 20506, 38002, 40402, 50504",
+          "version": "v4.3.13-release"
+        }
+      ]
+    }
+  ],
+  "group_compass_present_in_forever": false,
+  "group_compass_version": "0.10.2",
+  "provider_version": "v1.22.18",
+  "hardcore_base": "v1.22.9",
+  "hardcore_test": "v1.22.9-hc-test.9",
+  "hardcore_is_current_simulation": false,
+  "upstream_changes_since_hardcore_base": {
+    "changed": [
+      "CHANGELOG.md",
+      "Core/Core.lua",
+      "Data/Portals.lua",
+      "Data/Routes.lua",
+      "Data/Taxi.lua",
+      "Data/Teleports.lua",
+      "Data/Transports.lua",
+      "Data/Zones.lua",
+      "Journey/JourneyGuide.lua",
+      "Journey/JourneySearch.lua",
+      "Locales/deDE.lua",
+      "Locales/esES.lua",
+      "Locales/esMX.lua",
+      "Locales/frFR.lua",
+      "Locales/koKR.lua",
+      "Locales/ptBR.lua",
+      "Locales/ruRU.lua",
+      "Locales/zhCN.lua",
+      "Locales/zhTW.lua",
+      "README.md",
+      "ShortestPathForever.toc",
+      "THIRD_PARTY.md",
+      "UI/Settings.lua",
+      "UI/WhatsNew.lua"
+    ],
+    "added": [
+      "Journey/Follow.lua",
+      "UI/DestinationPin.lua"
+    ],
+    "removed": []
+  },
+  "stock_api_sha256": "2938eaec05b7452ffb5ec665e20e45530fd299bcca9bab1bd6699ae3ccc3e088",
+  "stock_api_matches_hardcore_base": true,
+  "stock_tomtom_bridge_sha256": "ea1eb0146c8af2d3cbb4eefb6d65ed86564acf0027bfefed873928a269f8745b",
+  "protected_dependencies_before": {
+    "ShortestPathForever": {
+      "files": 117,
+      "tree_sha256": "a789e9b58d329a0a2e3dbba2e9732b4f2bd47f875a47cb82788c3dcd9ae8d47f"
+    },
+    "TomTom": {
+      "files": 116,
+      "tree_sha256": "f3dd9d9d3b10d6bbd93b7402641d09c8fc796304dd7832969ab1404a7d650f26"
+    },
+    "OpenMap": {
+      "files": 1174,
+      "tree_sha256": "79ca9e4fad03815af108fa88fe93eca8627ce48da62ef58045245be19c39eee2"
+    },
+    "RXPGuides": {
+      "files": 1404,
+      "tree_sha256": "2273b0efb7836d1a23d1383ea27a5dfcaae17a71e88456d3b430fe8b799e22c9"
+    }
+  },
+  "release_zip_sha256": "1e77a3728a1d6539fb70fbcea91b34053e95dcdd8b8ec40efa1a6b68510cb3b8",
+  "native_hardcore_long_control": {
+    "source": "Tony pasted report and screenshot",
+    "provider": "v1.22.9-hc-test.9",
+    "owner": "player",
+    "goal": {
+      "map": 1438,
+      "x": 55.9,
+      "y": 57.8
+    },
+    "path_points": 9,
+    "minimap_strokes": 14,
+    "world_strokes": 8,
+    "measured": true,
+    "settled_rounds": 1,
+    "seconds": 103,
+    "errors": "none caught; BugGrabber not loaded"
+  },
+  "limits": [
+    "Offline API checks double journey execution and client services",
+    "Hardcore direct player-owned route is not a native GroupCompass selection pass",
+    "No native Forever rendering/party/transport acceptance yet",
+    "Private patched OpenMap adapter is not proof stock Forever adapter works",
+    "All other installed addons inventoried, not individually gameplay-tested"
+  ],
+  "latest_native_menu_failure": {
+    "source": "Tony pasted report plus saved capture read as text",
+    "revision": 10,
+    "player": {
+      "map": 1,
+      "x": 10335.7001953125,
+      "y": 820.7000122070312
+    },
+    "goal": {
+      "map": 1,
+      "x": 10742.2080078125,
+      "y": 579.92578125
+    },
+    "owner": "GroupCompass",
+    "guided": false,
+    "settled_rounds": 2,
+    "plan": null,
+    "paths": 0,
+    "world_strokes": 0,
+    "minimap_strokes": 0,
+    "saved_tomtom_uid": {
+      "map": 1414,
+      "x": 0.4480097267300475,
+      "y": 0.08387378695540161
+    },
+    "errors": "none caught; BugGrabber not loaded"
+  },
+  "subsequent_user_observation": "Alt+left-click renders where GC interface does not. Working-click capture requested; exact destination comparison pending. Do not declare the menu discrepancy resolved by the no-plan replay.",
+  "stock_journey_checks": {
+    "v1.22.9": "PASS real API/GC/engine reachable-failed-reachable-failed-reachable, no HC modules",
+    "v1.22.18": "PASS same five requests against updated stock engine. Failed saved goal has no plan; valid target recovers. Native projection/driver doubled."
+  },
+  "protected_dependencies_after": {
+    "ShortestPathForever": {
+      "files": 117,
+      "tree_sha256": "a789e9b58d329a0a2e3dbba2e9732b4f2bd47f875a47cb82788c3dcd9ae8d47f"
+    },
+    "TomTom": {
+      "files": 116,
+      "tree_sha256": "f3dd9d9d3b10d6bbd93b7402641d09c8fc796304dd7832969ab1404a7d650f26"
+    },
+    "OpenMap": {
+      "files": 1174,
+      "tree_sha256": "79ca9e4fad03815af108fa88fe93eca8627ce48da62ef58045245be19c39eee2"
+    },
+    "RXPGuides": {
+      "files": 1404,
+      "tree_sha256": "2273b0efb7836d1a23d1383ea27a5dfcaae17a71e88456d3b430fe8b799e22c9"
+    }
+  },
+  "protected_dependencies_unchanged": true
+}

@@ -10,6 +10,8 @@ addon.Waypoints = {Refresh = function() end, Initialize = function() end, Sample
     Command = function(value) waypointCommands[#waypointCommands + 1] = value end}
 addon.WaypointUI = {Refresh = function() end, Toggle = function() waypointToggled = waypointToggled + 1 end}
 local routeEntries, routeCommands, routeStops, routeRefreshes = {}, {}, 0, 0
+local destinationEntries={}
+addon.Destinations={Sample=function()return destinationEntries end,Status=function()return "Destination status" end}
 addon.Routing = {Refresh=function() routeRefreshes=routeRefreshes+1 end, Status=function() return "Route status" end,
     CanStop=function() return #routeEntries > 0 end, Sample=function() error("Core must not request unsupported turn guidance") end,
     Stop=function() routeStops=routeStops+1; routeEntries={}; return true end,
@@ -111,8 +113,9 @@ assert(textures[4].point[5] == textures[5].point[5] and textures[5].point[5] == 
 assert(texts[3].point[5] == texts[5].point[5] and texts[5].point[5] == texts[7].point[5])
 assert(not status.shown, "normal tracking must not reserve a large status area")
 command("status")
-assert(messages[#messages - 1]:find("16001") and messages[#messages - 1]:find("demo on"))
-assert(messages[#messages]:find("Live tracking:") and messages[#messages]:find(message))
+assert(messages[#messages - 2]:find("16001") and messages[#messages - 2]:find("demo on"))
+assert(messages[#messages - 1]:find("Live tracking:") and messages[#messages - 1]:find(message))
+assert(messages[#messages]=="Destination status")
 command("demo"); assert(visible() == 0)
 command("demo reset"); assert(frame.shown and visible() == 3 and not mapsEnabled)
 command("demo"); assert(visible() == 0)
@@ -218,3 +221,23 @@ assert(not frame.shown and frame.width==320, 'size changes must not enable a hid
 command('on'); assert(frame.shown and frame.width==320)
 addon.Settings.Reset(); assert(frame.width==620 and frame.height==46 and texts[2].fontSize==10)
 io.write('PASS: saved-size core composition, live width/height/fonts, scaled bearings/hover, hidden updates and reset\n')
+
+-- Destination-only markers join the strip without entering custom map data.
+members={{name="Friend",slot=1,color={1,1,1},angle=0,distance=30}}
+waypointEntries={{source="tomtom",waypointId=7,slot=1000007,name="Inn",label="[T7] Inn",
+ color={1,1,0},angle=-.8,distance=100}}
+destinationEntries={{source="route",kind="destination",waypointId=7,slot=61,name="Inn",
+ label="[Route] Inn",color={0,1,1},angle=-.8,distance=100}}
+addon.Routing.OnStarted()
+assert(visible()==2 and texts[4].text=="[Route] [T7] Inn","selected TomTom point must have one combined route marker")
+assert(#mapMembers==2 and mapMembers[2].source=="tomtom" and #members==1,
+ "destination display must not mutate party/map input")
+destinationEntries={{source="rxp",kind="destination",slot=61,name="Step 22",
+ label="[RXP] Step 22",color={.7,.6,1},angle=.8,distance=90}}
+frame.scripts.OnUpdate(frame,.1)
+assert(visible()==3 and texts[6].text=="[RXP] Step 22" and #mapMembers==2)
+destinationEntries={};frame.scripts.OnUpdate(frame,.1);assert(visible()==2,"ended target clears its label")
+destinationEntries={{source="rxp",kind="destination",slot=61,name="Step 23",
+ label="[RXP] Step 23",color={.7,.6,1},angle=.8,distance=80}}
+command("demo");assert(visible()==3 and not mapsEnabled,"demo must exclude live destinations")
+io.write("PASS: unified destination labels, TomTom deduplication, unchanged map data, stale clearing and demo isolation\n")

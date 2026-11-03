@@ -1,5 +1,13 @@
 # Which arrow should I follow?
 
+## New in0.11.0: use the unified bar
+
+Our strip now adds `[Route]` for a destination requested through our menu and
+`[RXP]` for guide destinations received through Shortest Path's stock RestedXP
+integration. TomTom points remain visible; routed ones get a combined label.
+See [0.11.0 setup and limitations](UNIFIED_COMPASS_0.11.0.md) before hiding arrows.
+These markers indicate the final destination, not a route bend or boat dock.
+
 Group Compass, TomTom, RestedXP and Shortest Path have separate jobs. They can
 show different destinations at the same time.
 

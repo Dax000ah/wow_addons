@@ -29,3 +29,19 @@ provider option. Automatic followers may select later guide targets as configure
 Offline API composition: python scripts/check_spf_api.py PROVIDER_DIRECTORY
 The harness loads that directory's Core/API.lua unchanged. Journey execution and
 client services are doubled; in-game rendering/movement are separate checks.
+
+##0.11.0 public request observer
+
+Destinations.lua observes the existing API.NavigateRoute/ RenameStop methods
+through WoW's hooksecurefunc, specifically the stock RXP adapter's canonical
+RestedXP single-stop/hold request. It copies scalar map fractions/title and checks
+CurrentStop ownership. It does not replace methods, inject an extension, read
+private provider/RXP frames or write provider settings. Actual Core/RestedXP.lua
+and API.lua composition is included in check_spf_api.py for both installed
+Foreverv1.22.18 and the private test's unchanged stock adapter/API.
+Our own accepted destination is held in GC Routing; no provider getter needed.
+
+This is destination-only. API input observation cannot recover a journey that
+started before our hook, native map-click routes or private next bends. After
+reload, Resume guide or advance a guide step to send a fresh RXP request. Guide
+following must be enabled in the provider. No standalone RXP frame reader is used.

@@ -91,6 +91,13 @@ function routing.OpenSettings(section)
     return true
 end
 function routing.Status() return message end
+function routing.Provider() return not fault and api or nil end
+-- Our own accepted request, never a provider-private goal/turn getter.
+function routing.Destination()
+    if not owned or not target or fault then return end
+    return {mapID=target.mapID, x=target.x, y=target.y, name=target.name,
+        source="route", waypointId=selected}
+end
 function routing.Detail() routing.Refresh(); return message end
 function routing.CanStop() return owned end
 local function navigate(saved, id)

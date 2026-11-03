@@ -11,6 +11,12 @@ also in scope. This is not an addon for recruiting strangers or browsing LFG.
 
 ## Confirmed requirements
 
+- R19: Unified bar for members, saved TomTom points, our selected route destination
+  and RXP guide target through stock SPF integration. Distinct labels; optional
+  native arrow visibility settings. Public API only; no private target scraping.
+  Final-bearing scope and unsupported native/next-turn sources must be explicit.
+
+
 - R18: Work with the unmodified addons in Tony's Forever installation. Work with
   Shortest Path Forever out of the box through its
   existing public API. Never inject support methods, modify private settings or

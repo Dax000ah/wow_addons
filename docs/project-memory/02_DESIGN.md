@@ -1,5 +1,16 @@
 # Design Brief and Decisions — Group Compass
 
+## November3 —0.11.0 unified destination bar implemented
+
+TomTom points remain; GC menu destinations now show[Route], selected TomTom points
+merge into one label, and stock SPF's RXP public requests show[RXP] with step/title
+updates. No private frame/state reads or provider modifications. RXP requires
+SPF Follow RestedXP guides + Resume guide after reload. This is final destination
+bearing only; native Alt-click journeys/next bends/cross-world targets remain
+unavailable through the stock API.18 suites and actual Forever/HC API+RXP adapter
+composition pass. No new commit after milestone9cfb3e1. Native label/hidden-arrow
+checks and unmodified Forever acceptance remain open. See UNIFIED_COMPASS_0.11.0.md.
+
 ## November 3 — milestone checkpoint and arrow roles
 
 Tony authorized a milestone commit of current Group Compass work. Documented

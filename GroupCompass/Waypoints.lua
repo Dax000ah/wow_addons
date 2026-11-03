@@ -49,6 +49,7 @@ local function marker(point)
         slot = 40 + point.id, name = point.name, label = point.label, source = point.source,
         color = gold, icon = waypoints.Icon(point)}
 end
+waypoints.WorldPosition = worldPosition
 function waypoints.Icon(point) return point.icon or "tomtom" end
 function waypoints.UsesTomTom() return bridge and bridge.Provider() ~= nil end
 function waypoints.MapShortcut() return bridge.MapShortcut() end

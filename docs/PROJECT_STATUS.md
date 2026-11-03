@@ -1,5 +1,60 @@
 # Group Compass project checkpoints
 
+## November 3 — RXP marker visible; second TomTom point is cross-continent
+
+Tony confirms the RestedXP marker did show up after enabling native guide
+following/resuming. Settings screenshot shows both Follow RestedXP guides and
+Follow TomTom's arrow enabled. This confirms one visible RXP marker, not yet
+step advancement, reload recovery, hidden-arrow behavior or Forever acceptance.
+
+Live `/gcompass waypoint list` screenshot identifies T1 DistinctltyName on
+map1457 (Darnassus), 76.2,57.8, and T2 TomTom waypoint on map1453 (Stormwind),
+57.9,41.3. The player is in Darnassus. T2 is on the other continent, so the
+existing same-world compass filter explains its absence; no lost waypoint or
+label-collision defect is established. Add a second local point and face it to
+check simultaneous local markers. No code, settings, SavedVariables, install or
+Git mutation is needed for these two findings. Native arbitrary SPF routes/turns
+remain outside the public API; GC-220 stays open for the remaining checks.
+Documentation-only update: no runtime tests rerun. Reviewed the inserted notes
+and ran git diff --check; previous 18-suite pass is unchanged, not a new result.
+
+## November 3 — missing unified markers reported; client check remains open
+
+Tony reports two TomTom points in the menu but one label on the strip, a visible
+RestedXP Step 22 arrow without an RXP strip marker, and a rendered native Shortest
+Path journey without a strip marker. Screenshot places player in Darnassus while
+viewing Stormwind; it does not establish the second point's live coordinates.
+
+Code review confirms: TomTom markers require the same world and front-facing
+bearing; overlapping labels retain ticks/hover but hide a name. RXP observation
+requires SPF's native Follow RestedXP guides and a fresh Resume guide/step request.
+Saved settings have restedxp=false, but the file may lag the current session.
+The menu's separate-journey message is consistent with a native/manual route;
+stock API v1 has no getter for that route's destination or next turn. Version
+0.11.0 cannot display every rendered SPF journey. Earlier coverage was overstated;
+do not mark GC-220 accepted or add private provider/frame reads to hide this limit.
+
+Both installed GC folders match current source by SHA-256. Re-ran
+`python scripts/run_tests.py`: all 18 suites PASS. These offline checks do not
+reproduce the screenshot's live state. Requested `/gcompass status` output to
+confirm loaded version and destination status; reply pending. No runtime,
+installed addon, settings, SavedVariables or Git state changes in this diagnosis.
+Native acceptance, second-point visibility reason and guide setup remain open.
+
+## November3 —0.11.0 unified destination bar implemented
+
+Installed0.11.0 into both exact GroupCompass folders (Hardcore and Forever); all31
+files match package/source hashes. Other addons/settings untouched; no backups.
+
+TomTom points remain; GC menu destinations now show[Route], selected TomTom points
+merge into one label, and stock SPF's RXP public requests show[RXP] with step/title
+updates. No private frame/state reads or provider modifications. RXP requires
+SPF Follow RestedXP guides + Resume guide after reload. This is final destination
+bearing only; native Alt-click journeys/next bends/cross-world targets remain
+unavailable through the stock API.18 suites and actual Forever/HC API+RXP adapter
+composition pass. No new commit after milestone9cfb3e1. Native label/hidden-arrow
+checks and unmodified Forever acceptance remain open. See UNIFIED_COMPASS_0.11.0.md.
+
 ## November 3 — milestone checkpoint and arrow roles
 
 Tony authorized a milestone commit of current Group Compass work. Documented

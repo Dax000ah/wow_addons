@@ -1,5 +1,11 @@
 # Group Compass for WoW Classic Era/Hardcore and Forever
 
+**0.11.0 unified bar:** TomTom points stay on the strip; destinations selected
+through our menu gain `[Route]`. Enable Shortest Path > Follow RestedXP guides
+and Resume guide for an automatically updated `[RXP]` marker. See
+[setup and limits](docs/UNIFIED_COMPASS_0.11.0.md). These are destination bearings;
+next bends and native Alt-click journeys are not exposed by the stock API.
+
 **Which arrow is ours?** Our display is the horizontal compass strip. The blue
 Step arrow is RestedXP; the gold name/distance arrow is TomTom. Shortest Path
 draws the travel route. Selecting a member in our menu changes that route while
@@ -9,8 +15,7 @@ the other arrows keep their own targets. See [the simple navigation guide](docs/
 Current installed Shortest Path v1.22.18 API and TomTom v4.3.13 composition pass;
 the private Hardcore provider still has a v1.22.9 base and is only a test aid.
 See [the launch checklist](docs/FOREVER_LAUNCH_CHECKLIST.md) for exact versions,
-offline checks and the remaining native tests. Our0.10.2 ZIP is ready; Group
-Compass has not yet been installed in the Forever folder.
+offline checks and the remaining native tests. The0.11.0 build adds unified destination markers; native Forever acceptance is still pending.
 
 An experimental addon inspired by Enshrouded's group direction indicator. Turn
 your **character** toward a group member and their name moves toward the center
@@ -42,7 +47,7 @@ before treating the prototype as a supported addon.
    The final path must be `Interface/AddOns/GroupCompass/GroupCompass.toc`.
    Copy the addon folder, not this entire project.
 2. Fully restart the client after installing or updating the manifest. Enable
-   Group Compass in AddOns. You should see `Group Compass 0.10.2 loaded` in chat.
+   Group Compass in AddOns. You should see `Group Compass 0.11.0 loaded` in chat.
 3. Use `/gcompass demo` to toggle simulated members, even while solo. They stay
    at fixed world locations, so turning your character moves their labels and
    walking changes the distances. `/gcompass demo reset` places new samples.

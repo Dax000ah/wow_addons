@@ -25,7 +25,7 @@ local function refresh()
     local function open(value) page = value; refresh() end
     if page == "main" then
         heading:SetText("Golden path targets")
-        help:SetText("Select a target; guide-following settings stay in Shortest Path. * Click for details.")
+        help:SetText("Selected destinations appear on our bar. Guide following stays in Shortest Path. * Click for details.")
         local unavailable = not sources and why or sources.combat and "Change routes after combat ends." or nil
         add("RestedXP guide settings...", function() choose("restedxp") end,
             unavailable or not sources.restedxp and "Enable Shortest Path to open its guide settings." or nil)

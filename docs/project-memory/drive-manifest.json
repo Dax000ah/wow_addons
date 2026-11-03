@@ -3,7 +3,7 @@
   "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
   "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
   "timezone": "America/Los_Angeles",
-  "installed_version": "0.10.2",
+  "installed_version": "0.11.0",
   "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
   "project_folder": {
     "success": true,
@@ -1183,6 +1183,29 @@
     "closeout": {
       "id": "1In6Yv7uZOAge1Gt3cYixWwtIiOmivI7N",
       "url": "https://drive.google.com/file/d/1In6Yv7uZOAge1Gt3cYixWwtIiOmivI7N/view?usp=drivesdk"
+    }
+  },
+  "unified_compass_2026_11_03": {
+    "version": "0.11.0",
+    "sources": "Existing TomTom points, our accepted Route destination, stock SPF RXP public requests",
+    "implementation": "GC-037 implemented; GC-220 native verification OPEN",
+    "api_boundary": "No private RXP/provider frame/state reads, injected methods or provider settings writes. Standard post-hooks on existing public methods.",
+    "limits": "Final bearings only; RXP requires SPF Follow RestedXP guides + fresh Resume/step request; manual native map-click routes/next bends/cross-world goal bearings unsupported",
+    "checks": "18 suites; structure/TOC/XML; actual Forever and HC API+stock RXP adapter; actual TomTom registry;ZIP/31 installed hashes PASS",
+    "installed": [
+      "Hardcore GroupCompass",
+      "Forever GroupCompass"
+    ],
+    "third_party_changed": false,
+    "git": "Uncommitted feature after milestone9cfb3e1",
+    "drive_sync": "Native memory version/body verified;9 Markdown mirrors/closeout match normalized readback hashes and lengths;ZIP upload completed. Milestone0.10.2 package retained as prior checkpoint. GC-220 native checks open.",
+    "setup_closeout": {
+      "id": "16BgF8mNnqrX16yZZIkNYxGOR7tc8zdsw",
+      "url": "https://drive.google.com/file/d/16BgF8mNnqrX16yZZIkNYxGOR7tc8zdsw/view?usp=drivesdk"
+    },
+    "package": {
+      "id": "1luf-BkorG1WuoBZme86Xz5u3jc71UYQp",
+      "url": "https://drive.google.com/file/d/1luf-BkorG1WuoBZme86Xz5u3jc71UYQp/view?usp=drivesdk"
     }
   }
 }

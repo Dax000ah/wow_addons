@@ -17,7 +17,11 @@ before = source.read_bytes()
 lua = LuaRuntime()
 os.chdir(ROOT)
 lua.globals().PROVIDER_API = source.as_posix()
+rxp_source = source.parent / "RestedXP.lua"
+rxp_before = rxp_source.read_bytes()
+lua.globals().PROVIDER_RESTEDXP = rxp_source.as_posix()
 lua.execute((ROOT / "tests/fixtures/stock_spf_api.lua").read_text(encoding="utf-8"))
 assert source.read_bytes() == before
+assert rxp_source.read_bytes() == rxp_before
 print("PASS: unmodified Core/API.lua composition; SHA256 " + hashlib.sha256(before).hexdigest())
 print("Limits: journey execution and client services doubled; native WoW test remains open.")

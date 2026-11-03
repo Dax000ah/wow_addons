@@ -131,6 +131,26 @@ local function refresh()
     end
     -- Never place synthetic demo locations onto actual maps.
     addon.Maps.Update(demo and {} or members, enabled and not demo)
+    -- Navigation bearings belong only on the strip; providers keep their map pins.
+    if not demo and addon.Destinations then
+        local destinations=addon.Destinations.Sample()
+        if #destinations>0 then
+            local combined={}
+            for _, member in ipairs(members) do combined[#combined+1]=member end
+            members=combined
+        end
+        for _, destination in ipairs(destinations) do
+            local replaced=false
+            for i, item in ipairs(members) do
+                if destination.waypointId and destination.waypointId==item.waypointId then
+                    destination.label="[Route] "..item.label
+                    members[i]=destination; replaced=true; break
+                end
+            end
+            if not replaced then members[#members+1]=destination end
+            message="Character facing - center is ahead"
+        end
+    end
     if not demo and #members == 0 and addon.Routing.CanStop() then
         message = addon.Routing.Status()
     end
@@ -257,6 +277,7 @@ SlashCmdList.GROUPCOMPASS = function(command)
             addon.Compat.Version(), tostring(version), tostring(build), tostring(interface),
             enabled and "on" or "off", demo and "on" or "off"))
         print(string.format("Live tracking: %s; %d locatable members", message, #members))
+        if addon.Destinations then print(addon.Destinations.Status() or "Destination tracking initializing.") end
     else
         print("Group Compass: /gcompass options | waypoints | waypoint here [name] | route ID | on | off | demo | status")
     end

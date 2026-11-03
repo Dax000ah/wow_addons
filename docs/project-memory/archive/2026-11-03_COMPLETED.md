@@ -20,3 +20,7 @@ this single-point control is superseded; repeated A/B/A and Forever gates stay o
 GC-036: Arrow roles documented and current0.10.2 work prepared for Tony-authorized
 milestone commit. See NAVIGATION_GUIDE.md and MILESTONE_2026-11-03.md. Native
 Forever and repeated-route acceptance remain open; no claim of full completion.
+
+GC-037:0.11.0 destination display implementation and offline18-suite/API+RXP
+composition passed. Native unified-bar test remains OPEN as GC-220; this archives
+implementation only. See UNIFIED_COMPASS_0.11.0.md for setup, scope and checks.

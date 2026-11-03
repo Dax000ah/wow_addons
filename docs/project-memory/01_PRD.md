@@ -142,3 +142,20 @@ minimap replacements and Forever remain native test gates.
 - CompassHUD: https://github.com/BelegCufea/CompassHUD — group-marker functionality
   advertised; Forever compatibility not established here.
 - Technical API evidence and compatibility caveats: docs/FEASIBILITY.md.
+
+## R20 — visible remote locations (0.11.1)
+
+Show a compact Elsewhere row for confirmed remote members and saved TomTom points,
+including when local bearings are visible. Use public map/continent names; never
+invent direction or distance. Default-on Compass checkbox saves both on/off.
+Hide when empty or demo; fit one row with count/hover overflow. Preserve local
+bearings, waypoint ownership and stock Forever compatibility. GC-221 native check open.
+
+## R21 — clear navigation actions and separate settings (0.11.2)
+
+Keep target selection on right-click; move external settings/report links to Other
+addons in Options. Explain each action with wrapped native tooltip help. Hide
+unsupported selected-quest and inapplicable own-route controls. Label recalculation
+and stop clearly; member recalculation is a snapshot, not live following. Resume
+shortcut must honestly open native controls when stock API has no direct Resume.
+No third-party patch, private provider/widget access or settings writes. GC-222 native check open.

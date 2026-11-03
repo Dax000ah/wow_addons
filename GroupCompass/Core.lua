@@ -33,6 +33,10 @@ for _, direction in ipairs({{"N", 0}, {"E", -math.pi / 2}, {"S", math.pi}, {"W",
     cardinals[#cardinals + 1] = {label = label, bearing = direction[2]}
 end
 
+local elsewhere = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+elsewhere:SetWordWrap(false)
+elsewhere:SetTextColor(0.85, 0.8, 0.65)
+local elsewhereEntries = {}
 local appearance
 local function applyAppearance()
     local settings = addon.Settings.Get()
@@ -55,6 +59,9 @@ local function applyAppearance()
     status:ClearAllPoints()
     status:SetPoint("TOP", 0, appearance.nameY)
     font(status, appearance.width - 20)
+    elsewhere:ClearAllPoints()
+    elsewhere:SetPoint("TOP", frame, "TOP", 0, -appearance.height - 3)
+    font(elsewhere, appearance.width - 20)
     for _, marker in ipairs(markers) do
         font(marker.name, appearance.labelWidth)
         font(marker.distance, appearance.distanceWidth)
@@ -89,11 +96,33 @@ local function showDetails()
         end
     end
     if found == 0 then GameTooltip:AddLine(displayMessage, 1, 1, 1) end
+    if #elsewhereEntries > 0 then
+        GameTooltip:AddLine("Elsewhere (no direction or distance)", 1, 0.85, 0.5)
+        for i = 1, math.min(#elsewhereEntries, 20) do
+            GameTooltip:AddLine(elsewhereEntries[i], 1, 1, 1, true)
+        end
+        if #elsewhereEntries > 20 then GameTooltip:AddLine("+" .. (#elsewhereEntries - 20) .. " more; see the roster / waypoint list.") end
+    end
     GameTooltip:Show()
 end
 frame:SetScript("OnEnter", showDetails)
 frame:SetScript("OnLeave", hideDetails)
 frame:SetScript("OnHide", hideDetails)
+local function updateElsewhere(layout, entries)
+    elsewhereEntries = entries
+    elsewhere:SetShown(#entries > 0)
+    if #entries > 0 then
+        -- Keep one short row; hover preserves identities when it does not fit.
+        for count = math.min(#entries, 3), 0, -1 do
+            local value = count == 0 and ("Elsewhere: " .. #entries .. " (hover)")
+                or "Elsewhere: " .. table.concat(entries, "; ", 1, count)
+                    .. (count < #entries and ("; +" .. (#entries - count) .. " more") or "")
+            elsewhere:SetText(value)
+            if elsewhere:GetStringWidth() <= layout.width - 20 or count == 0 then break end
+        end
+    end
+    frame:SetSize(layout.width, layout.height + (#entries > 0 and layout.font + 7 or 0))
+end
 local function refresh()
     local layout = applyAppearance()
     addon.Waypoints.Refresh()
@@ -115,11 +144,18 @@ local function refresh()
     end
     visibleMembers = {}
     local members, message
+    local remote = {}
     if demo then
         members, message = addon.Demo.Sample()
     else
-        members, message = addon.Tracking.Sample()
-        local waypoints, unavailable = addon.Waypoints.Sample()
+        local memberRemote, localStatus
+        members, message, memberRemote, localStatus = addon.Tracking.Sample()
+        local waypoints, unavailable, waypointRemote = addon.Waypoints.Sample()
+        if addon.Settings.Get().showElsewhere then
+            for _, label in ipairs(memberRemote or {}) do remote[#remote + 1] = label end
+            for _, label in ipairs(waypointRemote or {}) do remote[#remote + 1] = label end
+            if memberRemote and #memberRemote > 0 then message = localStatus or message end
+        end
         if #members == 0 and #waypoints > 0 then message = "Character facing - center is ahead" end
         if #waypoints > 0 then
             local combined = {}
@@ -183,6 +219,7 @@ local function refresh()
     for _, item in ipairs(visibleMembers) do
         if item.showLabel then item.marker.name:Show(); item.marker.distance:Show() end
     end
+    updateElsewhere(layout, remote)
     displayMessage = message
     status:SetText(message)
     status:SetShown(visible == 0)

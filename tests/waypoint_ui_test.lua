@@ -13,7 +13,8 @@ addon.Routing = {Status=function() return "Provider status" end, CanStop=functio
     end}
 assert(loadfile("GroupCompass/Settings.lua"))("GroupCompass", addon)
 assert(loadfile("GroupCompass/Direction.lua"))("GroupCompass", addon)
-addon.Tracking = {PlayerState = function() return {x=500,y=1500,map=1,facing=0} end}
+assert(loadfile("GroupCompass/Tracking.lua"))("GroupCompass",addon)
+addon.Tracking.PlayerState = function() return {x=500,y=1500,map=1,facing=0} end
 addon.MarkerStyle = {Path = "Interface\\AddOns\\GroupCompass\\Textures\\"}
 CreateVector2D = function(x,y) return {GetXY = function() return x,y end} end
 C_Map = {

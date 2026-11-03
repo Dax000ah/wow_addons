@@ -3,7 +3,7 @@
   "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
   "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
   "timezone": "America/Los_Angeles",
-  "installed_version": "0.11.0",
+  "installed_version": "0.11.4",
   "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
   "project_folder": {
     "success": true,
@@ -1197,7 +1197,7 @@
       "Forever GroupCompass"
     ],
     "third_party_changed": false,
-    "git": "Uncommitted feature after milestone9cfb3e1",
+    "git": "Committed as313f893 before Elsewhere changes; local only",
     "drive_sync": "Native memory version/body verified;9 Markdown mirrors/closeout match normalized readback hashes and lengths;ZIP upload completed. Milestone0.10.2 package retained as prior checkpoint. GC-220 native checks open.",
     "setup_closeout": {
       "id": "16BgF8mNnqrX16yZZIkNYxGOR7tc8zdsw",
@@ -1207,5 +1207,66 @@
       "id": "1luf-BkorG1WuoBZme86Xz5u3jc71UYQp",
       "url": "https://drive.google.com/file/d/1luf-BkorG1WuoBZme86Xz5u3jc71UYQp/view?usp=drivesdk"
     }
+  },
+  "elsewhere_2026_11_03": {
+    "version": "0.11.1",
+    "checkpoint": "313f893; clean before edits; no new commit",
+    "toggle": "Options > Compass > Show Elsewhere line (remote members and points); default ON; false saved",
+    "checks": "18 suites, structure, stock SPF API/RXP, actual TomTom Forever4.4.0 and Hardcore4.3.13, package31/source/install hashes, diff check PASS",
+    "dependencies_unchanged": 4756,
+    "native": "GC-221 OPEN; RXP resume required after reload; Forever acceptance open",
+    "closeout": {
+      "id": "1RqpIVNTWOt0bbj37EDGywL3n1oPrPlwi",
+      "url": "https://drive.google.com/file/d/1RqpIVNTWOt0bbj37EDGywL3n1oPrPlwi/view"
+    },
+    "package": {
+      "id": "11DimZcopUb1z0udOwt5xv8C2U56U1z6p",
+      "url": "https://drive.google.com/file/d/11DimZcopUb1z0udOwt5xv8C2U56U1z6p/view"
+    },
+    "addon_configuration": "https://docs.google.com/document/d/1fP7HjkxSsy4f4m8l6G1u5FqXCuMpzkovzSKrUqJH34c"
+  },
+  "menu_help_2026_11_03": {
+    "version": "0.11.2",
+    "checkpoint": "313f893;0.11.1 and0.11.2 changes uncommitted",
+    "changes": "wrapped hover help, conditional target/owned actions, Other addons settings/report tab, compact menu",
+    "resume_limit": "opens native controls; Guidance > bottom Resume guide still needed; no stock API/CLI direct resume",
+    "checks": "18 suites, structure, actual stock SPF API/RXP, ZIP31/source/install and diff PASS;4,756 third-party hashes unchanged",
+    "native": "GC-222 OPEN; GC-221/GC-220/Forever acceptance remain open",
+    "closeout": {
+      "id": "11Uzr6oy1_9LjiT1A5-KhwDb4qyOPOUqY",
+      "url": "https://drive.google.com/file/d/11Uzr6oy1_9LjiT1A5-KhwDb4qyOPOUqY/view"
+    },
+    "package": {
+      "id": "1ytevBszbE-b4GJyfQSnoJJQ938u1RobB",
+      "url": "https://drive.google.com/file/d/1ytevBszbE-b4GJyfQSnoJJQ938u1RobB/view"
+    }
+  },
+  "launcher_help_2026_11_03": {
+    "version": "0.11.3",
+    "change": "separate wrapped left-click/right-click/left-drag tooltip lines; actions unchanged",
+    "checks": "18 suites, focused three-line launcher/leave check,31-file ZIP/source/install hashes,diff PASS;4,756 third-party files unchanged",
+    "native": "GC-222 tooltip appearance open; native Resume button still required after our controls shortcut",
+    "git": "Uncommitted after313f893"
+  },
+  "guide_controls_2026_11_03": {
+    "version": "0.11.4",
+    "label": "RestedXP guide controls...",
+    "limitation": "No stock Resume API/CLI or stable named button; GC-223 upstream action required; no private widget callback workaround",
+    "native_shortcut": "right-click SPF journey tracker heading > Resume RestedXP guide",
+    "checks": "18 suites,structure,ZIP31/source/install,diff PASS;4,756 dependencies unchanged",
+    "git": "Uncommitted after313f893",
+    "package": {
+      "id": "1y_-3ZsGiKYDLILpM70nPPFfrzwd4ai1r",
+      "url": "https://drive.google.com/file/d/1y_-3ZsGiKYDLILpM70nPPFfrzwd4ai1r/view"
+    }
+  },
+  "checkpoint_elsewhere_2026_11_03": {
+    "version": "0.11.4",
+    "commit_message": "Milestone: Elsewhere indicators and navigation help",
+    "authorization": "Tony: these look good; check the Elsewhere stuff in",
+    "scope": "Elsewhere, navigation/menu/options/launcher help and associated tests/docs since313f893",
+    "checks": "18 suites,structure,actual stock SPF API/RXP,TomTom Forever4.4.0/Hardcore4.3.13 and diff PASS",
+    "push": false,
+    "remaining": "Detailed native GC-221/GC-222/GC-220 and Forever acceptance; GC-223 upstream Resume API"
   }
 }

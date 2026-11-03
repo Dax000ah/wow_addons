@@ -19,31 +19,33 @@ local function refresh()
     status:SetText(addon.Routing.Detail())
     for _, row in ipairs(rows) do row:Hide() end
     local entries = {}
-    local function add(text, action, reason)
-        entries[#entries + 1] = {text = text, action = action, reason = reason}
+    local function add(text, action, reason, helpText)
+        entries[#entries + 1] = {text = text, action = action, reason = reason, help = helpText}
     end
     local function open(value) page = value; refresh() end
     if page == "main" then
         heading:SetText("Golden path targets")
-        help:SetText("Selected destinations appear on our bar. Guide following stays in Shortest Path. * Click for details.")
+        help:SetText("Choose where to navigate. Hover over a button for help.")
         local unavailable = not sources and why or sources.combat and "Change routes after combat ends." or nil
-        add("RestedXP guide settings...", function() choose("restedxp") end,
-            unavailable or not sources.restedxp and "Enable Shortest Path to open its guide settings." or nil)
-        add("Blizzard tracked quest", function() choose("quest") end,
-            unavailable or not sources.quest and sources.questReason or nil)
-        add("Party members  >", function() open("party") end, unavailable)
-        add("TomTom waypoints  >", function() open("tomtom") end, unavailable)
-        add("Retry current route", function() choose("retry") end,
-            unavailable or not sources.retry and "Select a Group Compass target first." or nil)
-        add("Stop Group Compass route", function() choose("stop") end, unavailable or not sources.owned and "Use Shortest Path controls to stop a journey owned by another source." or nil)
-        add("Shortest Path settings", function()
-            local ok, err = addon.Routing.OpenSettings()
-            if ok then menu:Hide() else status:SetText(err) end
-        end)
-        add("Route report", function()
-            local ok, err = addon.Routing.OpenSettings("report")
-            if ok then menu:Hide() else status.explanation = true; status:SetText(err) end
-        end)
+        add("RestedXP guide controls...", function() choose("restedxp") end,
+            not sources and why or not sources.restedxp and "Enable Shortest Path to open its guide controls." or nil,
+            "Opens Shortest Path's controls. Choose Guidance > RestedXP guide > Resume guide (the bottom red button). Keep Follow RestedXP guides enabled. This shortcut does not resume automatically; the stock addon has no public Resume action.")
+        if sources and sources.quest then
+            add("Selected Blizzard quest", function() choose("quest") end, unavailable,
+                "Request a route to the quest selected in Blizzard's tracker. This is separate from your RestedXP guide step.")
+        end
+        add("Party members  >", function() open("party") end, unavailable,
+            "Choose a member to route to their location now. This is a snapshot; select them again after they move.")
+        add("TomTom waypoints  >", function() open("tomtom") end, unavailable,
+            "Choose a saved TomTom point to request its golden route. No second map click is needed. This does not retarget TomTom's independent arrow.")
+        if sources and sources.retry then
+            add("Recalculate this route", function() choose("retry") end, unavailable,
+                "Ask Shortest Path to calculate the selected Group Compass destination again. For members this keeps the old location snapshot; select the member again for a fresh location. Useful if a route did not appear; it cannot guarantee a reachable path.")
+        end
+        if sources and sources.owned then
+            add("Stop this route", function() choose("stop") end, unavailable,
+                "Cancel only the route requested through Group Compass. This does not delete a waypoint, stop a separate RestedXP journey, or hide TomTom's arrow. Automatic guide following can start another route later.")
+        end
     else
         heading:SetText(page == "party" and "Route to a party member" or "Route to a TomTom waypoint")
         help:SetText(page == "party" and "Routes to their current location. Select again after they move."
@@ -54,7 +56,9 @@ local function refresh()
         for _, target in ipairs(targets) do
             local item = target
             add(item.name, function() choose(page == "party" and "party" or "tomtom", item.id) end,
-                page == "party" and item.reason or nil)
+                page == "party" and item.reason or nil,
+                page == "party" and "Route to this member's location now; select again after they move."
+                    or "Request a route to this saved TomTom point; it remains saved if you stop routing.")
         end
     end
     for i, entry in ipairs(entries) do
@@ -67,9 +71,11 @@ local function refresh()
                 elseif self.entry.action then self.entry.action() end
             end)
             row:SetScript("OnEnter", function(self)
-                if self.entry.reason then
+                if self.entry.reason or self.entry.help then
                     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-                    GameTooltip:SetText(self.entry.reason); GameTooltip:Show()
+                    GameTooltip:SetText(self.entry.text)
+                    GameTooltip:AddLine(self.entry.reason or self.entry.help, 1, 1, 1, true)
+                    GameTooltip:Show()
                 end
             end)
             row:SetScript("OnLeave", function(self)
@@ -81,6 +87,8 @@ local function refresh()
         row:SetText(entry.reason and entry.text .. " *" or entry.text)
         row:Show()
     end
+    local height = math.max(29, math.min(210, #entries * 29))
+    scroll:SetHeight(height); menu:SetHeight(height + 180)
     content:SetHeight(math.max(1, #entries * 29))
     scroll:SetVerticalScroll(0)
 end

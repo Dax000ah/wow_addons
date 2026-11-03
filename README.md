@@ -1,5 +1,17 @@
 # Group Compass for WoW Classic Era/Hardcore and Forever
 
+**0.11.2 menu help:** right-click shows navigation choices with hover explanations;
+settings/report links are under **Options > Other addons**. **Resume RestedXP guide...**
+opens native controls; finish with **Guidance > Resume guide**. Recalculate/Stop
+appear only for our applicable route. See [menu help](docs/MENU_HELP_0.11.2.md).
+
+
+**0.11.1 Elsewhere line:** remote members and TomTom waypoints appear below the
+compass even while local markers are visible. Toggle **Show Elsewhere line** in
+**Options > Compass**; it defaults on. Hover for names when the row summarizes.
+See [setup and checks](docs/ELSEWHERE_0.11.1.md).
+
+
 **0.11.0 unified bar:** TomTom points stay on the strip; destinations selected
 through our menu gain `[Route]`. Enable Shortest Path > Follow RestedXP guides
 and Resume guide for an automatically updated `[RXP]` marker. See
@@ -47,7 +59,7 @@ before treating the prototype as a supported addon.
    The final path must be `Interface/AddOns/GroupCompass/GroupCompass.toc`.
    Copy the addon folder, not this entire project.
 2. Fully restart the client after installing or updating the manifest. Enable
-   Group Compass in AddOns. You should see `Group Compass 0.11.0 loaded` in chat.
+   Group Compass in AddOns. You should see `Group Compass 0.11.4 loaded` in chat.
 3. Use `/gcompass demo` to toggle simulated members, even while solo. They stay
    at fixed world locations, so turning your character moves their labels and
    walking changes the distances. `/gcompass demo reset` places new samples.

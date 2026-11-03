@@ -6,7 +6,8 @@ local initialize = addon.Settings.Initialize
 addon.Settings.Initialize = function() initialize(); initialized = true end
 addon.Options = {Initialize = function() end, Toggle = function() optionsToggled = optionsToggled + 1 end}
 local waypointEntries, waypointCommands, waypointToggled = {}, {}, 0
-addon.Waypoints = {Refresh = function() end, Initialize = function() end, Sample = function() return waypointEntries, 0 end,
+local memberRemote,waypointRemote={},{}
+addon.Waypoints = {Refresh = function() end, Initialize = function() end, Sample = function() return waypointEntries, #waypointRemote, waypointRemote end,
     Command = function(value) waypointCommands[#waypointCommands + 1] = value end}
 addon.WaypointUI = {Refresh = function() end, Toggle = function() waypointToggled = waypointToggled + 1 end}
 local routeEntries, routeCommands, routeStops, routeRefreshes = {}, {}, 0, 0
@@ -23,7 +24,7 @@ local mapUpdates = 0
 addon.Maps = { Update = function(items, enabled)
     mapMembers, mapsEnabled = items, enabled; mapUpdates = mapUpdates + 1
 end }
-addon.Tracking = { Sample = function() return members, message end }
+addon.Tracking = { Sample = function() return members, message, memberRemote, "No remote names here" end }
 addon.Tracking.PlayerState = function() return {x = 0, y = 0, map = 1, facing = 0} end
 local facing = 0
 addon.Tracking.Facing = function() return facing end
@@ -241,3 +242,28 @@ destinationEntries={{source="rxp",kind="destination",slot=61,name="Step 23",
  label="[RXP] Step 23",color={.7,.6,1},angle=.8,distance=80}}
 command("demo");assert(visible()==3 and not mapsEnabled,"demo must exclude live destinations")
 io.write("PASS: unified destination labels, TomTom deduplication, unchanged map data, stale clearing and demo isolation\n")
+
+command("demo") -- Leave the final demo from the destination tests.
+destinationEntries={};waypointEntries={}
+members={{name="Local",slot=1,color={1,1,1},angle=0,distance=20}}
+memberRemote={"Aracell - Eastern Kingdoms"};waypointRemote={"[T2] Stormwind - Stormwind"}
+frame.scripts.OnUpdate(frame,.1)
+local elsewhere=texts[#texts]
+assert(elsewhere.shown and elsewhere.text:find("Elsewhere:") and elsewhere.text:find("Aracell",1,true))
+assert(visible()==1 and frame.height==63 and elsewhere.point[5]==-49,"extra row stays below the original strip")
+assert(#mapMembers==1 and mapMembers[1].name=="Local","remote text must not enter maps or bearing markers")
+frame.scripts.OnEnter(frame)
+assert(table.concat(GameTooltip.lines,";"):find("[T2] Stormwind - Stormwind",1,true),"hover must include remote points even over a local marker")
+addon.Settings.Set("compassWidth",320);addon.Settings.Set("textSize",20);addon.Compass.RefreshAppearance()
+assert(elsewhere:GetStringWidth()<=300 and elsewhere.text:find("hover"),"crowded minimum-width row must fit")
+assert(elsewhere.point[5]==-79 and frame.height==103,"text and extra row follow minimum-height changes")
+addon.Settings.Set("showElsewhere",false);addon.Compass.RefreshAppearance()
+assert(not elsewhere.shown and frame.height==76 and visible()==1)
+frame.scripts.OnEnter(frame);assert(not table.concat(GameTooltip.lines,";"):find("Aracell",1,true))
+addon.Settings.Reset();addon.Compass.RefreshAppearance();assert(elsewhere.shown)
+command("demo");assert(not elsewhere.shown and frame.height==46,"demo must not leak real remote identities")
+command("demo");assert(elsewhere.shown)
+memberRemote={};waypointRemote={};frame.scripts.OnUpdate(frame,.1)
+assert(not elsewhere.shown and frame.height==46,"empty/deleted/returned remote entries clear the row")
+command("off");assert(not frame.shown)
+io.write("PASS: persistent Elsewhere row with local markers, fit, hover, live toggle, demo isolation and clearing\n")

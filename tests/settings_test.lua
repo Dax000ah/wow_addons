@@ -42,3 +42,10 @@ GroupCompassDB={textSize=20,compassHeight=40,compassWidth=900}
 s.Initialize(); assert(s.Get().compassHeight==76 and s.Get().compassWidth==900)
 s.Reset(); assert(s.Get().compassWidth==620 and s.Get().compassHeight==46 and s.Get().textSize==10)
 print('PASS: compass sizing bounds, legacy defaults, finite values, rounding, dynamic height minimum, persistence and reset')
+
+assert(s.Get().showElsewhere==true,"new and legacy profiles show remote notices by default")
+s.Set("showElsewhere",false); assert(GroupCompassDB.showElsewhere==false)
+s.Initialize(); assert(s.Get().showElsewhere==false,"off must persist after reload")
+s.Set("showElsewhere","false"); assert(s.Get().showElsewhere==true,"invalid setting uses the default")
+s.Set("showElsewhere",false);s.Reset();assert(s.Get().showElsewhere==true)
+print("PASS: Elsewhere toggle defaults, validation, saved false and reset")

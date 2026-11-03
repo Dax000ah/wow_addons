@@ -134,17 +134,29 @@ function waypoints.Remove(pointID)
     return false, "TomTom waypoint not found."
 end
 function waypoints.Sample()
-    local points, entries = waypoints.List(), {}
-    if #points == 0 then return entries, 0 end
+    local points, entries, remote = waypoints.List(), {}, {}
+    if #points == 0 then return entries, 0, remote end
     local player = addon.Tracking.PlayerState()
-    if not player then return entries, #points end
+    local playerContinent
+    if C_Map and C_Map.GetBestMapForUnit then
+        playerContinent = addon.Tracking.MapLocation(C_Map.GetBestMapForUnit("player"))
+    end
+    local locations = {}
     for _, point in ipairs(points) do
         local north, west, worldID = worldPosition(point.mapID, point.x, point.y)
-        if north and worldID == player.map then
+        if player and north and worldID == player.map then
             local entry = marker(point)
             entry.angle, entry.distance = addon.Direction.Calculate(player.x, player.y, north, west, player.facing)
             entry.north, entry.west, entry.facing = north - player.x, west - player.y, player.facing
             entries[#entries + 1] = entry
+        else
+            if not locations[point.mapID] then locations[point.mapID] = {addon.Tracking.MapLocation(point.mapID)} end
+            local info = locations[point.mapID]
+            local continent, continentName, location = info[1], info[2], info[3]
+            if (player and north and worldID ~= player.map)
+                or (playerContinent and continent and playerContinent ~= continent) then
+                remote[#remote + 1] = (point.label or point.name) .. " - " .. (location or continentName or "Different world area")
+            end
         end
     end
     table.sort(entries, function(a, b)
@@ -152,7 +164,7 @@ function waypoints.Sample()
         return a.slot < b.slot
     end)
     while #entries > waypoints.Limit do table.remove(entries) end
-    return entries, #points - #entries
+    return entries, #points - #entries, remote
 end
 function waypoints.Refresh()
     local points, signature = waypoints.List(), {waypoints.UsesTomTom() and "tomtom" or "missing"}

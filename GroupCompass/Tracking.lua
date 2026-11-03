@@ -52,6 +52,7 @@ local function position(unit)
     if not readable(connected) or not connected then
         return
     end
+    if not UnitPosition then return end
     local x, y, z, map = UnitPosition(unit)
     if number(x) and number(y) and number(z) and number(map) then
         return x, y, z, map
@@ -60,24 +61,28 @@ end
 
 -- UI-map IDs and UnitPosition world IDs are different namespaces. Resolve the
 -- continent through UI-map parents; never use a world ID as a GetMapInfo key.
-local function continent(unit)
-    if IsInRaid() or not C_Map or not C_Map.GetBestMapForUnit or not C_Map.GetMapInfo then return end
-    local id = C_Map.GetBestMapForUnit(unit)
-    local seen = {}
+function addon.Tracking.MapLocation(id)
+    if not C_Map or not C_Map.GetMapInfo then return end
+    local seen, location = {}, nil
     local continentType = Enum and Enum.UIMapType and Enum.UIMapType.Continent or 2
     for _ = 1, 20 do
-        if not number(id) or id <= 0 or seen[id] then return end
+        if not number(id) or id <= 0 or seen[id] then break end
         seen[id] = true
         local info = C_Map.GetMapInfo(id)
-        if not readable(info) or type(info) ~= "table" then return end
+        if not readable(info) or type(info) ~= "table" then break end
+        local name = readable(info.name) and type(info.name) == "string" and info.name:gsub("|", ""):gsub("%c", " ") or nil
+        if name == "" then name = nil end
+        location = location or name
         if number(info.mapType) and info.mapType == continentType then
-            if readable(info.name) and type(info.name) == "string" and info.name ~= "" then
-                return id, info.name
-            end
-            return
+            return id, name, location
         end
         id = info.parentMapID
     end
+    return nil, nil, location
+end
+local function continent(unit)
+    if IsInRaid() or not C_Map or not C_Map.GetBestMapForUnit then return end
+    return addon.Tracking.MapLocation(C_Map.GetBestMapForUnit(unit))
 end
 
 -- Map coordinates use UI-map IDs and normalized X/Y, never UnitPosition's map ID.
@@ -152,12 +157,11 @@ end
 
 function addon.Tracking.Sample()
     local player, message = addon.Tracking.PlayerState()
-    if not player then return {}, message end
     local members, unavailable, remote = {}, 0, {}
     local playerContinent, continentChecked
     for _, member in ipairs(roster()) do
         local x, y, _, map = position(member.unit)
-        if x and map == player.map then
+        if player and x and map == player.map then
             local angle, distance = addon.Direction.Calculate(player.x, player.y, x, y, player.facing)
             member.angle, member.distance = angle, distance
             member.north, member.west = x - player.x, y - player.y
@@ -174,7 +178,7 @@ function addon.Tracking.Sample()
                 local memberContinent, continentName = continent(member.unit)
                 local differentContinent = playerContinent and memberContinent
                     and playerContinent ~= memberContinent
-                if differentContinent or (x and map ~= player.map) then
+                if differentContinent or (player and x and map ~= player.map) then
                     remoteLabel = member.name .. " - " .. (continentName or "Different world area")
                 end
             end
@@ -182,12 +186,13 @@ function addon.Tracking.Sample()
             else unavailable = unavailable + 1 end
         end
     end
-    local status = #members == 0 and "No locatable group members" or "Character facing - center is ahead"
+    local status = not player and message or #members == 0 and "No locatable group members" or "Character facing - center is ahead"
+    local localStatus = status .. (unavailable > 0 and " (" .. unavailable .. " unavailable)" or "")
     if #remote > 0 then
-        status = (#members == 0 and "" or status .. "; ") .. table.concat(remote, "; ")
+        status = (player and #members == 0 and "" or status .. "; ") .. table.concat(remote, "; ")
     end
     if unavailable > 0 then
         status = status .. " (" .. unavailable .. " unavailable)"
     end
-    return members, status
+    return members, status, remote, localStatus
 end

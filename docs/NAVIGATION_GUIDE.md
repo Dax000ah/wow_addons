@@ -1,5 +1,61 @@
 # Which arrow should I follow?
 
+## Current label —0.11.4
+
+Our menu now says RestedXP guide controls... (formerly Resume RestedXP guide...).
+It opens native settings; Guidance > Resume guide calculates the golden route to
+the current guide destination. Faster native action: right-click Shortest Path's
+journey tracker heading > Resume RestedXP guide. There is no public Resume method,
+slash command or stable named button to invoke directly from GC in this version.
+Do not add a private widget/callback workaround.0.11.3 launcher hover help remains.
+
+
+## Launcher help —0.11.3
+
+Hover the cyan minimap icon: separate wrapped lines explain left-click (Options),
+right-click (navigation choices) and left-drag (move icon). Native Resume guide
+means calculate/show a path to the current RXP navigation destination; it does not
+restart guide/quest progress. Our menu shortcut only opens native controls, so
+Guidance > Resume guide still requires your click. No direct public Resume API.
+
+
+## New in0.11.2: clear actions and hover help
+
+Right-click cyan icon: Resume RestedXP guide..., Party members, TomTom waypoints.
+Hover each choice for a wrapped explanation. Resume opens Shortest Path controls;
+choose Guidance > RestedXP guide > Resume guide (bottom red button). It does not
+resume automatically: the stock API/CLI has no public direct Resume action.
+
+Recalculate this route appears for our remembered owned target and resends that
+destination. A member route uses its old snapshot; reselect the member to refresh
+it. Stop this route appears for our owned route and cancels only that request.
+It does not delete points or stop a separate guide or TomTom arrow. Automatic
+following can later start another route. Missing Blizzard quest coordinates on
+Hardcore hide that menu action; this is not a RestedXP failure.
+
+Cyan LEFT-click > Other addons (or /gcompass options): native Shortest Path,
+RestedXP and TomTom settings plus Route report (diagnostics). Hover the buttons.
+Report opens /path report to inspect target/planner/drawing/version details when
+troubleshooting; it does not change routing or send a report automatically.
+See MENU_HELP_0.11.2.md for current checks and instructions.
+
+
+## New in 0.11.1: remote locations
+
+The Elsewhere row sits below the compass and names remote members and TomTom
+points without a direction/distance. It stays visible with local markers. Cyan
+left-click > Compass > Show Elsewhere line (remote members and points) toggles it
+immediately and saves the choice; default ON. It hides when empty or in demo.
+Hover for full names if the row summarizes. See ELSEWHERE_0.11.1.md for native checks.
+
+After /reload, refresh RXP with /path > Guidance > RestedXP guide > Resume guide
+(the bottom red button). Follow RestedXP guides ON; Follow TomTom's arrow OFF for
+guide navigation. Toggling following also sends a fresh request. Group Compass
+cannot retrieve a pre-existing private guide destination from the stock API.
+Hide RXP's own arrow in RestedXP settings > General > Features > Hide waypoint
+arrow; keep Show all Enabled Frames checked. TomTom's arrow is independent.
+
+
 ## New in0.11.0: use the unified bar
 
 Our strip now adds `[Route]` for a destination requested through our menu and

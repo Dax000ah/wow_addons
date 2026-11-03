@@ -24,3 +24,17 @@ Forever and repeated-route acceptance remain open; no claim of full completion.
 GC-037:0.11.0 destination display implementation and offline18-suite/API+RXP
 composition passed. Native unified-bar test remains OPEN as GC-220; this archives
 implementation only. See UNIFIED_COMPASS_0.11.0.md for setup, scope and checks.
+
+## GC-038 — Elsewhere row implementation verified offline
+
+0.11.1 remote member/waypoint row, saved default-on Compass toggle, fit/hover,
+clearing and demo isolation implemented. 18 suites and stock provider checks pass;
+31-file ZIP and both installed copies match. Native GC-221 remains active. Existing
+0.11.0 checkpoint is313f893; 0.11.1 feature is not committed. No third-party changes.
+
+## GC-039 — menu help and settings organization implemented
+
+0.11.2 navigation labels, wrapped tooltips, conditional actions, compact height,
+Other addons tab and explicit native Resume handoff implemented.18 suites/stock
+API/package/install checks pass;31 matching files per GC install,4,756 dependency
+files unchanged. Native GC-222 remains open; a direct Resume API is unavailable.

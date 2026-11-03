@@ -407,3 +407,25 @@ Palette: C:/Users/Gaming PC/.codex/visualizations/2026/10/23/01a1692d-351a-7492-
 - Does center-priority labeling plus shared hover keep same-bearing members clear
   enough, or is a future single-row grouped marker needed?
 - Should individual views be independently toggleable after initial validation?
+
+## Elsewhere row — 0.11.1
+
+Tracking returns remote labels separately from its legacy status, with a clean
+local-only status for the compass. Shared MapLocation resolves UI-map ancestry;
+Waypoints returns remote labels separately from bearing samples. Core adds one
+non-directional row below configured bar height, font-size +7 high, without moving
+existing rows. It fits up to three names plus remaining count; if no name fits,
+uses a compact count. Hover lists up to20 names and explicit overflow. No private
+provider data, new dependencies, new runtime files or map pins. Compass checkbox
+showElsewhere defaults true; false survives reload. Demo and empty lists hide it.
+
+## Target menu / other-addon links — 0.11.2
+
+Navigation menu entries carry optional wrapped hover help separately from disabled
+reasons. Quest and owned-route controls are conditional; height follows entry count.
+Resume's ellipsis, tooltip and printed result disclose native-controls handoff.
+Existing public /path handler remains authoritative; no unsupported Resume call.
+Options now has Compass, Map markers and Other addons tabs. Native /rxp dispatch
+uses its audited AceConsole slash entry; /tomtom and /path use existing wrappers.
+Failed/missing handlers keep Options open with an explanation. Reports remain
+read-only diagnostic actions; route ownership/cancellation logic is unchanged.

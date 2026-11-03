@@ -1,5 +1,118 @@
 # Group Compass — Project Memory
 
+## November 3 — approved0.11.4 Elsewhere milestone
+
+Tony says the current changes look good and requests check-in. This milestone
+contains the Elsewhere row/default-on saved toggle, remote member/waypoint labels,
+compact overflow/hover details, clearer navigation actions, Other addons settings/
+report tab, launcher left/right/drag help and honest guide-controls label. It
+builds on313f893 and includes the0.11.1 through0.11.4 changes documented below.
+Historical uncommitted notes below describe the state before this checkpoint.
+
+Rechecked: python scripts/run_tests.py (18 suites), check_structure.py, actual
+stock SPF API/RXP composition and TomTom4.4.0 Forever/4.3.13 Hardcore registry
+checks PASS; git diff --check PASS. No runtime or installed-addon change in this
+check-in. Existing0.11.4 package/install verification remains recorded. No push.
+General visual approval does not prove every manual check: GC-221/GC-222 and
+GC-220 guide-step/hidden-arrow/Forever acceptance stay open; GC-223 direct Resume
+requires upstream public support. Commit message: Milestone: Elsewhere indicators
+and navigation help.
+
+## November 3 —0.11.4 guide-controls label clarification
+
+Renamed our shortcut to RestedXP guide controls... to describe its real action:
+it opens the native controls, then Guidance > Resume guide is still required.
+The actual native Resume button calculates the golden route to the current RXP
+destination, without restarting guide/quest progress. Checked stock API, slash
+parser, settings initializer and tracker menu: no public Resume, named button or
+stable /click target. Do not scrape private callbacks/widgets or modify providers.
+Faster native path: right-click SPF journey tracker heading > Resume RestedXP guide.
+GC-223: direct GC Resume requires an upstream public action; unavailable currently.
+
+Installed0.11.4 in both exact GC folders;31 matching source/package files each.
+All18 suites, structure/ZIP/diff pass;4,756 third-party hashes unchanged. No
+backups/SavedVariables/provider writes or new commit. Includes0.11.3 launcher
+three-line hover help. Native visual checks GC-222/GC-221/GC-220 remain open.
+
+## November 3 —0.11.3 launcher hover help installed
+
+Minimap launcher now has three separate wrapped tooltip rows: left-click opens
+compass/map/other-addon options; right-click opens navigation choices for guide
+controls, members and TomTom points; left-drag moves the icon. Click behavior is
+unchanged. Installed31 source/package-matching files into both GC folders, no
+backups/SavedVariables/provider writes;4,756 third-party hashes still unchanged.
+18 suites, actual launcher three-line/leave check, structure/ZIP and diff checks
+PASS. Native tooltip appearance remains part of GC-222. No new commit after313f893.
+
+Clarification requested by Tony: the ACTUAL native Resume guide button plans the
+golden path to RXP's current navigation destination (NPC/objective/travel step);
+it does not restart the guide or alter quest progress. Our Resume... menu item
+ONLY opens those controls. Stock API/CLI provides no direct Resume action, so
+Guidance > Resume guide still requires a native click; no one-click promise.
+This distinction is easy to misread and remains a native UX limitation.
+Closeout supplement: docs/MENU_HELP_0.11.2.md (0.11.3 section).
+
+## November 3 — 0.11.2 clearer target menu and settings/help
+
+Installed0.11.2 in Hardcore and Forever's exact GroupCompass folders;31 files
+match each source/package. Third-party4,756-file comparison still unchanged.
+18 Lua5.1 suites, structure, actual stock SPF API/RXP composition, ZIP and diff
+checks PASS. No provider changes, private calls, SavedVariables or backups.
+
+Right-click menu now has Resume RestedXP guide..., Party members and TomTom points;
+Selected Blizzard quest appears only when this client can provide it. Hover help
+uses a title plus wrapped explanation on each actionable row. Recalculate this
+route and Stop this route appear only for our applicable owned route; settings
+and reports moved to cyan left-click > Other addons (or /gcompass options).
+This tab has native SPF, RXP and TomTom settings plus Route report (diagnostics),
+all with hover help. Menu height shrinks with the number of actions.
+
+IMPORTANT: Resume is a native-controls shortcut, not a one-click resume. Stock
+SPF exposes no public Resume API or slash action. It opens /path; choose Guidance
+> RestedXP guide > Resume guide, bottom red button. Tooltip and chat say this.
+No namespace/widget scraping or support patch was added. Recalculate resends the
+same target/member snapshot; reselect a member for a fresh location. Stop cancels
+only our route, not a separate guide, saved point or TomTom arrow. Report is
+troubleshooting output and does not change a target or send anything automatically.
+
+GC-222 OPEN: native hover wrapping, conditional rows, tab links, compact sizing
+and Resume handoff. GC-221 Elsewhere visual/toggle and GC-220 guide advancement/
+hidden arrows remain open. Unmodified Forever gameplay acceptance pending.
+Pre-existing0.11.1 changes retained;0.11.2 work remains uncommitted after checkpoint
+313f893. Detailed commands/files/manual checks: docs/MENU_HELP_0.11.2.md.
+
+## November 3 — 0.11.1 Elsewhere line installed
+
+Confirmed clean checkpoint 313f893 before feature edits (local commit; no push).
+Installed 0.11.1 in both exact GroupCompass folders: 31 matching files each.
+No backups, SavedVariables or third-party addon writes; 4,756 dependency files
+matched pre-install hashes. New feature remains uncommitted after that checkpoint.
+
+Elsewhere is a compact line beneath the original compass, visible alongside local
+markers. Remote member names use available continent labels; remote TomTom points
+use their map/area names. Missing names fall back to Different world area only
+when a separate world/continent is established. Unknown/offline locations are not
+misrepresented as remote. No invented bearing/distance or extra map pins.
+Compass options > Show Elsewhere line (remote members and points) defaults ON,
+applies immediately and saves OFF across reload; Reset defaults restores ON.
+Empty lists/demo hide the row. Crowded rows summarize and hover lists up to 20
+remote identities, with an explicit remaining count. Local bearings retain their
+positions; the extra row adds text-size + 7 UI pixels only when visible.
+
+18 regression suites, structure, actual stock SPF API/RXP composition, actual
+Forever TomTom4.4.0 and Hardcore4.3.13 registry checks, ZIP integrity/source match
+and diff check PASS. TomTom4.4.0 moved its public registry to core/waypoints.lua;
+test harness now covers that audited layout; no GC bridge/runtime provider change
+was required. WoW frames/projection/callback services are doubled in offline tests.
+
+GC-221 OPEN: native visual placement, local+remote members/waypoints, hover/overflow,
+checkbox OFF/reload persistence, re-entry/deletion clearing; unmodified Forever
+acceptance stays open. Reload and confirm0.11.1; options are cyan left-click >
+Compass (or /gcompass options). RXP after reload still needs /path > Guidance >
+RestedXP guide > Resume guide: its public API has no current-destination getter.
+Tony confirms toggling guide following refreshed [RXP]; do not claim automatic
+reload recovery. Full closeout: docs/ELSEWHERE_0.11.1.md.
+
 ## November3 —0.11.0 unified destination bar implemented
 
 Installed0.11.0 into both exact GroupCompass folders (Hardcore and Forever); all31

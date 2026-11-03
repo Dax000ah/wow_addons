@@ -16,7 +16,7 @@ settings.Palette = {gold = {1, 0.78, 0.25}, cyan = {0.25, 0.85, 1},
     pink = {1, 0.45, 0.75}, white = {1, 1, 1}}
 local defaults = {icon = "person", minimapSize = 20, worldSize = 24,
     effect = "none", colorMode = "class", buttonAngle = 225,
-    compassWidth = 620, compassHeight = 46, textSize = 10}
+    compassWidth = 620, compassHeight = 46, textSize = 10, showElsewhere = true}
 settings.Ranges = {minimapSize = {12, 40}, worldSize = {12, 40},
     compassWidth = {320, 1200}, compassHeight = {40, 160}, textSize = {8, 20}}
 local db = {}
@@ -29,6 +29,10 @@ local function finite(value)
     return type(value) == "number" and value == value and value > -math.huge and value < math.huge
 end
 local function sanitize(key, value)
+    if key == "showElsewhere" then
+        if type(value) == "boolean" then return value end
+        return defaults[key]
+    end
     local choices = key == "icon" and settings.Icons or key == "effect" and settings.Effects
         or key == "colorMode" and settings.Colors
     if choices then return validChoice(value, choices) and value or defaults[key] end

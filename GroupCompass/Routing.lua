@@ -144,7 +144,7 @@ function routing.SelectSource(kind, id)
     if not sources then return false, err end
     if kind == "restedxp" then
         local ok, why = routing.OpenSettings()
-        return ok, why or "In Shortest Path: Guidance > Follow RestedXP guides, then RestedXP guide > Resume guide. Select a guide in RestedXP first."
+        return ok, why or "Shortest Path controls opened. Choose Guidance > RestedXP guide > Resume guide (bottom red button). Follow RestedXP guides must be enabled. This shortcut does not resume automatically."
     end
     if kind == "stop" then return routing.Stop() end
     if inCombat() then return false, "Change routes after combat ends." end

@@ -88,7 +88,11 @@ local function remoteMaps()
     }
 end
 reset(); remoteMaps(); state.positions.party1 = nil; state.names.party1 = "Keina"
-local remoteMembers, remoteStatus = addon.Tracking.Sample()
+local remoteMembers, remoteStatus, remoteLabels, localStatus = addon.Tracking.Sample()
+assert(remoteLabels[1]=="Keina - Eastern Kingdoms" and localStatus=="No locatable group members")
+GetPlayerFacing=function() return nil end
+assert(select(3,addon.Tracking.Sample())[1]=="Keina - Eastern Kingdoms","remote UI-map notice must not require facing")
+GetPlayerFacing=function() return 0 end
 assert(#remoteMembers == 0 and remoteStatus == "Keina - Eastern Kingdoms",
     "different continents must show a named remote label even without world coordinates")
 reset(); remoteMaps(); state.positions.party1[4] = 2
@@ -100,6 +104,7 @@ C_Map.GetBestMapForUnit = function() error("must not query offline member maps")
 sample(0, "1 unavailable")
 reset(); remoteMaps(); state.positions.party1 = nil
 C_Map.GetBestMapForUnit = function() return 100 end
+assert(#select(3,addon.Tracking.Sample())==0,"same-continent unreadable positions must not be labeled remote")
 sample(0, "1 unavailable") -- Same continent is not evidence of a remote world area.
 reset(); remoteMaps(); state.positions.party1 = nil
 C_Map.GetBestMapForUnit = function() return secret end

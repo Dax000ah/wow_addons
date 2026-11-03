@@ -8,6 +8,10 @@ local waypointsOpened = 0
 local routesOpened = 0
 addon.RouteMenu = {Toggle = function(anchor) assert(anchor == GroupCompassMinimapButton); routesOpened = routesOpened + 1 end}
 addon.WaypointUI = {Toggle = function() waypointsOpened = waypointsOpened + 1 end}
+local opened,openError={}
+addon.Waypoints={OpenSettings=function() opened[#opened+1]="tomtom";return not openError,openError end}
+addon.Routing={OpenSettings=function(section)opened[#opened+1]=section;return not openError,openError end}
+SlashCmdList={ACECONSOLE_RXP=function(input)assert(input=="");opened[#opened+1]="rxp" end}
 addon.Maps = {Refresh = function() updates = updates + 1 end}
 addon.MarkerStyle = {Path = "test/", Decorate = function() end, Apply = function(frame, _, kind)
     applied[kind] = addon.Settings.Get()[kind == "world" and "worldSize" or "minimapSize"]
@@ -16,7 +20,7 @@ local frames, sliders = {}, {}
 local function region()
     return {SetPoint = function() end, SetAllPoints = function() end, SetColorTexture = function() end,
         SetTexture = function() end, SetVertexColor = function() end, SetSize = function() end,
-        SetHeight = function() end, SetText = function(self, value) self.text = value end}
+        SetHeight = function() end, SetWidth = function() end, SetText = function(self, value) self.text = value end}
 end
 CreateFrame = function(kind, name, parent)
     local f = {kind = kind, name = name, parent = parent, shown = true, scripts = {}}
@@ -33,6 +37,8 @@ CreateFrame = function(kind, name, parent)
             self:SetValue(math.max(low,math.min(high,self.value)))
         end
     end
+    f.SetChecked=function(self,value) self.checked=value end
+    f.GetChecked=function(self) return self.checked end
     f.SetText = function(self, value) self.text = value end
     f.SetScript = function(self, key, value) self.scripts[key] = value end
     f.HookScript = f.SetScript
@@ -57,7 +63,10 @@ Minimap = {GetWidth = function() return 200 end, GetHeight = function() return 2
 GetCursorPosition = function() return 600, 500 end
 local time = 10
 GetTime = function() return time end
-GameTooltip = {IsOwned = function() return false end}
+GameTooltip = {IsOwned=function(self,owner)return self.owner==owner end,
+    SetOwner=function(self,owner)self.owner=owner end,SetText=function(self,value)self.title=value end,
+    AddLine=function(self,value,_,_,_,wrap)self.help=value;self.wrap=wrap end,
+    Show=function()end,Hide=function(self)self.owner=nil end}
 assert(loadfile("GroupCompass/Options.lua"))("GroupCompass", addon)
 addon.Options.Initialize(); addon.Options.Initialize()
 assert(#frames == 1 and GroupCompassMinimapButton.width == 30, "one border button, lazy panel")
@@ -110,3 +119,34 @@ addon.Options.Toggle(); assert(not GroupCompassOptions.shown)
 GroupCompassMinimapButton.scripts.OnClick(); assert(GroupCompassOptions.shown)
 click("Waypoints & help"); assert(waypointsOpened == 1 and not GroupCompassOptions.shown)
 print("PASS: single draggable minimap button, options toggling, controls, live previews, saving and reset")
+
+local toggle
+for _,f in ipairs(frames) do if f.kind=="CheckButton" then toggle=f end end
+assert(toggle and toggle.checked==true and toggle.parent==sliders[1].parent)
+local mapCount,compassCount=updates,compassUpdates
+toggle:SetChecked(false);toggle.scripts.OnClick(toggle)
+assert(GroupCompassDB.showElsewhere==false and not toggle.checked)
+assert(updates==mapCount and compassUpdates==compassCount+1,"toggle updates only the compass immediately")
+addon.Settings.Initialize();addon.Options.Refresh();assert(not toggle.checked)
+click("Reset defaults");assert(toggle.checked and GroupCompassDB.showElsewhere)
+print("PASS: Compass Elsewhere checkbox, live refresh, persistence, reset and unchanged map pins")
+
+addon.Options.Toggle();click("Other addons")
+assert(not sliders[1].parent.shown and not sliders[4].parent.shown)
+local pathButton=click("Shortest Path settings")
+assert(opened[#opened]=="" and not GroupCompassOptions.shown)
+addon.Options.Toggle();click("Other addons");click("RestedXP settings")
+assert(opened[#opened]=="rxp" and not GroupCompassOptions.shown)
+addon.Options.Toggle();click("Other addons");click("TomTom settings")
+assert(opened[#opened]=="tomtom" and not GroupCompassOptions.shown)
+addon.Options.Toggle();click("Other addons");local reportButton=click("Route report (diagnostics)")
+assert(opened[#opened]=="report" and not GroupCompassOptions.shown)
+reportButton.scripts.OnEnter(reportButton)
+assert(GameTooltip.wrap and GameTooltip.help:find("does not change the route",1,true))
+reportButton.scripts.OnLeave(reportButton);assert(not GameTooltip.owner)
+addon.Options.Toggle();click("Other addons");openError="Settings unavailable";click("Shortest Path settings")
+assert(GroupCompassOptions.shown,"failed links keep Options open")
+openError=nil;SlashCmdList.ACECONSOLE_RXP=nil;click("RestedXP settings")
+assert(GroupCompassOptions.shown,"missing RXP settings handler must not throw or close the panel")
+click("Compass");assert(sliders[1].parent.shown and not sliders[4].parent.shown)
+print("PASS: Other addons tab, native settings/report handoffs, help, missing addons, errors and tab reuse")

@@ -4,17 +4,24 @@ local options, settings = addon.Options, addon.Settings
 local panel, borderButton, openMenu, controls = nil, nil, nil, {}
 local previewMember = {slot = 1, color = {0.25, 0.78, 0.92}}
 local miniPreview, worldPreview
-local compassPage, mapPage, compassTab, mapTab
+local compassPage, mapPage, otherPage, compassTab, mapTab, otherTab
 
 local function text(parent, value, x, y, template)
     local label = parent:CreateFontString(nil, "OVERLAY", template or "GameFontHighlightSmall")
     label:SetPoint("TOPLEFT", x, y); label:SetText(value)
     return label
 end
-local function button(parent, title, width, x, y, onClick)
+local function button(parent, title, width, x, y, onClick, helpText)
     local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
     b:SetSize(width, 24); b:SetPoint("TOPLEFT", x, y); b:SetText(title)
     b:SetScript("OnClick", onClick)
+    if helpText then
+        b:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(title)
+            GameTooltip:AddLine(helpText, 1, 1, 1, true); GameTooltip:Show()
+        end)
+        b:SetScript("OnLeave", function(self) if GameTooltip:IsOwned(self) then GameTooltip:Hide() end end)
+    end
     return b
 end
 local function closeMenu()
@@ -77,10 +84,10 @@ local function slider(title, key, y, parent)
         label:SetText(title .. ": " .. settings.Get()[key] .. " px")
     end
 end
-local function selectPage(compass)
+local function selectPage(page)
     closeMenu()
-    compassPage:SetShown(compass); mapPage:SetShown(not compass)
-    compassTab:SetEnabled(not compass); mapTab:SetEnabled(compass)
+    compassPage:SetShown(page == "compass"); mapPage:SetShown(page == "map"); otherPage:SetShown(page == "other")
+    compassTab:SetEnabled(page ~= "compass"); mapTab:SetEnabled(page ~= "map"); otherTab:SetEnabled(page ~= "other")
     options.Refresh()
 end
 local function updateBorderButton()
@@ -108,15 +115,21 @@ local function createPanel()
     panel:SetBackdropBorderColor(0.55, 0.5, 0.35, 1)
     text(panel, "Group Compass", 24, -20, "GameFontNormalLarge")
     button(panel, "X", 26, 390, -12, function() panel:Hide() end)
-    compassTab = button(panel, "Compass", 130, 24, -53, function() selectPage(true) end)
-    mapTab = button(panel, "Map markers", 130, 172, -53, function() selectPage(false) end)
+    compassTab = button(panel, "Compass", 110, 24, -53, function() selectPage("compass") end)
+    mapTab = button(panel, "Map markers", 110, 146, -53, function() selectPage("map") end)
+    otherTab = button(panel, "Other addons", 120, 268, -53, function() selectPage("other") end)
     compassPage = CreateFrame("Frame", nil, panel); compassPage:SetAllPoints()
     mapPage = CreateFrame("Frame", nil, panel); mapPage:SetAllPoints()
+    otherPage = CreateFrame("Frame", nil, panel); otherPage:SetAllPoints()
     text(compassPage, "Compass appearance — changes apply immediately", 24, -90)
     slider("Bar width (horizontal)", "compassWidth", -128, compassPage)
     slider("Bar height (vertical)", "compassHeight", -218, compassPage)
     slider("Text size", "textSize", -308, compassPage)
-    text(compassPage, "Larger text raises the minimum height to keep rows readable.", 24, -377)
+    local toggle = CreateFrame("CheckButton", nil, compassPage, "UICheckButtonTemplate")
+    toggle:SetSize(24, 24); toggle:SetPoint("TOPLEFT", 22, -371)
+    text(compassPage, "Show Elsewhere line (remote members and points)", 50, -377)
+    toggle:SetScript("OnClick", function(self) settings.Set("showElsewhere", self:GetChecked() == true) end)
+    controls.showElsewhere = function() toggle:SetChecked(settings.Get().showElsewhere) end
     text(mapPage, "Member icons (waypoints use TomTom)", 24, -90)
     dropdown("Icon", "icon", settings.Icons, -112)
     slider("Minimap size", "minimapSize", -168, mapPage)
@@ -134,13 +147,35 @@ local function createPanel()
     button(panel, "Waypoints & help", 130, 24, -402, function()
         closeMenu(); panel:Hide(); addon.WaypointUI.Toggle()
     end)
-    button(panel, "TomTom settings", 130, 172, -402, function() panel:Hide(); addon.WaypointUI.OpenTomTomSettings() end)
+    text(otherPage, "Settings and troubleshooting — hover for help", 24, -90)
+    local otherMessage = text(otherPage, "Resume guide: /path > Guidance > RestedXP guide > Resume guide.\nThis bottom red button refreshes [RXP] after a reload.", 24, -280)
+    otherMessage:SetWidth(380); otherMessage:SetHeight(92)
+    local function openOther(kind)
+        local ok, err
+        if kind == "tomtom" then ok, err = addon.Waypoints.OpenSettings()
+        elseif kind == "restedxp" then
+            local command = SlashCmdList and SlashCmdList.ACECONSOLE_RXP
+            if type(command) == "function" then
+                ok, err = pcall(command, "")
+            else err = "Enable RestedXP, then open Options > AddOns > RestedXP Guides." end
+        else ok, err = addon.Routing.OpenSettings(kind == "report" and "report" or "") end
+        if ok then panel:Hide()
+        else otherMessage:SetText(err or "Could not open this addon's controls.") end
+    end
+    button(otherPage, "Shortest Path settings", 230, 24, -126, function() openOther("path") end,
+        "Open /path. Guidance controls guide following and Resume guide; Interface controls its own direction arrow and compass.")
+    button(otherPage, "RestedXP settings", 230, 24, -162, function() openOther("restedxp") end,
+        "Open /rxp. General > Features > Hide waypoint arrow hides its arrow. Keep Show all Enabled Frames checked.")
+    button(otherPage, "TomTom settings", 230, 24, -198, function() openOther("tomtom") end,
+        "Open /tomtom. Waypoint Arrow > Enable floating waypoint arrow controls its arrow without deleting saved points.")
+    button(otherPage, "Route report (diagnostics)", 230, 24, -234, function() openOther("report") end,
+        "Open /path report for troubleshooting a missing or incorrect route. It shows the active target, planning and drawing details. It does not change the route or send a report automatically.")
     button(panel, "Reset defaults", 130, 24, -445, function() closeMenu(); settings.Reset() end)
     button(panel, "Done", 90, 316, -445, function() panel:Hide() end)
     panel:SetScript("OnHide", closeMenu)
     panel:SetScript("OnShow", options.Refresh)
     UISpecialFrames[#UISpecialFrames + 1] = "GroupCompassOptions"
-    selectPage(true)
+    selectPage("compass")
 end
 function options.Toggle()
     if not panel then createPanel(); options.Refresh(); return end
@@ -151,10 +186,10 @@ function options.Initialize()
         if key == "buttonAngle" then updateBorderButton()
         else
             options.Refresh()
-            if not key or key == "compassWidth" or key == "compassHeight" or key == "textSize" then
+            if not key or key == "compassWidth" or key == "compassHeight" or key == "textSize" or key == "showElsewhere" then
                 addon.Compass.RefreshAppearance()
             end
-            if not key or (key ~= "compassWidth" and key ~= "compassHeight" and key ~= "textSize") then
+            if not key or (key ~= "compassWidth" and key ~= "compassHeight" and key ~= "textSize" and key ~= "showElsewhere") then
                 addon.Maps.Refresh()
             end
         end
@@ -181,7 +216,10 @@ function options.Initialize()
     end)
     borderButton:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT"); GameTooltip:SetText("Group Compass")
-        GameTooltip:AddLine("Left-click: options. Right-click: golden path targets. Drag: move button.", 1, 1, 1); GameTooltip:Show()
+        GameTooltip:AddLine("Left-click: Open options for the compass, map markers and other addon settings.", 1, 1, 1, true)
+        GameTooltip:AddLine("Right-click: Open navigation choices for RestedXP guide controls, party members and TomTom waypoints.", 1, 1, 1, true)
+        GameTooltip:AddLine("Left-drag: Move this icon around the minimap.", 0.8, 0.8, 0.8, true)
+        GameTooltip:Show()
     end)
     borderButton:SetScript("OnLeave", function(self) if GameTooltip:IsOwned(self) then GameTooltip:Hide() end end)
     borderButton:SetScript("OnDragStart", function(self)

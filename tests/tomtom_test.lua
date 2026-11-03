@@ -13,7 +13,16 @@ local function provider()
         Enum = {UIMapType = {World=1,Zone=2,Micro=3,Orphan=4,Continent=5}}
         StaticPopupDialogs, SlashCmdList = {}, {}
         api.L = setmetatable({}, {__index = function(_,key) return key end})
-        assert(loadfile(TOMTOM_SOURCE_PATH .. "/TomTom.lua"))("TomTom",api)
+        if TOMTOM_LAYOUT == "4.4" then
+            -- The new upstream splits its registry into this module. Native
+            -- settings/callback services are doubled only inside the test.
+            api.hbd=hbd
+            api.FireMessage=function()end
+            api.private={AddSettingsSection=function()end,FireCallback=function()end}
+            assert(loadfile(TOMTOM_SOURCE_PATH .. "/core/waypoints.lua"))("TomTom",api)
+        else
+            assert(loadfile(TOMTOM_SOURCE_PATH .. "/TomTom.lua"))("TomTom",api)
+        end
     else
         api.waypoints, api.waypointprofile = {}, api.waydb.profile
         function api:GetKey(uid) return string.format("%d:%.8f:%.8f:%s",uid[1],uid[2],uid[3],tostring(uid.title)) end
@@ -62,7 +71,8 @@ assert(loadfile("GroupCompass/Settings.lua"))("GroupCompass",addon)
 assert(loadfile("GroupCompass/Direction.lua"))("GroupCompass",addon)
 assert(loadfile("GroupCompass/TomTomBridge.lua"))("GroupCompass",addon)
 local w
-addon.Tracking={PlayerState=function() return {x=500,y=1500,map=1,facing=0} end}
+assert(loadfile("GroupCompass/Tracking.lua"))("GroupCompass",addon)
+addon.Tracking.PlayerState=function() return {x=500,y=1500,map=1,facing=0} end
 CreateVector2D=function(x,y) return {GetXY=function() return x,y end} end
 C_Map={GetWorldPosFromMapPos=function(map,p)
     local x,y=p:GetXY(); return map==30 and 2 or 1,CreateVector2D(1000-y*1000,2000-x*1000)

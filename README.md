@@ -1,5 +1,10 @@
 # Group Compass for WoW Classic Era/Hardcore and Forever
 
+**0.11.5 minimap help fix:** uses the standard shared LibDBIcon launcher when
+available, so Leatrix's button group retains our left/right-click help. Existing
+positions migrate; standalone fallback remains. [Checks and setup](docs/LAUNCHER_COMPAT_0.11.5.md).
+
+
 **0.11.2 menu help:** right-click shows navigation choices with hover explanations;
 settings/report links are under **Options > Other addons**. **Resume RestedXP guide...**
 opens native controls; finish with **Guidance > Resume guide**. Recalculate/Stop
@@ -59,7 +64,7 @@ before treating the prototype as a supported addon.
    The final path must be `Interface/AddOns/GroupCompass/GroupCompass.toc`.
    Copy the addon folder, not this entire project.
 2. Fully restart the client after installing or updating the manifest. Enable
-   Group Compass in AddOns. You should see `Group Compass 0.11.4 loaded` in chat.
+   Group Compass in AddOns. You should see `Group Compass 0.11.5 loaded` in chat.
 3. Use `/gcompass demo` to toggle simulated members, even while solo. They stay
    at fixed world locations, so turning your character moves their labels and
    walking changes the distances. `/gcompass demo reset` places new samples.

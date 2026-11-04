@@ -2,8 +2,8 @@
 ## Title: Group Compass
 ## Notes: Experimental compass, world-map and minimap group locator for Classic Era/Hardcore and Forever.
 ## Author: Tony
-## Version: 0.11.4
-## OptionalDeps: ShortestPathForever, TomTom
+## Version: 0.11.5
+## OptionalDeps: ShortestPathForever, TomTom, Leatrix_Plus
 ## SavedVariables: GroupCompassDB
 ## SavedVariablesPerCharacter: GroupCompassWaypointsDB
 

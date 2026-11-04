@@ -17,9 +17,9 @@ required = [
     "GroupCompass/Demo.lua", "tests/demo_test.lua",
     "GroupCompass/Layout.lua", "tests/layout_test.lua",
     "GroupCompass/Settings.lua", "GroupCompass/MarkerStyle.lua", "GroupCompass/Options.lua",
-    "tests/settings_test.lua", "tests/options_test.lua", "tests/style_test.lua", "scripts/build_icons.py",
+    "tests/settings_test.lua", "tests/options_test.lua", "tests/launcher_test.lua", "tests/style_test.lua", "scripts/build_icons.py",
     "GroupCompass/Routing.lua", "tests/routing_test.lua", "GroupCompass/Destinations.lua", "tests/destinations_test.lua",
-    "scripts/check_spf_api.py", "tests/fixtures/stock_spf_api.lua",
+    "scripts/check_spf_api.py", "tests/fixtures/stock_spf_api.lua", "scripts/check_launcher_offline.py",
     "GroupCompass/TomTomBridge.lua", "tests/tomtom_test.lua",
     "GroupCompass/Waypoints.lua", "GroupCompass/WaypointUI.lua", "tests/waypoints_test.lua", "tests/waypoint_ui_test.lua",
     "GroupCompass/RouteMenu.lua", "tests/route_menu_test.lua",
@@ -32,7 +32,7 @@ lines = toc.read_text(encoding="utf-8").splitlines()
 assert "## Interface: 11509, 16001" in lines
 scripts = [line.strip() for line in lines if line.strip() and not line.startswith("#")]
 assert scripts == ["Compat.lua", "Settings.lua", "Direction.lua", "Projection.lua", "Layout.lua", "Tracking.lua", "Demo.lua", "TomTomBridge.lua", "Waypoints.lua", "Routing.lua", "Destinations.lua", "MarkerStyle.lua", "Maps.lua", "Maps.xml", "WaypointUI.lua", "RouteMenu.lua", "Options.lua", "Core.lua"], "Incorrect load order"
-assert "## OptionalDeps: ShortestPathForever, TomTom" in lines
+assert "## OptionalDeps: ShortestPathForever, TomTom, Leatrix_Plus" in lines
 assert "## SavedVariables: GroupCompassDB" in lines
 assert "## SavedVariablesPerCharacter: GroupCompassWaypointsDB" in lines
 textures = {"person", "body", "face", "diamond", "pin", "shield", "star", "flag", "circle", "square", "ring", "glow"}

@@ -4,6 +4,7 @@ local options, settings = addon.Options, addon.Settings
 local panel, borderButton, openMenu, controls = nil, nil, nil, {}
 local previewMember = {slot = 1, color = {0.25, 0.78, 0.92}}
 local miniPreview, worldPreview
+local iconLibrary
 local compassPage, mapPage, otherPage, compassTab, mapTab, otherTab
 
 local function text(parent, value, x, y, template)
@@ -90,9 +91,15 @@ local function selectPage(page)
     compassTab:SetEnabled(page ~= "compass"); mapTab:SetEnabled(page ~= "map"); otherTab:SetEnabled(page ~= "other")
     options.Refresh()
 end
-local function updateBorderButton()
+local function updateBorderButton(reset)
     if not borderButton then return end
-    local angle = math.rad(settings.Get().buttonAngle)
+    if iconLibrary then
+        -- LibDBIcon / button collectors own positioning and visibility. Ordinary
+        -- appearance refreshes must not move an icon out of its button bag.
+        if reset then iconLibrary:Refresh("GroupCompass", settings.Get()) end
+        return
+    end
+    local angle = math.rad(settings.Get().minimapPos)
     local radiusX, radiusY = Minimap:GetWidth() / 2 + 3, Minimap:GetHeight() / 2 + 3
     borderButton:ClearAllPoints()
     borderButton:SetPoint("CENTER", Minimap, "CENTER", math.cos(angle) * radiusX, math.sin(angle) * radiusY)
@@ -183,9 +190,10 @@ function options.Toggle()
 end
 function options.Initialize()
     settings.OnChanged = function(key)
-        if key == "buttonAngle" then updateBorderButton()
+        if key == "buttonAngle" or key == "minimapPos" then updateBorderButton(iconLibrary ~= nil)
         else
             options.Refresh()
+            if not key then updateBorderButton(true) end
             if not key or key == "compassWidth" or key == "compassHeight" or key == "textSize" or key == "showElsewhere" then
                 addon.Compass.RefreshAppearance()
             end
@@ -195,6 +203,39 @@ function options.Initialize()
         end
     end
     if borderButton or not Minimap then return end
+    local function clicked(self, mouseButton)
+        if not self.dragged and GetTime() >= (self.suppressClickUntil or 0) then
+            if mouseButton == "RightButton" then addon.RouteMenu.Toggle(self)
+            else options.Toggle() end
+        end
+    end
+    local function tooltip(tip)
+        tip:SetText("Group Compass")
+        tip:AddLine("Left-click: Open options for the compass, map markers and other addon settings.", 1, 1, 1, true)
+        tip:AddLine("Right-click: Open navigation choices for RestedXP guide controls, party members and TomTom waypoints.", 1, 1, 1, true)
+        tip:AddLine("Left-drag: Move this icon around the minimap.", 0.8, 0.8, 0.8, true)
+    end
+    local icons = LibStub and LibStub("LibDBIcon-1.0", true)
+    local broker = LibStub and LibStub("LibDataBroker-1.1", true)
+    if icons and broker and type(icons.Register) == "function"
+        and type(icons.GetMinimapButton) == "function" and type(broker.NewDataObject) == "function" then
+        local object = broker:NewDataObject("GroupCompass", {
+            type = "launcher", label = "Group Compass", text = "Group Compass",
+            icon = addon.MarkerStyle.Path .. "person.tga", iconR = 0.1, iconG = 0.8, iconB = 1,
+            OnClick = clicked, OnTooltipShow = tooltip,
+        })
+        -- TomTom and Leatrix Plus supply these shared libraries when enabled.
+        -- Register with the standard name so collectors preserve our own tooltip.
+        icons:Register("GroupCompass", object, settings.Get())
+        iconLibrary, borderButton = icons, icons:GetMinimapButton("GroupCompass")
+        borderButton:HookScript("OnDragStart", function(self) self.dragged = true end)
+        borderButton:HookScript("OnDragStop", function(self)
+            self.dragged = nil; self.suppressClickUntil = GetTime() + 0.15
+        end)
+        borderButton:HookScript("OnHide", function(self) self.dragged = nil end)
+        return
+    end
+    -- Standalone fallback when no addon supplying the shared libraries is enabled.
     borderButton = CreateFrame("Button", "GroupCompassMinimapButton", Minimap)
     borderButton:SetSize(30, 30); borderButton:SetFrameLevel(Minimap:GetFrameLevel() + 20)
     local background = borderButton:CreateTexture(nil, "BACKGROUND")
@@ -208,18 +249,9 @@ function options.Initialize()
     icon:SetTexture(addon.MarkerStyle.Path .. "person.tga"); icon:SetVertexColor(0.1, 0.8, 1, 1)
     borderButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     borderButton:RegisterForDrag("LeftButton")
-    borderButton:SetScript("OnClick", function(_, mouseButton)
-        if not borderButton.dragged and GetTime() >= (borderButton.suppressClickUntil or 0) then
-            if mouseButton == "RightButton" then addon.RouteMenu.Toggle(borderButton)
-            else options.Toggle() end
-        end
-    end)
+    borderButton:SetScript("OnClick", clicked)
     borderButton:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_LEFT"); GameTooltip:SetText("Group Compass")
-        GameTooltip:AddLine("Left-click: Open options for the compass, map markers and other addon settings.", 1, 1, 1, true)
-        GameTooltip:AddLine("Right-click: Open navigation choices for RestedXP guide controls, party members and TomTom waypoints.", 1, 1, 1, true)
-        GameTooltip:AddLine("Left-drag: Move this icon around the minimap.", 0.8, 0.8, 0.8, true)
-        GameTooltip:Show()
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT"); tooltip(GameTooltip); GameTooltip:Show()
     end)
     borderButton:SetScript("OnLeave", function(self) if GameTooltip:IsOwned(self) then GameTooltip:Hide() end end)
     borderButton:SetScript("OnDragStart", function(self)

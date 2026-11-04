@@ -3,7 +3,7 @@
   "manifest_drive_file_id": "1x-w4TxZImoTo5My9llTNu6avXI-SHqZc",
   "project_instructions_drive_file_id": "1SDaK1sk_0B2yu0gsQ6wQvxHNgSLj_-oV",
   "timezone": "America/Los_Angeles",
-  "installed_version": "0.11.4",
+  "installed_version": "0.11.5",
   "sync_policy": "Dated mirrors, updated during project work; no automatic or background synchronization. Google Docs offline availability has not been enabled through the connector.",
   "project_folder": {
     "success": true,
@@ -1268,5 +1268,22 @@
     "checks": "18 suites,structure,actual stock SPF API/RXP,TomTom Forever4.4.0/Hardcore4.3.13 and diff PASS",
     "push": false,
     "remaining": "Detailed native GC-221/GC-222/GC-220 and Forever acceptance; GC-223 upstream Resume API"
+  },
+  "launcher_compat_2026_11_03": {
+    "version": "0.11.5",
+    "root_cause": "Leatrix replaced our nonstandard button with generic tooltip",
+    "fix": "public shared LDB/LibDBIcon launcher; optional Leatrix load order; standalone fallback",
+    "checks": "19 suites; actual four TomTom/Leatrix library copies;31-file ZIP/source/install;diff PASS",
+    "unchanged": "original4,756 dependency files +26 Leatrix files",
+    "native": "GC-224 grouped-hover/reload pending; no RXP changes per user correction",
+    "git": "Uncommitted afterbed6dcb",
+    "closeout": {
+      "id": "1Brwgg0c_fXVKMsb9hKAniU8eun71ydxW",
+      "url": "https://drive.google.com/file/d/1Brwgg0c_fXVKMsb9hKAniU8eun71ydxW/view"
+    },
+    "package": {
+      "id": "1DE0sAj0uG3hvIS7mD4L0TsIfV5TNtNWR",
+      "url": "https://drive.google.com/file/d/1DE0sAj0uG3hvIS7mD4L0TsIfV5TNtNWR/view"
+    }
   }
 }

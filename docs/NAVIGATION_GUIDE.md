@@ -1,5 +1,17 @@
 # Which arrow should I follow?
 
+## Minimap help with Leatrix —0.11.5
+
+Hover the cyan Group Compass icon, including inside Leatrix's button group.
+Its standard launcher should show Group Compass plus wrapped left-click (Options),
+right-click (navigation choices) and left-drag help. If you previously saw the
+custom-button warning, /reload after installing0.11.5. If the old icon persists,
+fully restart WoW once to reload addon metadata. No Leatrix setting changes are
+needed; existing shared libraries are reused and solo fallback remains supported.
+Native grouped-hover confirmation is GC-224; offline check details are in
+LAUNCHER_COMPAT_0.11.5.md. RestedXP instructions/behavior unchanged in this fix.
+
+
 ## Current label —0.11.4
 
 Our menu now says RestedXP guide controls... (formerly Resume RestedXP guide...).

@@ -56,7 +56,7 @@ local core = frames[#frames]
 core.scripts.OnEvent(core, "ADDON_LOADED", "SomeOtherAddon")
 assert(#messages == 0, "must not announce other addons")
 core.scripts.OnEvent(core, "ADDON_LOADED", "GroupCompass")
-assert(messages[1]:find("0.11.4 loaded", 1, true))
+assert(messages[1]:find("0.11.5 loaded", 1, true))
 SlashCmdList.GROUPCOMPASS("demo")
 assert(texts[1].text:find("DEMO") and texts[2].shown and texts[4].shown and texts[6].shown)
 SlashCmdList.GROUPCOMPASS("status")

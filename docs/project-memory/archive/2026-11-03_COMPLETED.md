@@ -38,3 +38,10 @@ clearing and demo isolation implemented. 18 suites and stock provider checks pas
 Other addons tab and explicit native Resume handoff implemented.18 suites/stock
 API/package/install checks pass;31 matching files per GC install,4,756 dependency
 files unchanged. Native GC-222 remains open; a direct Resume API is unavailable.
+
+## GC-042 — standard launcher compatibility implemented offline
+
+0.11.5 LDB/LibDBIcon launcher, legacy position migration, shared tooltip/clicks and
+standalone fallback implemented.19 suites and four actual installed library-copy
+checks pass with native frames/collector filter doubled. Native GC-224 remains
+open. Both GC installs match31 package/source files; no third-party writes.

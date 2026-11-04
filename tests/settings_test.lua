@@ -49,3 +49,15 @@ s.Initialize(); assert(s.Get().showElsewhere==false,"off must persist after relo
 s.Set("showElsewhere","false"); assert(s.Get().showElsewhere==true,"invalid setting uses the default")
 s.Set("showElsewhere",false);s.Reset();assert(s.Get().showElsewhere==true)
 print("PASS: Elsewhere toggle defaults, validation, saved false and reset")
+
+GroupCompassDB={buttonAngle=67};s.Initialize();assert(s.Get().minimapPos==67)
+GroupCompassDB={buttonAngle=67,minimapPos=0};s.Initialize();assert(s.Get().minimapPos==0)
+GroupCompassDB={minimapPos=math.huge};s.Initialize();assert(s.Get().minimapPos==225)
+s.Set("minimapPos",-30);assert(s.Get().minimapPos==330)
+s.Initialize();assert(s.Get().minimapPos==330);s.Reset();assert(s.Get().minimapPos==225)
+print("PASS: standard minimap position migration, finite values, persistence and reset")
+
+GroupCompassDB={minimapPos=80,buttonAngle=60};s.Initialize()
+assert(s.Get().buttonAngle==80 and s.Get().minimapPos==80,"standard position wins after reload")
+s.Set("buttonAngle",100);assert(s.Get().minimapPos==100)
+s.Set("minimapPos",120);assert(s.Get().buttonAngle==120)

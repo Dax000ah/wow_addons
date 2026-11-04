@@ -429,3 +429,14 @@ Options now has Compass, Map markers and Other addons tabs. Native /rxp dispatch
 uses its audited AceConsole slash entry; /tomtom and /path use existing wrappers.
 Failed/missing handlers keep Options open with an explanation. Reports remain
 read-only diagnostic actions; route ownership/cancellation logic is unchanged.
+
+## Standard minimap launcher —0.11.5
+
+Options registers a GroupCompass launcher data object, OnTooltipShow and OnClick
+with public shared LDB/LibDBIcon. Standard LibDBIcon10_GroupCompass naming bypasses
+Leatrix's nonstandard-button replacement. Optional Leatrix load ordering provides
+its libraries even without TomTom. No private collector callbacks/settings are
+changed. Missing libraries retain the standalone custom button, sharing the same
+click/tooltip functions. Canonical minimapPos migrates from buttonAngle; aliases
+stay compatible. Library owns normal drag/placement; ordinary options refreshes
+never force icon visibility/position. Only explicit Reset/position changes Refresh.

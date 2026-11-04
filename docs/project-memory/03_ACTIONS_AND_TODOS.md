@@ -1,5 +1,27 @@
 # Active Actions and TODOs — Group Compass
 
+## November 3 —0.11.5 Leatrix launcher-tooltip compatibility fix
+
+Screenshot's generic custom-button tooltip came from Leatrix Plus replacing our
+non-standard minimap button. Register our cyan launcher through the existing
+public LibDataBroker/LibDBIcon libraries so Leatrix recognizes it and retains our
+three-line tooltip and left/right clicks. No provider code or settings changed.
+Leatrix_Plus is now an OPTIONAL load-order dependency so its shared libraries
+exist before GC; nothing new must be installed. Standalone custom launcher stays
+as the tested fallback when no library supplier is enabled. No copied libraries.
+
+Saved minimapPos migrates from legacy buttonAngle and both fields stay compatible.
+Standard-library dragging persists position; ordinary appearance refreshes do not
+reposition/unhide collector-managed icons. Reset restores position deliberately.
+19 suites, structure/ZIP, actual standard libraries from BOTH TomTom and Leatrix
+in BOTH game folders, diff and install checks PASS; native frames/collector filter
+are doubled. Installed31 matching source/package files per GC target. Original
+4,756 dependency hashes and all26 Leatrix files checked unchanged. No backups or
+SavedVariables writes. GC-224 native grouped-hover/reload test pending. Existing
+bed6dcb checkpoint untouched; new fix uncommitted. Tony withdrew the RXP-guidance
+complaint; no RestedXP behavior/menu wording changed in this task.
+Full closeout: docs/LAUNCHER_COMPAT_0.11.5.md.
+
 ## November 3 — approved0.11.4 Elsewhere milestone
 
 Tony says the current changes look good and requests check-in. This milestone
@@ -508,3 +530,12 @@ Updated 2026-11-02. No deadlines have been assigned.
   03 Work, and completed records/superseded release packages in 99 Archive.
 - Keep the native project-memory Doc as the resume entrypoint. Local Markdown
   copies and Drive file snapshots are dated mirrors, not automatic synchronization.
+
+## November 4 — native launcher tooltip confirmed
+
+Tony reloaded and confirmed that the cyan Group Compass icon inside Leatrix
+shows Group Compass with left-click, right-click and drag help. This closes the
+reported GC-224 tooltip failure; saved-drag and standalone/Forever gameplay gates
+are not inferred from that confirmation. All 19 Lua 5.1 suites, structure check,
+actual Forever TomTom launcher-library composition and git diff --check pass
+again before the requested checkpoint. No provider or SavedVariables edits.

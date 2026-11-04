@@ -159,3 +159,11 @@ unsupported selected-quest and inapplicable own-route controls. Label recalculat
 and stop clearly; member recalculation is a snapshot, not live following. Resume
 shortcut must honestly open native controls when stock API has no direct Resume.
 No third-party patch, private provider/widget access or settings writes. GC-222 native check open.
+
+## R22 — minimap collector compatibility (0.11.5)
+
+Use public shared LibDataBroker/LibDBIcon registration when available so collectors
+retain launcher tooltip/click actions. No third-party patches or settings writes.
+Preserve cyan icon, clicks, safe drag, saved position and standalone fallback.
+Optional load-order dependency only; no new required addon or copied libraries.
+GC-224 native collector check remains open.
